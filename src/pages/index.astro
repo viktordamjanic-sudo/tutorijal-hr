@@ -1,0 +1,130 @@
+---
+// Main landing page for tutorijal.hr
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ModuleGrid from '../components/ModuleGrid.astro';
+import ConvexWrapper from '../components/ConvexWrapper.tsx';
+import LiveFeedConvex from '../components/LiveFeedConvex.tsx';
+---
+
+<Layout title="AI Tutorijal - Nauči AI riješiti stvarne probleme">
+  <main class="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <Hero />
+    
+    <!-- Live AI-Generated Tasks from News -->
+    <section class="py-12 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="animate-pulse w-3 h-3 bg-green-500 rounded-full"></span>
+          <h2 class="text-2xl font-bold text-gray-800">🔄 Svježi zadaci iz baze (Convex)</h2>
+        </div>
+        <p class="text-gray-600 mb-6">
+          Zadaci se učitavaju u real-time iz Convex baze podataka.
+          <span class="text-blue-600 font-medium">Sinhronizacija između svih uređaja!</span>
+        </p>
+        
+        <ConvexWrapper client:only="react">
+          <LiveFeedConvex client:only="react" />
+        </ConvexWrapper>
+      </div>
+    </section>
+
+    <!-- Core Learning Modules -->
+    <section class="py-12 px-4 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">📚 Izaberi svoju avanturu</h2>
+        <p class="text-gray-600 text-center mb-10 max-w-2xl mx-auto">
+          Svaki modul rješava jedan stvaran problem. Od parkinga do padeža — 
+          nauči kako AI može pomoći u svakodnevnom životu.
+        </p>
+        <ModuleGrid />
+      </div>
+    </section>
+
+    <!-- NEW: Course Section -->
+    <section class="py-12 px-4 bg-gradient-to-b from-purple-50 to-white">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">🎓 Drugi dio: Automatiziraj život</h2>
+        <p class="text-gray-600 text-center mb-10 max-w-2xl mx-auto">
+          Nauči kako stvoriti vlastite AI agente koji će ti štediti vrijeme. 
+          Od prvog agenta do kompletne automatizacije.
+        </p>
+        
+        <div class="grid md:grid-cols-5 gap-4">
+          {[
+            { num: 1, title: "Osnovni setup", icon: "🚀", color: "blue" },
+            { num: 2, title: "Dva agenta", icon: "👥", color: "green" },
+            { num: 3, title: "Lošija od tri", icon: "⚖️", color: "orange" },
+            { num: 4, title: "Što su skillsi?", icon: "🧰", color: "purple" },
+            { num: 5, title: "Prva automatizacija", icon: "🎉", color: "green" },
+          ].map(lesson => (
+            <a 
+              href={`/lekcija/${lesson.num}`}
+              class={`bg-white p-4 rounded-xl border-2 hover:border-${lesson.color}-400 transition group`}
+            >
+              <div class="text-2xl mb-2">{lesson.icon}</div>
+              <div class="text-xs text-gray-500 mb-1">Lekcija {lesson.num}</div>
+              <div class="font-bold text-sm group-hover:text-blue-600 transition">
+                {lesson.title}
+              </div>
+            </a>
+          ))}
+        </div>
+        
+        <div class="text-center mt-8">
+          <a 
+            href="/lekcija/1" 
+            class="inline-block bg-purple-600 text-white px-8 py-3 rounded-xl font-medium hover:bg-purple-700 transition"
+          >
+            🚀 Započni kurs
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-16 px-4 bg-gradient-to-r from-purple-50 to-blue-50">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">🎮 Kako funkcionira?</h2>
+        <div class="grid md:grid-cols-4 gap-6">
+          {[
+            { emoji: '🎯', title: 'Zabavno', desc: 'Pogledaj simpatičan video s problemom' },
+            { emoji: '🧠', title: 'Shvati', desc: 'Vidi kako AI razmišlja o rješenju' },
+            { emoji: '🚀', title: 'Isprobaj', desc: 'Pitaj AI svoju situaciju' },
+            { emoji: '💾', title: 'Podijeli', desc: 'Spasi rješenje za kasnije' }
+          ].map(step => (
+            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition">
+              <div class="text-4xl mb-3">{step.emoji}</div>
+              <h3 class="font-bold text-lg mb-2">{step.title}</h3>
+              <p class="text-sm text-gray-600">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- For Everyone -->
+    <section class="py-12 px-4">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+        <div class="bg-orange-50 p-8 rounded-2xl">
+          <h3 class="text-2xl font-bold mb-4">👴 Za starije</h3>
+          <ul class="space-y-2 text-gray-700">
+            <li>✅ Veliki fontovi i jasni gumbi</li>
+            <li>✅ Glasovna pomoć za čitanje</li>
+            <li>✅ Bez tehničkog žargona</li>
+            <li>✅ Rješavanje stvarnih problema (parking, dom...)</li>
+          </ul>
+        </div>
+        <div class="bg-green-50 p-8 rounded-2xl">
+          <h3 class="text-2xl font-bold mb-4">👶 Za djecu</h3>
+          <ul class="space-y-2 text-gray-700">
+            <li>🎨 Igre i ilustracije</li>
+            <li>🏆 Bodovi i bedževi</li>
+            <li>🎮 Kratki zadaci (2-3 minute)</li>
+            <li>📖 Učenje kroz avanture (padeži, pisma...)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

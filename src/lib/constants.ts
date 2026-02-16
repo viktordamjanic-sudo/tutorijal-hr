@@ -1,0 +1,117 @@
+// Static data constants
+import type { Task, Lesson } from '../types';
+
+export const PREDEFINED_TASKS: Task[] = [
+  {
+    id: 'parking-1',
+    title: '🚗 Parking Hero: Susjed na tvom mjestu',
+    icon: '🚗',
+    difficulty: 'beginner',
+    targetAudience: 'seniors',
+    category: 'parking',
+    scenario: 'Marko svaki dan parkira na tvojem rezerviranom mjestu. Trebaš ga zamoliti da prestane, ali ne želiš svađu.',
+    problem: 'Kako ljubazno zamoliti susjeda da ne parkira tu?',
+    aiPrompt: 'Napiši ljubaznu poruku susjedu koji parkira na mom mjestu. Ton: susjedski, nije agresivno, ponudi rješenje.',
+    expectedOutcome: 'AI generira pristojnu poruku koju možeš poslati ili reći uživo.',
+    learningPoint: 'AI je "preveditelj" emocija - pomaže nam biti ljubazni i jasni.',
+  },
+  {
+    id: 'cooking-1',
+    title: '🍲 Juhomat: Što skuhati od ostataka?',
+    icon: '🍲',
+    difficulty: 'beginner',
+    targetAudience: 'all',
+    category: 'cooking',
+    scenario: 'U frižideru imaš: 2 krumpira, pola mrkve, jučerašnji pohani kotlet. Ne želiš bacati hranu.',
+    problem: 'Kako iskoristiti ostatke i napraviti ukusan obrok?',
+    aiPrompt: 'Imam: 2 krumpira, pola mrkve, jučerašnji pohani kotlet. Što mogu skuhati za brzu večeru? Recept za početnike.',
+    expectedOutcome: 'AI daje recept korak-po-korak s dostupnim sastojcima.',
+    learningPoint: 'AI je kuhar koji ne vidi u tvoj frižider - moraš mu reći što imaš!',
+  },
+  {
+    id: 'language-1',
+    title: '📚 Padež Hunter: Spasi vikinsko selo!',
+    icon: '📚',
+    difficulty: 'intermediate',
+    targetAudience: 'kids',
+    category: 'language',
+    scenario: 'Zmaj napada vikinsko selo! Jedini način da ga zaustaviš je ispravno odgovoriti na padežna pitanja.',
+    problem: 'Koga napada zmaj? (Genitiv) / Kome treba pomoć? (Dativ)',
+    aiPrompt: 'Stvori igru: Vikinško selo napada zmaj. Daj mi 3 pitanja o padežima (genitiv, dativ, akuzativ) da ga porazim.',
+    expectedOutcome: 'AI generira interaktivnu igru s padežima u kontekstu.',
+    learningPoint: 'Padeži nisu dosadni - pomažu nam razumjeti tko radi što kome!',
+  },
+  {
+    id: 'finance-1',
+    title: '💰 Mali bankar: Planiraj tjedni proračun',
+    icon: '💰',
+    difficulty: 'intermediate',
+    targetAudience: 'kids',
+    category: 'finance',
+    scenario: 'Dobiš 50 kuna tjednice. Želiš kupiti sladoled (8kn), spremiti dio, i kupiti poklon mami.',
+    problem: 'Kako najbolje raspodijeliti novac?',
+    aiPrompt: 'Imam 50 kuna. Želim sladoled (8kn), uštedjeti dio, i kupiti poklon. Pomozi mi napraviti plan.',
+    expectedOutcome: 'AI pomaže sastaviti jednostavan proračun.',
+    learningPoint: 'AI je financijski savjetnik - pomaže planirati, ali ti donosiš odluke.',
+  },
+  {
+    id: 'diplomacy-1',
+    title: '🤝 Mali diplomat: Ljubazno odbij poziv',
+    icon: '🤝',
+    difficulty: 'advanced',
+    targetAudience: 'all',
+    category: 'diplomacy',
+    scenario: 'Baka te zove na ručak, ali već imaš planove. Ne želiš je uvrijediti.',
+    problem: 'Kako odbiti bez povrijediti osjećaje?',
+    aiPrompt: 'Baka me zove na ručak u subotu, ali imam planove. Napiši ljubazan odgovor koji joj govori da je volim, ali ne mogu doći.',
+    expectedOutcome: 'AI generira osjetljivu, ljubaznu poruku.',
+    learningPoint: 'AI pomaže pronaći prave riječi za teške razgovore.',
+  },
+];
+
+export const LESSONS: Lesson[] = [
+  { id: 1, title: 'Osnovni setup', description: 'Pokreni svog prvog agenta', icon: '🚀', color: 'blue', path: '/lekcija/1' },
+  { id: 2, title: 'Dva agenta', description: 'Bolji od jednog', icon: '👥', color: 'green', path: '/lekcija/2' },
+  { id: 3, title: 'Lošija od tri', description: 'Kada je previše?', icon: '⚖️', color: 'orange', path: '/lekcija/3' },
+  { id: 4, title: 'Što su skillsi?', description: 'Proširi mogućnosti', icon: '🧰', color: 'purple', path: '/lekcija/4' },
+  { id: 5, title: 'Prva automatizacija', description: 'Jutarnji pregled', icon: '🎉', color: 'green', path: '/lekcija/5' },
+];
+
+export const SKILL_DEFINITIONS = {
+  scraper: {
+    name: 'Scraper Skill',
+    icon: '📰',
+    description: 'Čitanje vijesti s web stranica',
+    config: { sources: ['jutarnji.hr'], interval: '1h' },
+  },
+  messaging: {
+    name: 'Messaging Skill',
+    icon: '💬',
+    description: 'Slanje poruka na razne platforme',
+    config: { platform: 'telegram' },
+  },
+  weather: {
+    name: 'Weather Skill',
+    icon: '🌤️',
+    description: 'Dohvaćanje vremenske prognoze',
+    config: { city: 'Zagreb', units: 'metric' },
+  },
+  calendar: {
+    name: 'Calendar Skill',
+    icon: '📅',
+    description: 'Upravljanje kalendarom i podsjetnicima',
+    config: { reminders: ['1h', '1d'] },
+  },
+  traffic: {
+    name: 'Traffic Skill',
+    icon: '🚗',
+    description: 'Praćenje prometnih informacija',
+    config: { city: 'Zagreb' },
+  },
+  quote: {
+    name: 'Quote Skill',
+    icon: '💭',
+    description: 'Generiranje inspirativnih citata',
+    config: { category: 'inspirational' },
+  },
+};

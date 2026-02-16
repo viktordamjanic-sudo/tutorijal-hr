@@ -1,0 +1,81 @@
+---
+// Module Grid Component
+import { PREDEFINED_TASKS } from '../lib/constants';
+import type { Task } from '../types';
+
+interface TaskWithPath extends Task {
+  path: string;
+}
+
+const tasksWithPaths: TaskWithPath[] = PREDEFINED_TASKS.map(task => ({
+  ...task,
+  path: `/modul/${task.id}`,
+}));
+
+const audienceStyles: Record<string, { bg: string; text: string; label: string }> = {
+  kids: { bg: 'bg-green-100', text: 'text-green-700', label: '👶 Za djecu' },
+  seniors: { bg: 'bg-orange-100', text: 'text-orange-700', label: '👴 Za starije' },
+  all: { bg: 'bg-blue-100', text: 'text-blue-700', label: '👥 Za sve' },
+};
+---
+
+<div id="moduli" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {tasksWithPaths.map((task) => {
+    const style = audienceStyles[task.targetAudience] || audienceStyles.all;
+    
+    return (
+      <a
+        href={task.path}
+        class="group bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-blue-300 transition-all hover:shadow-lg"
+      >
+        <div class="flex items-start justify-between mb-4">
+          <span class="text-5xl group-hover:scale-110 transition-transform">
+            {task.icon}
+          </span>
+          <span class={`text-xs px-3 py-1 rounded-full font-medium ${style.bg} ${style.text}`}>
+            {style.label}
+          </span>
+        </div>
+        
+        <h3 class="font-bold text-xl text-gray-800 mb-2 group-hover:text-blue-600 transition">
+          {task.title}
+        </h3>
+        
+        <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+          {task.scenario}
+        </p>
+        
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-gray-400">
+            💡 {task.learningPoint?.substring(0, 40)}...
+          </span>
+          
+          <span class="text-blue-600 text-sm font-medium group-hover:translate-x-1 transition-transform">
+            Kreni →
+          </span>
+        </div>
+      </a>
+    );
+  })}
+</div>
+
+<!-- Coming Soon Teaser -->
+<div class="mt-8 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 text-center">
+  <span class="text-4xl mb-4 block">🚀</span>
+  <h3 class="font-bold text-xl mb-2">Novi moduli uskoro!</h3>
+  <p class="text-gray-600 mb-4">
+    AI svakodnevno analizira vijesti i stvara nove zadatke.
+    <br />
+    Slijede: <strong>AI za učenje stranih jezika</strong>, 
+    <strong>AI za financije</strong>, 
+    <strong>AI za putovanja</strong>...
+  </p>
+  
+  <div class="flex flex-wrap gap-2 justify-center">
+    {['🇬🇧 Jezici', '💰 Financije', '✈️ Putovanja', '🏥 Zdravlje', '🎨 Kreativnost'].map(tag => (
+      <span class="bg-white px-3 py-1 rounded-full text-sm text-gray-600 shadow-sm">
+        {tag}
+      </span>
+    ))}
+  </div>
+</div>

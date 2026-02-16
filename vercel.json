@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "tutorijal-hr",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "astro",
+  "env": {
+    "PUBLIC_CONVEX_URL": "https://efficient-antelope-653.convex.cloud"
+  }
+}

@@ -1,0 +1,59 @@
+---
+// Hero Section Component
+---
+
+<section class="relative py-20 px-4 overflow-hidden">
+  <!-- Background decoration -->
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 opacity-50"></div>
+  <div class="absolute top-20 right-10 text-6xl opacity-20 animate-bounce">🤖</div>
+  <div class="absolute bottom-20 left-10 text-5xl opacity-20 animate-pulse">✨</div>
+  
+  <div class="relative max-w-4xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm mb-6">
+      <span class="animate-pulse w-2 h-2 bg-green-500 rounded-full"></span>
+      <span class="text-sm text-gray-600">Živo generirani zadaci iz današnjih vijesti</span>
+    </div>
+    
+    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+      Nauči AI riješiti
+      <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        stvarne probleme
+      </span>
+    </h1>
+    
+    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+      Od parkinga do padeža — otkrij kako AI može pomoći u svakodnevnom životu.
+      <span class="font-medium text-blue-600">Zabavno, praktično, za sve uzraste.</span>
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a
+        href="#moduli"
+        class="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl"
+      >
+        🚀 Započni učenje
+      </a>
+      
+      <a
+        href="#kako-radi"
+        class="inline-flex items-center justify-center gap-2 bg-white text-gray-700 px-8 py-4 rounded-xl font-semibold border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 transition"
+      >
+        🎮 Kako funkcionira?
+      </a>
+    </div>
+    
+    <!-- Stats -->
+    <div class="grid grid-cols-3 gap-8 mt-16 max-w-lg mx-auto">
+      {[
+        { number: '5+', label: 'Interaktivnih modula' },
+        { number: '∞', label: 'Svježih zadataka' },
+        { number: '0€', label: 'Besplatno za uvijek' },
+      ].map(stat => (
+        <div class="text-center">
+          <div class="text-3xl font-bold text-blue-600">{stat.number}</div>
+          <div class="text-sm text-gray-500">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
