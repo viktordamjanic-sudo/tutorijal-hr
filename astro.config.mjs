@@ -1,15 +1,16 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/static';
+import vercel from '@astrojs/vercel/serverless';
+import clerk from '@clerk/astro';
 
 export default defineConfig({
-  integrations: [react(), tailwind()],
-  output: 'static',
+  integrations: [react(), tailwind(), clerk()],
+  output: 'hybrid',
   adapter: vercel(),
   vite: {
     define: {
-      'import.meta.env.PUBLIC_CONVEX_URL': JSON.stringify('https://efficient-antelope-653.convex.cloud'),
+      'import.meta.env.PUBLIC_CONVEX_URL': JSON.stringify(process.env.PUBLIC_CONVEX_URL || ''),
     }
   }
 });

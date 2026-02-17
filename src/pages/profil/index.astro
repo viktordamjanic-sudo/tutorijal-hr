@@ -1,0 +1,68 @@
+---
+// User Profile Page - Protected Route
+import Layout from '../../layouts/Layout.astro';
+import { UserProfile } from '@clerk/astro/components';
+import UserStats from '../../components/UserStats.tsx';
+---
+
+<Layout title="Moj profil | tutorijal.hr">
+  <main class="min-h-screen bg-gradient-to-b from-purple-50 to-white py-12 px-4">
+    <div class="max-w-4xl mx-auto">
+      <!-- Breadcrumb -->
+      <nav class="mb-6">
+        <a href="/" class="text-blue-600 hover:underline">← Natrag na početnu</a>
+      </nav>
+
+      <h1 class="text-3xl font-bold text-center mb-8">Moj profil 🎯</h1>
+
+      <!-- Stats from Convex -->
+      <UserStats client:only="react" />
+
+      <!-- Continue Learning -->
+      <div class="mt-8 bg-white rounded-xl p-6 shadow-sm">
+        <h2 class="text-xl font-bold mb-4">Nastavi učiti 🚀</h2>
+        
+        <div class="space-y-3">
+          <a 
+            href="/lekcija/1" 
+            class="flex items-center gap-4 p-4 rounded-lg border-2 border-purple-200 hover:border-purple-400 transition"
+          >
+            <span class="text-2xl">🚀</span>
+            <div class="flex-1">
+              <div class="font-bold">Lekcija 1: Osnovni setup</div>
+              <div class="text-sm text-gray-600">Pokreni svog prvog agenta</div>
+            </div>
+            <span class="text-purple-600">Započni →</span>
+          </a>
+
+          <a 
+            href="/modul/parking-1" 
+            class="flex items-center gap-4 p-4 rounded-lg border-2 border-gray-200 hover:border-blue-400 transition"
+          >
+            <span class="text-2xl">🚗</span>
+            <div class="flex-1">
+              <div class="font-bold">Parking Hero</div>
+              <div class="text-sm text-gray-600">Ljubazno zamoli susjeda</div>
+            </div>
+            <span class="text-blue-600">Isprobaj →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Clerk User Profile -->
+      <div class="mt-8 bg-white rounded-xl p-6 shadow-sm">
+        <h2 class="text-xl font-bold mb-4">Postavke računa ⚙️</h2>
+        <UserProfile 
+          routing="path" 
+          path="/profil"
+          appearance={{
+            elements: {
+              navbar: 'hidden',
+              navbarMobileMenuRow: 'hidden',
+            }
+          }}
+        />
+      </div>
+    </div>
+  </main>
+</Layout>
