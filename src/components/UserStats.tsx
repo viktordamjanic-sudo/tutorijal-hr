@@ -4,7 +4,7 @@ import { useUserProgress } from '../hooks/useUserProgress';
 import { LESSONS } from '../lib/constants';
 
 export default function UserStats() {
-  const { progress, isLoading } = useUserProgress();
+  const { progress, isLoading, isSignedIn } = useUserProgress();
 
   if (isLoading) {
     return (
@@ -15,6 +15,26 @@ export default function UserStats() {
             <div className="h-6 w-16 bg-gray-200 rounded"></div>
           </div>
         ))}
+      </div>
+    );
+  }
+
+  if (!isSignedIn) {
+    return (
+      <div className="bg-blue-50 rounded-xl p-6 border-l-4 border-blue-500">
+        <div className="flex items-center gap-4">
+          <span className="text-3xl">🔐</span>
+          <div>
+            <h3 className="font-bold text-lg">Prijavi se za praćenje napretka</h3>
+            <p className="text-gray-600">Spremi svoje lekcije i zadatke!</p>
+          </div>
+          <a 
+            href="/sign-in" 
+            className="ml-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+          >
+            Prijavi se
+          </a>
+        </div>
       </div>
     );
   }

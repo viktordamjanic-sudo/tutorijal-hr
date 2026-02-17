@@ -1,13 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser } from '@clerk/astro/react';
+import { useAuth } from '@clerk/astro/react';
 import { useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api.js';
 
 export function useUserProgress() {
-  const { user } = useUser();
-  const userId = user?.id;
+  const { userId, isSignedIn } = useAuth();
   
   const progress = useQuery(
     api.tasks.getUserProgress,
@@ -63,6 +62,8 @@ export function useUserProgress() {
     progress,
     isLoading: progress === undefined,
     isUpdating,
+    isSignedIn,
+    userId,
     updateProgress,
     toggleFavorite,
   };
