@@ -6,8 +6,12 @@ import clerk from '@clerk/astro';
 
 export default defineConfig({
   integrations: [react(), tailwind(), clerk()],
-  output: 'hybrid',
-  adapter: vercel(),
+  output: 'server',
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   vite: {
     define: {
       'import.meta.env.PUBLIC_CONVEX_URL': JSON.stringify(process.env.PUBLIC_CONVEX_URL || ''),
