@@ -1,13 +1,13 @@
 import type { APIRoute } from 'astro';
-import { getAuth } from '@clerk/astro/server';
+import { clerkClient } from '@clerk/astro/server';
 import { ConvexHttpClient } from 'convex/browser';
 
 const convex = new ConvexHttpClient(import.meta.env.PUBLIC_CONVEX_URL);
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  const auth = getAuth(locals);
+  const { userId } = locals.auth();
   
-  if (!auth?.userId) {
+  if (!userId) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     // Call Convex mutation
     const result = await convex.mutation('updateProgress', {
-      userId: auth.userId,
+      userId,
       lessonId,
       taskId,
       timeSpent: timeSpent || 0,
