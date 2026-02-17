@@ -12,7 +12,14 @@ export const PREDEFINED_TASKS: Task[] = [
     scenario: 'Marko svaki dan parkira na tvojem rezerviranom mjestu. Trebaš ga zamoliti da prestane, ali ne želiš svađu.',
     problem: 'Kako ljubazno zamoliti susjeda da ne parkira tu?',
     aiPrompt: 'Napiši ljubaznu poruku susjedu koji parkira na mom mjestu. Ton: susjedski, nije agresivno, ponudi rješenje.',
-    expectedOutcome: 'AI generira pristojnu poruku koju možeš poslati ili reći uživo.',
+    expectedOutcome: `Primjer poruke:
+
+"Bok Marko! 😊 Samo sam htio javit - rezervirano mi je parking mjesto ispred ulaza (broj 12). Vidim da često parkiraš tu, pa pretpostavljam da možda nisi znao. Ako ti je ikad teško pronać mjesto, mogu ti pokazat još par slobodnih u okolici? Svakako se dogovorimo, susjedi smo! 👋"
+
+💡 Zašto ovo funkcionira:
+• Ne optužuje ("možda nisi znao")
+• Nudi pomoć (druga mjesta)
+• Susjedski ton (emoji, pozitivno)`,
     learningPoint: 'AI je "preveditelj" emocija - pomaže nam biti ljubazni i jasni.',
   },
   {
@@ -25,7 +32,25 @@ export const PREDEFINED_TASKS: Task[] = [
     scenario: 'U frižideru imaš: 2 krumpira, pola mrkve, jučerašnji pohani kotlet. Ne želiš bacati hranu.',
     problem: 'Kako iskoristiti ostatke i napraviti ukusan obrok?',
     aiPrompt: 'Imam: 2 krumpira, pola mrkve, jučerašnji pohani kotlet. Što mogu skuhati za brzu večeru? Recept za početnike.',
-    expectedOutcome: 'AI daje recept korak-po-korak s dostupnim sastojcima.',
+    expectedOutcome: `Jednostavni recept:
+
+🥘 **Krumpir s kotletom u umaku**
+
+**Sastojci:**
+• 2 krumpira (narežite na kocke)
+• Pohani kotlet (narežite na trakice)
+• Pola mrkve (naribajte)
+• 1 žlica ulja
+• Sol, papar, malo brašna
+
+**Priprema (15 minuta):**
+1. Krumpire stavite kuhati u slanu vodu (10 min)
+2. Na zagrijanom ulju propržite mrkvu (2 min)
+3. Dodajte kotlet i podlijte malo vode od krumpira
+4. Naspite žlicu brašna i miješajte dok ne zgusne
+5. Ocijedite krumpire i pomiješajte s umakom
+
+🍽️ Gotovo! Ukusan obrok bez bacanja hrane.`,
     learningPoint: 'AI je kuhar koji ne vidi u tvoj frižider - moraš mu reći što imaš!',
   },
   {
@@ -38,7 +63,24 @@ export const PREDEFINED_TASKS: Task[] = [
     scenario: 'Zmaj napada vikinsko selo! Jedini način da ga zaustaviš je ispravno odgovoriti na padežna pitanja.',
     problem: 'Koga napada zmaj? (Genitiv) / Kome treba pomoć? (Dativ)',
     aiPrompt: 'Stvori igru: Vikinško selo napada zmaj. Daj mi 3 pitanja o padežima (genitiv, dativ, akuzativ) da ga porazim.',
-    expectedOutcome: 'AI generira interaktivnu igru s padežima u kontekstu.',
+    expectedOutcome: `🎮 **Vikinška avantura - Padeži!**
+
+Zmaj šikne vatru! 🐉 Morate odgovoriti točno da zaštitite selo.
+
+**Pitanje 1 (Genitiv):** Koga napada zmaj?
+• Seljana → SELJANA (od koga? genitiv)
+• Konja → KONJA (od koga? genitiv)
+• Vikinško selo → VIKINŠKOG SELA (od čega? genitiv)
+
+**Pitanje 2 (Dativ):** Kome treba pomoć?
+• Seljani → SELJANIMA (kome? dativ množine)
+• Vikinzima → VIKINZIMA (kome? dativ)
+
+**Pitanje 3 (Akuzativ):** Koga spašavamo?
+• Djecu → DJECU (koga? akuzativ)
+• Seljane → SELJANE (koga? akuzativ)
+
+🏆 Točno! Zmaj je poražen! Seljani slave hrabre vikinze!`, 
     learningPoint: 'Padeži nisu dosadni - pomažu nam razumjeti tko radi što kome!',
   },
   {
@@ -51,7 +93,22 @@ export const PREDEFINED_TASKS: Task[] = [
     scenario: 'Dobiš 50 kuna tjednice. Želiš kupiti sladoled (8kn), spremiti dio, i kupiti poklon mami.',
     problem: 'Kako najbolje raspodijeliti novac?',
     aiPrompt: 'Imam 50 kuna. Želim sladoled (8kn), uštedjeti dio, i kupiti poklon. Pomozi mi napraviti plan.',
-    expectedOutcome: 'AI pomaže sastaviti jednostavan proračun.',
+    expectedOutcome: `💰 **Tvoj tjedni proračun**
+
+Raspoloživo: **50 kn**
+
+| Stavka | Iznos | Preostalo |
+|--------|-------|-----------|
+| 🍦 Sladoled | 8 kn | 42 kn |
+| 🎁 Poklon mami | 20 kn | 22 kn |
+| 💾 Ušteda | 15 kn | 7 kn |
+| 🆓 Slobodno | 7 kn | 0 |
+
+**Savjet:** Možeš uštediti 15kn tjedno → 60kn mjesečno!
+
+💡 **Alternativa:** Ako poklon košta 15kn, ostaje 12kn za uštedu.
+
+🎯 Odluka je tvoja - AI ti daje opcije, ti biraš!`,
     learningPoint: 'AI je financijski savjetnik - pomaže planirati, ali ti donosiš odluke.',
   },
   {
@@ -64,7 +121,19 @@ export const PREDEFINED_TASKS: Task[] = [
     scenario: 'Baka te zove na ručak, ali već imaš planove. Ne želiš je uvrijediti.',
     problem: 'Kako odbiti bez povrijediti osjećaje?',
     aiPrompt: 'Baka me zove na ručak u subotu, ali imam planove. Napiši ljubazan odgovor koji joj govori da je volim, ali ne mogu doći.',
-    expectedOutcome: 'AI generira osjetljivu, ljubaznu poruku.',
+    expectedOutcome: `💌 **Primjer odgovora baki:**
+
+"Draga bako! ❤️ Hvala ti puno na pozivu, baš mi je drago što si mislila na mene! Teta mi je već najavila da dolazi u subotu pa smo se dogovorili da provedemo dan zajedno.
+
+Ali evo - idući vikend sam slobodan/slobodna! Možemo li onda mi doći? Rado bih te vidio/vidjela i pomogao/pomogla s pripremama ako treba. Volim tvoje ručke! 😊
+
+Pusa, [ime]"
+
+✅ **Zašto ovo funkcionira:**
+• Zahvaljujuće (ne odbija odmah)
+• Daje razlog (teta dolazi)
+• Nudi alternativu (idući vikend)
+• Pokazuje ljubav (volim ručke)`,
     learningPoint: 'AI pomaže pronaći prave riječi za teške razgovore.',
   },
 ];
