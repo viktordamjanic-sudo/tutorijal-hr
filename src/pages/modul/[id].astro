@@ -1,16 +1,14 @@
 ---
-// Module Detail Page
+// Module Detail Page - Server Rendered
 import Layout from '../../layouts/Layout.astro';
-import { PREDEFINED_TASKS } from '../../lib/newsIntegration';
+import { PREDEFINED_TASKS } from '../../lib/constants';
 
-export function getStaticPaths() {
-  return PREDEFINED_TASKS.map(task => ({
-    params: { id: task.id },
-    props: { task },
-  }));
+const { id } = Astro.params;
+const task = PREDEFINED_TASKS.find(t => t.id === id);
+
+if (!task) {
+  return Astro.redirect('/');
 }
-
-const { task } = Astro.props;
 ---
 
 <Layout title={`${task.title} | tutorijal.hr`}>
