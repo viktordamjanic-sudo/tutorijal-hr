@@ -1,6 +1,6 @@
 ---
 // Base Layout Component
-import AppProviders from '../components/AppProviders.tsx';
+import ConvexWrapper from '../components/ConvexWrapper.tsx';
 import { SignedIn, SignedOut, UserButton } from '@clerk/astro/components';
 
 interface Props {
@@ -25,7 +25,7 @@ const { title } = Astro.props;
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="font-sans antialiased text-gray-900">
-    <AppProviders client:only="react">
+    <ConvexWrapper client:only="react">
       <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <a href="/" class="flex items-center gap-2">
@@ -93,6 +93,6 @@ const { title } = Astro.props;
           </div>
         </div>
       </footer>
-    </AppProviders>
+    </ConvexWrapper>
   </body>
 </html>
