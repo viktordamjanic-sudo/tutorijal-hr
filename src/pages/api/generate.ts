@@ -1,23 +1,20 @@
 import type { APIRoute } from 'astro';
 
-const OPENROUTER_API_KEY = import.meta.env.OPENROUTER_API_KEY;
+// Use process.env for Vercel serverless environment
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || import.meta.env.OPENROUTER_API_KEY;
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-// Simple in-memory cache (resets on redeploy, but saves API calls)
-const cache = new Map<string, { response: string; timestamp: number }>();
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
-
-function getCacheKey(prompt: string, context: string): string {
-  // Simple hash for caching
-  const str = prompt + '|' + context;
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash;
+export const POST: APIRoute = async ({ request }) => {
+  console.log('API /generate called');
+  console.log('API Key exists:', !!OPENROUTER_API_KEY);
+  
+  if (!OPENROUTER_API_KEY) {
+    console.error('OpenRouter API key not found');
+    return new Response(
+      JSON.stringify({ error: 'OpenRouter API key not configured. Check Vercel env vars.' }), 
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
-  return hash.toString();
-}
 
 export const POST: APIRoute = async ({ request }) => {
   if (!OPENROUTER_API_KEY) {
@@ -28,29 +25,24 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
-    const body = await request.json();
+    let body;
+    try {
+      body = await request.json();
+    } catch (e) {
+      console.error('Failed to parse request body:', e);
+      return new Response(
+        JSON.stringify({ error: 'Invalid JSON in request body' }), 
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    
     const { prompt, context } = body;
+    console.log('Received prompt:', prompt?.substring(0, 50));
 
     if (!prompt) {
       return new Response(
         JSON.stringify({ error: 'Prompt is required' }), 
         { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Check cache first
-    const cacheKey = getCacheKey(prompt, context || '');
-    const cached = cache.get(cacheKey);
-    if (cached && (Date.now() - cached.timestamp) < CACHE_TTL) {
-      console.log('Cache hit for prompt');
-      return new Response(
-        JSON.stringify({ 
-          success: true, 
-          response: cached.response,
-          model: 'anthropic/claude-3-haiku',
-          cached: true
-        }), 
-        { status: 200, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -96,23 +88,22 @@ Upute:
 
     const data = await response.json();
     const aiResponse = data.choices?.[0]?.message?.content;
+    
+    console.log('OpenRouter response received, length:', aiResponse?.length);
 
     if (!aiResponse) {
+      console.error('No content in OpenRouter response:', data);
       return new Response(
-        JSON.stringify({ error: 'Empty response from AI' }), 
+        JSON.stringify({ error: 'Empty response from AI', details: data }), 
         { status: 502, headers: { 'Content-Type': 'application/json' } }
       );
     }
-
-    // Store in cache
-    cache.set(cacheKey, { response: aiResponse, timestamp: Date.now() });
 
     return new Response(
       JSON.stringify({ 
         success: true, 
         response: aiResponse,
-        model: data.model || 'anthropic/claude-3-haiku',
-        cached: false
+        model: data.model || 'anthropic/claude-3-haiku'
       }), 
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );

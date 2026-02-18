@@ -71,17 +71,17 @@ if (!task) {
         
         <button
           id="send-to-ai"
-          class="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 transition"
+          class="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          data-task-title={task.title}
+          data-task-scenario={task.scenario}
+          data-task-problem={task.problem}
         >
           🚀 Pošalji AI-ju i vidi rješenje
         </button>
         
         <!-- AI Response Area (hidden by default) -->
         <div id="ai-response" class="hidden mt-6 bg-green-50 rounded-xl p-4 border border-green-200">
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="font-semibold text-green-800">✨ AI predlaže:</h3>
-            <span id="cache-badge" class="hidden text-xs bg-green-200 text-green-700 px-2 py-0.5 rounded">🔄 Iz cachea</span>
-          </div>
+          <h3 class="font-semibold text-green-800 mb-2">✨ AI predlaže:</h3>
           <div id="response-content" class="text-gray-700 whitespace-pre-wrap"></div>        
         </div>
       </div>
@@ -113,10 +113,9 @@ if (!task) {
       const responseDiv = document.getElementById('ai-response');
       const responseContent = document.getElementById('response-content');
       const promptTextarea = document.getElementById('ai-prompt');
-      const cacheBadge = document.getElementById('cache-badge');
       
       if (!btn || !responseDiv || !responseContent || !promptTextarea) {
-        console.error('AI elements not found');
+        console.error('AI elements not found:', { btn, responseDiv, responseContent, promptTextarea });
         return;
       }
       
@@ -135,7 +134,6 @@ if (!task) {
         btn.textContent = '🤖 AI razmišlja...';
         btn.disabled = true;
         responseDiv.classList.add('hidden');
-        if (cacheBadge) cacheBadge.classList.add('hidden');
         
         try {
           const response = await fetch('/api/generate', {
@@ -143,22 +141,17 @@ if (!task) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               prompt: prompt,
-              context: `Zadatak: ${task.title}\nScenarij: ${task.scenario}\nProblem: ${task.problem}`
+              context: `Zadatak: ${btn.dataset.taskTitle || ''}\nScenarij: ${btn.dataset.taskScenario || ''}\nProblem: ${btn.dataset.taskProblem || ''}`
             })
           });
           
           const data = await response.json();
           
           if (!response.ok || data.error) {
-            throw new Error(data.error || 'Failed to generate response');
+            throw new Error(data.error || `HTTP ${response.status}`);
           }
           
           responseContent.textContent = data.response;
-          
-          // Show cache badge if response was cached
-          if (data.cached && cacheBadge) {
-            cacheBadge.classList.remove('hidden');
-          }
           
           responseDiv.classList.remove('hidden');
           responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
