@@ -78,10 +78,11 @@ if (!task) {
         
         <!-- AI Response Area (hidden by default) -->
         <div id="ai-response" class="hidden mt-6 bg-green-50 rounded-xl p-4 border border-green-200">
-          <h3 class="font-semibold text-green-800 mb-2">✨ AI predlaže:</h3>
-          <div id="response-content" class="text-gray-700 whitespace-pre-wrap">
-            {task.expectedOutcome}
-          </div>        
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-semibold text-green-800">✨ AI predlaže:</h3>
+            <span id="cache-badge" class="hidden text-xs bg-green-200 text-green-700 px-2 py-0.5 rounded">🔄 Iz cachea</span>
+          </div>
+          <div id="response-content" class="text-gray-700 whitespace-pre-wrap"></div>        
         </div>
       </div>
 
@@ -106,24 +107,79 @@ if (!task) {
     </div>
   </main>
 
-  <script is:inline>
-    document.addEventListener('DOMContentLoaded', function() {
+  <script>
+    (function() {
       const btn = document.getElementById('send-to-ai');
       const responseDiv = document.getElementById('ai-response');
+      const responseContent = document.getElementById('response-content');
+      const promptTextarea = document.getElementById('ai-prompt');
+      const cacheBadge = document.getElementById('cache-badge');
       
-      if (!btn || !responseDiv) return;
+      if (!btn || !responseDiv || !responseContent || !promptTextarea) {
+        console.error('AI elements not found');
+        return;
+      }
       
-      btn.addEventListener('click', function() {
+      let isGenerating = false;
+      
+      btn.addEventListener('click', async function() {
+        if (isGenerating) return;
+        
+        const prompt = promptTextarea.value.trim();
+        if (!prompt) {
+          alert('Unesi prompt prije slanja!');
+          return;
+        }
+        
+        isGenerating = true;
         btn.textContent = '🤖 AI razmišlja...';
         btn.disabled = true;
+        responseDiv.classList.add('hidden');
+        if (cacheBadge) cacheBadge.classList.add('hidden');
         
-        setTimeout(function() {
+        try {
+          const response = await fetch('/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              prompt: prompt,
+              context: `Zadatak: ${task.title}\nScenarij: ${task.scenario}\nProblem: ${task.problem}`
+            })
+          });
+          
+          const data = await response.json();
+          
+          if (!response.ok || data.error) {
+            throw new Error(data.error || 'Failed to generate response');
+          }
+          
+          responseContent.textContent = data.response;
+          
+          // Show cache badge if response was cached
+          if (data.cached && cacheBadge) {
+            cacheBadge.classList.remove('hidden');
+          }
+          
           responseDiv.classList.remove('hidden');
+          responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          
           btn.textContent = '✅ Odgovor generiran!';
-          btn.classList.remove('bg-blue-600');
-          btn.classList.add('bg-green-600');
-        }, 1500);
+          btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+          btn.classList.add('bg-green-600', 'hover:bg-green-700');
+          
+        } catch (error) {
+          console.error('Generation error:', error);
+          responseContent.innerHTML = `<span class="text-red-600">⚠️ Greška: ${error.message || 'AI trenutno nije dostupan. Pokušaj ponovo kasnije.'}</span>`;
+          responseDiv.classList.remove('hidden');
+          
+          btn.textContent = '🔄 Pokušaj ponovo';
+          btn.disabled = false;
+          btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+          btn.classList.add('bg-orange-600', 'hover:bg-orange-700');
+        } finally {
+          isGenerating = false;
+        }
       });
-    });
+    })();
   </script>
 </Layout>
