@@ -106,21 +106,24 @@ if (!task) {
     </div>
   </main>
 
-  <script>
-    // Simple interaction for demo
-    document.getElementById('send-to-ai')?.addEventListener('click', function() {
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      const btn = document.getElementById('send-to-ai');
       const responseDiv = document.getElementById('ai-response');
-      const btn = this;
       
-      btn.textContent = '🤖 AI razmišlja...';
-      btn.disabled = true;
+      if (!btn || !responseDiv) return;
       
-      setTimeout(() => {
-        responseDiv?.classList.remove('hidden');
-        btn.textContent = '✅ Odgovor generiran!';
-        btn.classList.remove('bg-blue-600');
-        btn.classList.add('bg-green-600');
-      }, 1500);
+      btn.addEventListener('click', function() {
+        btn.textContent = '🤖 AI razmišlja...';
+        btn.disabled = true;
+        
+        setTimeout(function() {
+          responseDiv.classList.remove('hidden');
+          btn.textContent = '✅ Odgovor generiran!';
+          btn.classList.remove('bg-blue-600');
+          btn.classList.add('bg-green-600');
+        }, 1500);
+      });
     });
   </script>
 </Layout>
