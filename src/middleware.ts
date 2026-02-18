@@ -6,8 +6,19 @@ const isProtectedRoute = createRouteMatcher([
   '/api/protected(.*)',
 ]);
 
-export const onRequest = clerkMiddleware((auth, context) => {
+export const onRequest = clerkMiddleware((auth, context, next) => {
+  const authObject = auth();
+  
   if (isProtectedRoute(context.request)) {
-    auth().protect();
+    if (!authObject.userId) {
+      return new Response(null, {
+        status: 302,
+        headers: {
+          'Location': '/sign-in',
+        },
+      });
+    }
   }
+  
+  return next();
 });

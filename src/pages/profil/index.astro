@@ -16,7 +16,7 @@ import UserStats from '../../components/UserStats.tsx';
       <h1 class="text-3xl font-bold text-center mb-8">Moj profil 🎯</h1>
 
       <!-- Stats from Convex -->
-      <UserStats client:only="react" />
+      <UserStats client:load />
 
       <!-- Continue Learning -->
       <div class="mt-8 bg-white rounded-xl p-6 shadow-sm">
@@ -53,8 +53,6 @@ import UserStats from '../../components/UserStats.tsx';
       <div class="mt-8 bg-white rounded-xl p-6 shadow-sm">
         <h2 class="text-xl font-bold mb-4">Postavke računa ⚙️</h2>
         <UserProfile 
-          routing="path" 
-          path="/profil"
           appearance={{
             elements: {
               navbar: 'hidden',
