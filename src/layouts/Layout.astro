@@ -36,27 +36,96 @@ const { title } = Astro.props;
             </div>
           </a>
           
+          <!-- Desktop Navigation -->
           <nav class="hidden md:flex items-center gap-6">
             <a href="/" class="text-gray-600 hover:text-blue-600 transition">Početna</a>
             <a href="/#moduli" class="text-gray-600 hover:text-blue-600 transition">Moduli</a>
             <a href="/lekcija/1" class="text-gray-600 hover:text-blue-600 transition">Lekcije</a>
-            
+
             <SignedIn>
               <a href="/profil" class="text-gray-600 hover:text-blue-600 transition">Profil</a>
               <UserButton afterSignOutUrl="/" />
             </SignedIn>
-            
+
             <SignedOut>
-              <a 
-                href="/sign-in" 
+              <a
+                href="/sign-in"
                 class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
               >
                 Prijava
               </a>
             </SignedOut>
           </nav>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-btn"
+            class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
+            aria-label="Otvori izbornik"
+            aria-expanded="false"
+          >
+            <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
+
+        <!-- Mobile Navigation -->
+        <nav
+          id="mobile-menu"
+          class="hidden md:hidden border-t border-gray-100 bg-white"
+        >
+          <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-4">
+            <a href="/" class="text-gray-600 hover:text-blue-600 transition py-2">Početna</a>
+            <a href="/#moduli" class="text-gray-600 hover:text-blue-600 transition py-2">Moduli</a>
+            <a href="/lekcija/1" class="text-gray-600 hover:text-blue-600 transition py-2">Lekcije</a>
+
+            <SignedIn>
+              <a href="/profil" class="text-gray-600 hover:text-blue-600 transition py-2">Profil</a>
+              <div class="py-2">
+                <UserButton afterSignOutUrl="/" />
+              </div>
+            </SignedIn>
+
+            <SignedOut>
+              <a
+                href="/sign-in"
+                class="bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition text-center font-medium"
+              >
+                Prijava
+              </a>
+            </SignedOut>
+          </div>
+        </nav>
       </header>
+
+      <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        if (mobileMenuBtn && mobileMenu) {
+          mobileMenuBtn.addEventListener('click', () => {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+
+            if (isOpen) {
+              mobileMenu.classList.add('hidden');
+              menuIcon?.classList.remove('hidden');
+              closeIcon?.classList.add('hidden');
+              mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            } else {
+              mobileMenu.classList.remove('hidden');
+              menuIcon?.classList.add('hidden');
+              closeIcon?.classList.remove('hidden');
+              mobileMenuBtn.setAttribute('aria-expanded', 'true');
+            }
+          });
+        }
+      </script>
 
       <slot />
 

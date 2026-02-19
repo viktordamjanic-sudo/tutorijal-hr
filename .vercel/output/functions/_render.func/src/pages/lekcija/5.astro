@@ -1,0 +1,365 @@
+---
+// Lesson 5: First Automation
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Lekcija 5: Prva automatizacija | tutorijal.hr">
+  <main class="min-h-screen bg-gradient-to-b from-green-50 to-white py-12 px-4">
+    <div class="max-w-3xl mx-auto">
+      <nav class="mb-6">
+        <a href="/lekcija/4" class="text-blue-600 hover:underline">← Lekcija 4</a>
+      </nav>
+
+      <div class="bg-white rounded-2xl p-8 shadow-sm mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-4xl">🎉</span>
+          <div class="text-sm text-green-600 font-medium">Lekcija 5 od 5</div>
+        </div>
+        
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Prva automatizacija: Jutarnji pregled</h1>
+        
+        <p class="text-lg text-gray-600">
+          Sve što si naučio spoji u prvu stvarnu automatizaciju. 
+          Agent koji te svako jutro budi s korisnim informacijama.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Final Project Preview -->
+        <div class="bg-gradient-to-r from-green-500 to-blue-500 rounded-xl p-6 text-white">
+          <h2 class="text-xl font-bold mb-4">🎯 Što ćemo napraviti?</h2>          
+          
+          <div class="bg-white/10 rounded-lg p-4">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-3xl">🤖</span>              
+              <div class="font-bold text-xl">"Jutarnji pregled" agent</div>
+            </div>            
+            
+            <div class="space-y-2 text-sm">
+              <div class="flex items-center gap-2">
+                <span>⏰</span>                
+                <span>Budi se svaki dan u 7:00</span>
+              </div>              
+              
+              <div class="flex items-center gap-2">
+                <span>🌤️</span>                
+                <span>Provjeri vrijeme za tvoj grad</span>
+              </div>              
+              
+              <div class="flex items-center gap-2">
+                <span>📰</span>                
+                <span>Pročita top 3 vijesti</span>
+              </div>              
+              
+              <div class="flex items-center gap-2">
+                <span>💬</span>                
+                <span>Pošalje ti sve na Telegram/WhatsApp</span>
+              </div>
+            </div>          
+          </div>        
+        </div>
+
+        <!-- Step by Step -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-bold mb-4">📝 Korak po korak</h2>
+
+          <div class="space-y-6">
+            <!-- Step 1 -->
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-600">
+                1
+              </div>              
+              <div class="flex-1">
+                <h3 class="font-bold mb-2">Stvori direktorij</h3>                
+                <div class="bg-gray-800 rounded-lg p-3">
+                  <code class="text-green-400 text-sm">
+                    mkdir ~/moj-prvi-agent<br/>
+                    cd ~/moj-prvi-agent
+                  </code>
+                </div>              
+              </div>
+            </div>            
+            
+            <!-- Step 2 -->
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-600">
+                2
+              </div>              
+              <div class="flex-1">
+                <h3 class="font-bold mb-2">Kreiraj konfiguracijsku datoteku</h3>                
+                
+                <p class="text-gray-600 text-sm mb-2">
+                  Spremi kao <code class="bg-gray-100 px-1 rounded">agent.yaml</code>:
+                </p>                
+                
+                <div class="bg-gray-800 rounded-lg p-3 overflow-x-auto">
+                  <pre class="text-green-400 text-xs">{`name: "Jutarnji pregled"
+schedule: "0 7 * * *"
+skills:
+  - weather
+  - scraper
+  - messaging
+tasks:
+  - name: vrijeme
+    skill: weather
+    city: Zagreb
+  - name: vijesti
+    skill: scraper
+    sources: [jutarnji.hr]
+    limit: 3
+notify:
+  platform: telegram
+  chat_id: "@tvoj_kanal"`} &gt; agent.yaml</pre>
+                </div>              
+              </div>
+            </div>            
+            
+            <!-- Step 3 -->
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-600">
+                3
+              </div>              
+              <div class="flex-1">
+                <h3 class="font-bold mb-2">Pokreni agenta</h3>                
+                <div class="bg-gray-800 rounded-lg p-3">
+                  <code class="text-green-400 text-sm">
+                    openclaw agent start --config agent.yaml
+                  </code>
+                </div>                
+                
+                <p class="text-gray-600 text-sm mt-2">
+                  ✅ Agent je aktiviran! Svako jutro u 7:00 dobiješ poruku.
+                </p>              
+              </div>
+            </div>          
+          </div>        
+        </div>
+
+        <!-- Interactive Builder -->
+        <div class="bg-white rounded-xl p-6 shadow-sm border-2 border-green-200">
+          <h2 class="text-xl font-bold mb-4">🎨 Interaktivni builder</h2>          
+          
+          <p class="text-gray-600 mb-4">
+            Odaberi što želiš u svom jutarnjem pregledu:
+          </p>
+
+          <div id="automation-builder" class="space-y-4">
+            <!-- City -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                Tvoj grad:
+              </label>              
+              <input 
+                type="text" 
+                id="builder-city" 
+                value="Zagreb"
+                class="w-full p-2 border rounded-lg"
+              />
+            </div>            
+            
+            <!-- Components -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Što uključiti:
+              </label>              
+              <div class="space-y-2">
+                {[
+                  { id: 'weather', label: '🌤️ Vremenska prognoza', checked: true },
+                  { id: 'news', label: '📰 Top vijesti', checked: true },
+                  { id: 'calendar', label: '📅 Događaji danas', checked: false },
+                  { id: 'traffic', label: '🚗 Prometne informacije', checked: false },
+                  { id: 'quote', label: '💭 Inspirativni citat', checked: false },
+                ].map(item => (
+                  <label class="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer">
+                    <input 
+                      type="checkbox" 
+                      value={item.id}
+                      checked={item.checked}
+                      class="builder-item w-5 h-5"
+                    />                    
+                    <span>{item.label}</span>
+                  </label>
+                ))}
+              </div>            
+            </div>            
+            
+            <!-- Time -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                Vrijeme slanja:
+              </label>              
+              <input 
+                type="time" 
+                id="builder-time" 
+                value="07:00"
+                class="p-2 border rounded-lg"
+              />
+            </div>            
+            
+            <!-- Generate Button -->            
+            <button 
+              id="generate-automation"
+              class="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition"
+            >
+              🚀 Generiraj moju automatizaciju
+            </button>
+
+            <!-- Result -->            
+            <div id="automation-result" class="hidden bg-gray-800 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-green-400 font-bold">📄 Tvoja konfiguracija:</span>                
+                <button 
+                  id="copy-config"
+                  class="text-xs bg-white/20 px-3 py-1 rounded hover:bg-white/30 transition"
+                >
+                  📋 Kopiraj
+                </button>
+              </div>              
+              
+              <pre id="automation-config" class="text-green-400 text-xs overflow-x-auto"></pre>
+              
+              
+              <div class="mt-4 bg-white/10 rounded p-3">
+                <p class="text-white text-sm">
+                  💾 <strong>Spremi:</strong> Kopiraj kod iznad i spremi kao 
+                  <code>~/moj-prvi-agent/agent.yaml</code>
+                </p>                
+                
+                <p class="text-white text-sm mt-2">
+                  ▶️ <strong>Pokreni:</strong> <code>openclaw agent start</code>
+                </p>              
+              </div>            
+            </div>          
+          </div>        
+        </div>
+
+        <!-- Success Message -->
+        <div class="bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl p-6 text-white text-center">
+          <div class="text-5xl mb-4">🎉</div>          
+          
+          <h2 class="text-2xl font-bold mb-2">Čestitamo!</h2>          
+          
+          <p class="text-lg">
+            Završio si prvu sekciju tutorijala. Sada znaš kako automatizirati 
+            svakodnevne zadatke koristeći OpenClaw agente.
+          </p>          
+          
+          <div class="mt-6 bg-white/20 rounded-lg p-4">
+            <p class="font-bold">🚀 Sljedeći koraci:</p>            
+            
+            <ul class="text-left mt-2 space-y-1">
+              <li>🧪 Testiraj agenta nekoliko dana</li>              
+              <li>🔧 Prilagodi prema svojim potrebama</li>              
+              <li>📚 Prouči napredne tehnike</li>              
+              <li>💡 Izmišljaj nove automatizacije!</li>
+            </ul>          
+          </div>        
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center pt-6">
+          <a href="/lekcija/4" class="text-gray-600 hover:text-blue-600 transition">
+            ← Što su skillsi?
+          </a>          
+          
+          <a 
+            href="/" 
+            class="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition"
+          >
+            🏠 Natrag na početnu
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Interactive builder
+    document.getElementById('generate-automation')?.addEventListener('click', function() {
+      const city = (document.getElementById('builder-city') as HTMLInputElement)?.value || 'Zagreb';
+      const time = (document.getElementById('builder-time') as HTMLInputElement)?.value || '07:00';
+      const [hours, minutes] = time.split(':');
+      
+      const items = Array.from(document.querySelectorAll('.builder-item:checked'))
+        .map(cb => (cb as HTMLInputElement).value);
+      
+      if (items.length === 0) {
+        alert('Odaberi barem jednu stavku!');
+        return;
+      }
+      
+      const cronSchedule = `${minutes} ${hours} * * *`;
+      
+      const config = `# 🚀 JUTARNJI PREGLED - Automatizacija
+# Kreirano na tutorijal.hr
+
+name: "Jutarnji pregled za ${city}"
+schedule: "${cronSchedule}"
+
+skills:
+${items.map(item => `  - ${item}`).join('\n')}
+
+tasks:${items.map(item => {
+        switch(item) {
+          case 'weather':
+            return `
+  - name: vrijeme
+    skill: weather
+    city: "${city}"`;
+          case 'news':
+            return `
+  - name: vijesti
+    skill: scraper
+    sources: ["jutarnji.hr", "vecernji.hr"]
+    limit: 3`;
+          case 'calendar':
+            return `
+  - name: kalendar
+    skill: calendar
+    today: true`;
+          case 'traffic':
+            return `
+  - name: promet
+    skill: traffic
+    city: "${city}"`;
+          case 'quote':
+            return `
+  - name: citat
+    skill: quote
+    category: "inspirational"`;
+          default:
+            return '';
+        }
+      }).join('')}
+
+notify:
+  platform: telegram
+  message: "🌅 Dobro jutro! Evo tvog dnevnog pregleda:"
+
+# ✅ Spremi kao: ~/moj-prvi-agent/agent.yaml
+# ▶️ Pokreni: openclaw agent start --config agent.yaml`;
+      
+      const resultDiv = document.getElementById('automation-result');
+      const configPre = document.getElementById('automation-config');
+      
+      if (resultDiv && configPre) {
+        configPre.textContent = config;
+        resultDiv.classList.remove('hidden');
+        resultDiv.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+    
+    // Copy button
+    document.getElementById('copy-config')?.addEventListener('click', function() {
+      const config = document.getElementById('automation-config')?.textContent;
+      if (config) {
+        navigator.clipboard.writeText(config).then(() => {
+          (this as HTMLElement).textContent = '✅ Kopirano!';
+          setTimeout(() => {
+            (this as HTMLElement).textContent = '📋 Kopiraj';
+          }, 2000);
+        });
+      }
+    });
+  </script>
+</Layout>

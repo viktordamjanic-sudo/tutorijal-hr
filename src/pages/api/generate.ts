@@ -7,19 +7,11 @@ const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 export const POST: APIRoute = async ({ request }) => {
   console.log('API /generate called');
   console.log('API Key exists:', !!OPENROUTER_API_KEY);
-  
+
   if (!OPENROUTER_API_KEY) {
     console.error('OpenRouter API key not found');
     return new Response(
-      JSON.stringify({ error: 'OpenRouter API key not configured. Check Vercel env vars.' }), 
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
-  }
-
-export const POST: APIRoute = async ({ request }) => {
-  if (!OPENROUTER_API_KEY) {
-    return new Response(
-      JSON.stringify({ error: 'OpenRouter API key not configured' }), 
+      JSON.stringify({ error: 'OpenRouter API key not configured. Check Vercel env vars.' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }

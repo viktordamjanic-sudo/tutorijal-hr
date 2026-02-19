@@ -1,0 +1,197 @@
+---
+// Lesson 1: Basic Setup - Your First Agent
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Lekcija 1: Tvoj prvi agent | tutorijal.hr">
+  <main class="min-h-screen bg-gradient-to-b from-purple-50 to-white py-12 px-4">
+    <div class="max-w-3xl mx-auto">
+      <!-- Breadcrumb -->
+      <nav class="mb-6">
+        <a href="/" class="text-blue-600 hover:underline">← Natrag na početnu</a>
+      </nav>
+
+      <!-- Header -->
+      <div class="bg-white rounded-2xl p-8 shadow-sm mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-4xl">🚀</span>
+          <div class="text-sm text-purple-600 font-medium">Lekcija 1 od 5</div>
+        </div>
+        
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Osnovni setup: Pokreni svog prvog agenta</h1>
+        
+        <p class="text-lg text-gray-600">
+          Nauči kako postaviti OpenClaw i stvoriti prvog digitalnog pomoćnika 
+          koji će ti štediti vrijeme.
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="space-y-6">
+        <!-- Section 1 -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-bold mb-4">🤔 Što je agent?</h2>
+          
+          <p class="text-gray-700 mb-4">
+            Zamisli da imaš pomoćnika koji:
+          </p>
+          
+          <ul class="list-disc list-inside space-y-2 text-gray-700 mb-4">
+            <li>📰 Čita vijesti umjesto tebe i izvlači važno</li>
+            <li>📧 Provjerava email i upozorava na hitne poruke</li>
+            <li>🌤️ Svako jutro javlja prognozu i najave</li>
+            <li>⏰ Podsjeća na rođendane i važne datume</li>
+          </ul>
+          
+          <div class="bg-blue-50 rounded-lg p-4">
+            <p class="text-blue-800">
+              <strong>Agent = digitalni pomoćnik</strong> koji radi zadatke dok ti radiš druge stvari.
+            </p>
+          </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-bold mb-4">⚡ Prvi zadatak: "Jutarnji pregled"</h2>
+          
+          <p class="text-gray-700 mb-4">
+            Stvorit ćemo jednostavnog agenta koji svako jutro:
+          </p>
+          
+          <ol class="list-decimal list-inside space-y-2 text-gray-700 mb-6">
+            <li>Provjeri vrijeme i prognozu</li>
+            <li>Pročita naslove s Jutarnjeg lista</li>
+            <li>Pošalje ti sažetak na Telegram/WhatsApp</li>
+          </ol>
+
+          <!-- Interactive Demo -->
+          <div class="border-2 border-purple-200 rounded-xl p-4 bg-purple-50">
+            <h3 class="font-bold text-purple-800 mb-3">🎮 Isprobaj odmah!</h3>
+            
+            <p class="text-sm text-gray-600 mb-4">
+              Unesi svoj grad i odaberi što želiš u jutarnjem pregledu:
+            </p>
+
+            <form id="morning-setup" class="space-y-3">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  Tvoj grad:
+                </label>
+                <input 
+                  type="text" 
+                  id="city" 
+                  placeholder="npr. Zagreb" 
+                  class="w-full p-2 border rounded-lg"
+                />
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                <label class="text-sm font-medium text-gray-700">Što želiš u pregledu:</label>
+                
+                <div class="flex flex-wrap gap-2">
+                  {['Vrijeme', 'Vijesti', 'Kalendar', 'Promet'].map(item => (
+                    <label class="flex items-center gap-1 bg-white px-3 py-1 rounded-full border cursor-pointer hover:bg-purple-100">
+                      <input type="checkbox" value={item} class="morning-item" />
+                      <span class="text-sm">{item}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <button 
+                type="button"
+                id="generate-morning-agent"
+                class="w-full bg-purple-600 text-white py-3 rounded-lg font-medium hover:bg-purple-700 transition"
+              >
+                🚀 Generiraj mojeg agenta
+              </button>
+            </form>
+
+            <!-- Result Area -->
+            <div id="morning-result" class="hidden mt-4 bg-white rounded-lg p-4 border border-purple-300">
+              <h4 class="font-bold text-purple-800 mb-2">📝 Tvoj agent je spreman!</h4>
+              <pre id="agent-code" class="bg-gray-800 text-green-400 p-3 rounded-lg text-xs overflow-x-auto"></pre>
+              
+              <p class="text-sm text-gray-600 mt-3">
+                💡 <strong>Sljedeći korak:</strong> Kopiraj ovaj kod i spremi ga kao 
+                <code>~/morning-agent.sh</code>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Tips -->
+        <div class="bg-yellow-50 rounded-xl p-6 border-l-4 border-yellow-400">
+          <h2 class="text-xl font-bold mb-4">💡 Trikovi za početnike</h2>
+          
+          <div class="space-y-3 text-gray-700">
+            <p>
+              <strong>1. Počni malo:</strong> Nemoj odmah automatizirati sve. 
+              Odaberi JEDAN zadatak koji ti najviše smeta.
+            </p>
+            
+            <p>
+              <strong>2. Testiraj prije nego što "pustiš":</strong> 
+              Uvijek prvo provjeri radi li agent kako treba.
+            </p>
+            
+            <p>
+              <strong>3. Ne boj se grešaka:</strong> 
+              Svaki agent se može isključiti i popraviti.
+            </p>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center pt-6">
+          <a href="/" class="text-gray-600 hover:text-blue-600 transition">
+            ← Početna
+          </a>          
+          <a 
+            href="/lekcija/2" 
+            class="bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition"
+          >
+            Sljedeća lekcija: Dva agenta →
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Interactive demo
+    document.getElementById('generate-morning-agent')?.addEventListener('click', function() {
+      const city = (document.getElementById('city') as HTMLInputElement)?.value || 'Zagreb';
+      const items = Array.from(document.querySelectorAll('.morning-item:checked'))
+        .map(cb => (cb as HTMLInputElement).value);
+      
+      if (items.length === 0) {
+        alert('Odaberi barem jednu stavku za pregled!');
+        return;
+      }
+      
+      const code = `# Morning Agent za ${city}
+# Pokreće se svako jutro u 7:00
+
+cron: {
+  schedule: "0 7 * * *",
+  tasks: [
+${items.map(item => `    "${item.toLowerCase()}:fetch"`).join(',\n')}
+  ],
+  notify: "telegram"
+}
+
+# Rezultat: Svako jutro dobiješ poruku:
+# "Dobro jutro! U ${city} je 15°C. 
+#  Top vijesti: Grad kupio bicikle..."`;
+      
+      const resultDiv = document.getElementById('morning-result');
+      const codePre = document.getElementById('agent-code');
+      
+      if (resultDiv && codePre) {
+        codePre.textContent = code;
+        resultDiv.classList.remove('hidden');
+      }
+    });
+  </script>
+</Layout>
