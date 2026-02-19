@@ -112,7 +112,7 @@ if (!task) {
     </div>
   </main>
 
-  <script>
+  <script is:inline>
     (function() {
       const btn = document.getElementById('send-to-ai');
       const responseDiv = document.getElementById('ai-response');
@@ -120,13 +120,13 @@ if (!task) {
       const promptTextarea = document.getElementById('ai-prompt');
       
       if (!btn || !responseDiv || !responseContent || !promptTextarea) {
-        console.error('AI elements not found:', { btn, responseDiv, responseContent, promptTextarea });
+        console.error('AI elements not found');
         return;
       }
       
       let isGenerating = false;
       
-      btn.addEventListener('click', async function() {
+      async function handleClick() {
         if (isGenerating) return;
         
         const prompt = promptTextarea.value.trim();
@@ -136,11 +136,10 @@ if (!task) {
         }
         
         isGenerating = true;
-        btn.textContent = '🤖 AI razmišlja...';
+        btn.textContent = '\ud83e\udd16 AI razmišlja...';
         btn.disabled = true;
         responseDiv.classList.add('hidden');
         
-        // Sakrij login notice ako je bio prikazan
         const loginNotice = document.getElementById('login-notice');
         if (loginNotice) loginNotice.classList.add('hidden');
         
@@ -150,16 +149,13 @@ if (!task) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               prompt: prompt,
-              context: `Zadatak: ${btn.dataset.taskTitle || ''}\nScenarij: ${btn.dataset.taskScenario || ''}\nProblem: ${btn.dataset.taskProblem || ''}`
+              context: 'Zadatak: ' + (btn.dataset.taskTitle || '') + '\nScenarij: ' + (btn.dataset.taskScenario || '') + '\nProblem: ' + (btn.dataset.taskProblem || '')
             })
           });
           
-          // Provjeri je li korisnik neautoriziran (nije prijavljen)
           if (response.status === 401) {
-            if (loginNotice) {
-              loginNotice.classList.remove('hidden');
-            }
-            btn.textContent = '🚀 Pošalji AI-ju i vidi rješenje';
+            if (loginNotice) loginNotice.classList.remove('hidden');
+            btn.textContent = '\ud83d\ude80 Pošalji AI-ju i vidi rješenje';
             btn.disabled = false;
             isGenerating = false;
             return;
@@ -168,30 +164,34 @@ if (!task) {
           const data = await response.json();
           
           if (!response.ok || data.error) {
-            throw new Error(data.error || `HTTP ${response.status}`);
+            throw new Error(data.error || 'HTTP ' + response.status);
           }
           
           responseContent.textContent = data.response;
-          
           responseDiv.classList.remove('hidden');
           responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           
-          btn.textContent = '✅ Odgovor generiran!';
+          btn.textContent = '\u2705 Odgovor generiran!';
           btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
           btn.classList.add('bg-green-600', 'hover:bg-green-700');
           
         } catch (error) {
           console.error('Generation error:', error);
-          responseContent.innerHTML = `<span class="text-red-600">⚠️ Greška: ${error.message || 'AI trenutno nije dostupan. Pokušaj ponovo kasnije.'}</span>`;
+          responseContent.innerHTML = '<span class="text-red-600">\u26a0 Greška: ' + (error.message || 'AI trenutno nije dostupan') + '</span>';
           responseDiv.classList.remove('hidden');
-          
-          btn.textContent = '🔄 Pokušaj ponovo';
+          btn.textContent = '\ud83d\udd04 Pokušaj ponovo';
           btn.disabled = false;
           btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
           btn.classList.add('bg-orange-600', 'hover:bg-orange-700');
         } finally {
           isGenerating = false;
         }
+      }
+      
+      btn.addEventListener('click', handleClick);
+      btn.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        handleClick();
       });
     })();
   </script>
