@@ -208,3 +208,28 @@ export const toggleFavorite = mutation({
     return !isFavorite;
   },
 });
+
+// Query for fetching user progress
+import { query } from './_generated/server';
+
+export const getUserProgress = query({
+  args: {
+    userId: v.string(),
+  },
+  handler: async (ctx, { userId }) => {
+    const progress = await ctx.db.query('userProgress')
+      .withIndex('by_user')
+      .filter((q) => q.eq(q.field('userId'), userId))
+      .first();
+    
+    return progress || {
+      userId,
+      completedLessons: [],
+      completedTasks: [],
+      favoriteTasks: [],
+      totalTimeSpent: 0,
+      lastActive: null,
+      streak: 0,
+    };
+  },
+});

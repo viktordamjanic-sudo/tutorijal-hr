@@ -1,7 +1,7 @@
 ---
 // User Profile Page - Protected Route
 import Layout from '../../layouts/Layout.astro';
-import { SignedIn, SignedOut, UserProfile } from '@clerk/astro/components';
+import { SignedIn, SignedOut, UserButton, SignOutButton } from '@clerk/astro/components';
 ---
 
 <Layout title="Moj profil | tutorijal.hr">
@@ -27,24 +27,41 @@ import { SignedIn, SignedOut, UserProfile } from '@clerk/astro/components';
       </SignedOut>
 
       <SignedIn>
-        <div class="space-y-8">
+        <div class="space-y-8" id="profile-content">
+          <!-- User Info -->
+          <div class="bg-white rounded-xl p-6 shadow-sm flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <div class="text-4xl">👤</div>
+              <div>
+                <div class="font-bold text-lg">Prijavljeni korisnik</div>
+                <div class="text-sm text-gray-500">Aktivan danas</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <UserButton afterSignOutUrl="/" />
+              <SignOutButton class="bg-red-100 text-red-700 px-4 py-2 rounded-lg hover:bg-red-200 transition text-sm font-medium">
+                Odjava
+              </SignOutButton>
+            </div>
+          </div>
+          
           <!-- Stats Section -->
           <div class="bg-white rounded-xl p-6 shadow-sm">
             <h2 class="text-xl font-bold mb-4">📊 Tvoj napredak</h2>            
-            <div class="grid md:grid-cols-3 gap-4">
+            <div class="grid md:grid-cols-3 gap-4" id="stats-container">
               <div class="bg-green-50 rounded-lg p-4 text-center">
                 <div class="text-3xl mb-1">📚</div>
-                <div class="text-2xl font-bold">0/5</div>
+                <div class="text-2xl font-bold" id="lessons-count">0/5</div>
                 <div class="text-sm text-gray-600">Lekcija</div>
               </div>
               <div class="bg-blue-50 rounded-lg p-4 text-center">
                 <div class="text-3xl mb-1">🎮</div>
-                <div class="text-2xl font-bold">0</div>
+                <div class="text-2xl font-bold" id="tasks-count">0</div>
                 <div class="text-sm text-gray-600">Zadataka</div>
               </div>
               <div class="bg-purple-50 rounded-lg p-4 text-center">
                 <div class="text-3xl mb-1">🔥</div>
-                <div class="text-2xl font-bold">0</div>
+                <div class="text-2xl font-bold" id="streak-count">0</div>
                 <div class="text-sm text-gray-600">Dana u nizu</div>
               </div>
             </div>
@@ -90,4 +107,27 @@ import { SignedIn, SignedOut, UserProfile } from '@clerk/astro/components';
       </SignedIn>
     </div>
   </main>
+  
+  <script is:inline>
+    // Fetch user progress when signed in
+    (async function() {
+      try {
+        const response = await fetch('/api/progress');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.progress) {
+            const lessons = data.progress.completedLessons?.length || 0;
+            const tasks = data.progress.completedTasks?.length || 0;
+            const streak = data.progress.streak || 0;
+            
+            document.getElementById('lessons-count').textContent = lessons + '/5';
+            document.getElementById('tasks-count').textContent = tasks;
+            document.getElementById('streak-count').textContent = streak;
+          }
+        }
+      } catch (e) {
+        console.log('Progress fetch failed:', e);
+      }
+    })();
+  </script>
 </Layout>

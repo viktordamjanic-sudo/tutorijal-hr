@@ -167,6 +167,15 @@ if (!task) {
         btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
         btn.classList.add('bg-green-600', 'hover:bg-green-700');
         
+        // Save progress
+        fetch('/api/progress', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ taskId: location.pathname.split('/').pop(), timeSpent: 5 })
+        }).catch(() => {});
+        
+      } catch (error) {
+        
       } catch (error) {
         console.error('Error:', error);
         responseContent.innerHTML = '<span class="text-red-600">Greška: ' + (error.message || 'AI nije dostupan') + '</span>';

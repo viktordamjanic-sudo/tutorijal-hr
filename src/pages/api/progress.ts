@@ -1,11 +1,10 @@
 import type { APIRoute } from 'astro';
-import { clerkClient } from '@clerk/astro/server';
 import { ConvexHttpClient } from 'convex/browser';
 
 const CONVEX_URL = process.env.PUBLIC_CONVEX_URL || import.meta.env.PUBLIC_CONVEX_URL || 'https://efficient-antelope-653.convex.cloud';
 const convex = new ConvexHttpClient(CONVEX_URL);
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const GET: APIRoute = async ({ request, locals }) => {
   const { userId } = locals.auth();
   
   if (!userId) {
@@ -16,24 +15,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    const body = await request.json();
-    const { lessonId, taskId, timeSpent } = body;
+    // Query user progress from Convex
+    const progress = await convex.query('getUserProgress', { userId });
 
-    // Call Convex mutation
-    const result = await convex.mutation('updateProgress', {
-      userId,
-      lessonId,
-      taskId,
-      timeSpent: timeSpent || 0,
-    });
-
-    return new Response(JSON.stringify({ success: true, id: result }), {
+    return new Response(JSON.stringify({ success: true, progress }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
+    console.error('Error fetching progress:', error);
     return new Response(
-      JSON.stringify({ error: 'Failed to update progress' }), 
+      JSON.stringify({ error: 'Failed to fetch progress' }), 
       {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
