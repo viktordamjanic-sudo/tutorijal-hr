@@ -23,24 +23,24 @@ export const POST: APIRoute = async ({ request }) => {
     } catch (e) {
       console.error('Failed to parse request body:', e);
       return new Response(
-        JSON.stringify({ error: 'Invalid JSON in request body' }), 
+        JSON.stringify({ error: 'Invalid JSON in request body' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
-    
+
     const { prompt, context } = body;
     console.log('Received prompt:', prompt?.substring(0, 50));
 
     if (!prompt) {
       return new Response(
-        JSON.stringify({ error: 'Prompt is required' }), 
+        JSON.stringify({ error: 'Prompt is required' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
     // Build system message with context
     const systemMessage = `Ti si AI asistent u edukacijskoj platformi "AI Tutorijal" koja uči ljude kako koristiti AI asistente.
-    
+
 Kontekst zadatka:
 ${context || 'Korisnik želi naučiti kako efikasno koristiti AI asistenta za rješavanje stvarnog problema.'}
 
@@ -73,37 +73,37 @@ Upute:
       const errorData = await response.json().catch(() => ({}));
       console.error('OpenRouter error:', errorData);
       return new Response(
-        JSON.stringify({ error: 'Failed to generate response from AI' }), 
+        JSON.stringify({ error: 'Failed to generate response from AI' }),
         { status: 502, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
     const data = await response.json();
     const aiResponse = data.choices?.[0]?.message?.content;
-    
+
     console.log('OpenRouter response received, length:', aiResponse?.length);
 
     if (!aiResponse) {
       console.error('No content in OpenRouter response:', data);
       return new Response(
-        JSON.stringify({ error: 'Empty response from AI', details: data }), 
+        JSON.stringify({ error: 'Empty response from AI', details: data }),
         { status: 502, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
     return new Response(
-      JSON.stringify({ 
-        success: true, 
+      JSON.stringify({
+        success: true,
         response: aiResponse,
         model: data.model || 'anthropic/claude-3-haiku'
-      }), 
+      }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
 
   } catch (error) {
     console.error('API error:', error);
     return new Response(
-      JSON.stringify({ error: 'Internal server error' }), 
+      JSON.stringify({ error: 'Internal server error' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
