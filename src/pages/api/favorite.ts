@@ -2,7 +2,8 @@ import type { APIRoute } from 'astro';
 import { clerkClient } from '@clerk/astro/server';
 import { ConvexHttpClient } from 'convex/browser';
 
-const convex = new ConvexHttpClient(import.meta.env.PUBLIC_CONVEX_URL);
+const CONVEX_URL = process.env.PUBLIC_CONVEX_URL || import.meta.env.PUBLIC_CONVEX_URL || 'https://efficient-antelope-653.convex.cloud';
+const convex = new ConvexHttpClient(CONVEX_URL);
 
 export const POST: APIRoute = async ({ request, locals }) => {
   const { userId } = locals.auth();

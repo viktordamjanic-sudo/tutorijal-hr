@@ -31,7 +31,7 @@ const POST = async ({ request }) => {
       );
     }
     const systemMessage = `Ti si AI asistent u edukacijskoj platformi "AI Tutorijal" koja uči ljude kako koristiti AI asistente.
-    
+
 Kontekst zadatka:
 ${context || "Korisnik želi naučiti kako efikasno koristiti AI asistenta za rješavanje stvarnog problema."}
 

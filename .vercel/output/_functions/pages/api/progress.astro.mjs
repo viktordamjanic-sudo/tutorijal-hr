@@ -1,6 +1,7 @@
 import { ConvexHttpClient } from "convex/browser";
 import { renderers } from "../../renderers.mjs";
-const convex = new ConvexHttpClient("");
+const CONVEX_URL = process.env.PUBLIC_CONVEX_URL || "" || "https://efficient-antelope-653.convex.cloud";
+const convex = new ConvexHttpClient(CONVEX_URL);
 const POST = async ({ request, locals }) => {
   const { userId } = locals.auth();
   if (!userId) {
