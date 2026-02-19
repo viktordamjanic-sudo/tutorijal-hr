@@ -175,8 +175,6 @@ if (!task) {
         }).catch(() => {});
         
       } catch (error) {
-        
-      } catch (error) {
         console.error('Error:', error);
         responseContent.innerHTML = '<span class="text-red-600">Greška: ' + (error.message || 'AI nije dostupan') + '</span>';
         responseDiv.classList.remove('hidden');
