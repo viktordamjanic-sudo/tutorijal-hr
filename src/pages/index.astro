@@ -5,6 +5,7 @@ import Hero from '../components/Hero.astro';
 import ModuleGrid from '../components/ModuleGrid.astro';
 import ConvexWrapper from '../components/ConvexWrapper.tsx';
 import LiveFeedConvex from '../components/LiveFeedConvex.tsx';
+import { SignedIn, SignedOut } from '@clerk/astro/components';
 ---
 
 <Layout title="AI Tutorijal - Nauči AI riješiti stvarne probleme">
@@ -72,12 +73,25 @@ import LiveFeedConvex from '../components/LiveFeedConvex.tsx';
         </div>
         
         <div class="text-center mt-8">
-          <a 
-            href="/lekcija/1" 
-            class="inline-block bg-purple-600 text-white px-8 py-3 rounded-xl font-medium hover:bg-purple-700 transition"
-          >
-            🚀 Započni lekciju
-          </a>
+          <SignedOut>
+            <a 
+              href="/sign-up" 
+              class="inline-block bg-purple-600 text-white px-8 py-3 rounded-xl font-medium hover:bg-purple-700 transition"
+            >
+              🚀 Započni lekciju - Registriraj se
+            </a>
+            <p class="mt-2 text-sm text-gray-600">
+              Već imaš račun? <a href="/sign-in" class="text-blue-600 hover:underline">Prijavi se</a>
+            </p>
+          </SignedOut>
+          <SignedIn>
+            <a 
+              href="/lekcija/1" 
+              class="inline-block bg-purple-600 text-white px-8 py-3 rounded-xl font-medium hover:bg-purple-700 transition"
+            >
+              🚀 Započni lekciju
+            </a>
+          </SignedIn>
         </div>
       </div>
     </section>

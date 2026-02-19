@@ -79,6 +79,11 @@ if (!task) {
           🚀 Pošalji AI-ju i vidi rješenje
         </button>
         
+        <p id="login-notice" class="hidden mt-2 text-sm text-orange-600 text-center">
+          ⚠️ <a href="/sign-in" class="underline font-medium">Prijavi se</a> ili 
+          <a href="/sign-up" class="underline font-medium">registriraj</a> da vidiš rješenje!
+        </p>
+        
         <!-- AI Response Area (hidden by default) -->
         <div id="ai-response" class="hidden mt-6 bg-green-50 rounded-xl p-4 border border-green-200">
           <h3 class="font-semibold text-green-800 mb-2">✨ AI predlaže:</h3>
@@ -135,6 +140,10 @@ if (!task) {
         btn.disabled = true;
         responseDiv.classList.add('hidden');
         
+        // Sakrij login notice ako je bio prikazan
+        const loginNotice = document.getElementById('login-notice');
+        if (loginNotice) loginNotice.classList.add('hidden');
+        
         try {
           const response = await fetch('/api/generate', {
             method: 'POST',
@@ -144,6 +153,17 @@ if (!task) {
               context: `Zadatak: ${btn.dataset.taskTitle || ''}\nScenarij: ${btn.dataset.taskScenario || ''}\nProblem: ${btn.dataset.taskProblem || ''}`
             })
           });
+          
+          // Provjeri je li korisnik neautoriziran (nije prijavljen)
+          if (response.status === 401) {
+            if (loginNotice) {
+              loginNotice.classList.remove('hidden');
+            }
+            btn.textContent = '🚀 Pošalji AI-ju i vidi rješenje';
+            btn.disabled = false;
+            isGenerating = false;
+            return;
+          }
           
           const data = await response.json();
           
