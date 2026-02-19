@@ -71,10 +71,11 @@ if (!task) {
         
         <button
           id="send-to-ai"
-          class="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:ursor-not-allowed active:scale-95"
           data-task-title={task.title}
           data-task-scenario={task.scenario}
           data-task-problem={task.problem}
+          onclick="window.sendToAI && window.sendToAI(this)"
         >
           🚀 Pošalji AI-ju i vidi rješenje
         </button>
@@ -113,86 +114,78 @@ if (!task) {
   </main>
 
   <script is:inline>
-    (function() {
-      const btn = document.getElementById('send-to-ai');
+    window.sendToAI = async function(btn) {
       const responseDiv = document.getElementById('ai-response');
       const responseContent = document.getElementById('response-content');
       const promptTextarea = document.getElementById('ai-prompt');
+      const loginNotice = document.getElementById('login-notice');
       
-      if (!btn || !responseDiv || !responseContent || !promptTextarea) {
-        console.error('AI elements not found');
+      if (!promptTextarea || !responseDiv || !responseContent) {
+        alert('Greška: Elementi nisu pronađeni');
         return;
       }
       
-      let isGenerating = false;
+      const prompt = promptTextarea.value.trim();
+      if (!prompt) {
+        alert('Unesi prompt prije slanja!');
+        return;
+      }
       
-      async function handleClick() {
-        if (isGenerating) return;
+      if (loginNotice) loginNotice.classList.add('hidden');
+      
+      btn.disabled = true;
+      btn.textContent = 'AI razmišlja...';
+      
+      try {
+        const response = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt: prompt,
+            context: 'Zadatak: ' + (btn.dataset.taskTitle || '') + '\nScenarij: ' + (btn.dataset.taskScenario || '') + '\nProblem: ' + (btn.dataset.taskProblem || '')
+          })
+        });
         
-        const prompt = promptTextarea.value.trim();
-        if (!prompt) {
-          alert('Unesi prompt prije slanja!');
+        if (response.status === 401) {
+          if (loginNotice) loginNotice.classList.remove('hidden');
+          btn.textContent = 'Pošalji AI-ju i vidi rješenje';
+          btn.disabled = false;
           return;
         }
         
-        isGenerating = true;
-        btn.textContent = '\ud83e\udd16 AI razmišlja...';
-        btn.disabled = true;
-        responseDiv.classList.add('hidden');
+        const data = await response.json();
         
-        const loginNotice = document.getElementById('login-notice');
-        if (loginNotice) loginNotice.classList.add('hidden');
-        
-        try {
-          const response = await fetch('/api/generate', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              prompt: prompt,
-              context: 'Zadatak: ' + (btn.dataset.taskTitle || '') + '\nScenarij: ' + (btn.dataset.taskScenario || '') + '\nProblem: ' + (btn.dataset.taskProblem || '')
-            })
-          });
-          
-          if (response.status === 401) {
-            if (loginNotice) loginNotice.classList.remove('hidden');
-            btn.textContent = '\ud83d\ude80 Pošalji AI-ju i vidi rješenje';
-            btn.disabled = false;
-            isGenerating = false;
-            return;
-          }
-          
-          const data = await response.json();
-          
-          if (!response.ok || data.error) {
-            throw new Error(data.error || 'HTTP ' + response.status);
-          }
-          
-          responseContent.textContent = data.response;
-          responseDiv.classList.remove('hidden');
-          responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          
-          btn.textContent = '\u2705 Odgovor generiran!';
-          btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-          btn.classList.add('bg-green-600', 'hover:bg-green-700');
-          
-        } catch (error) {
-          console.error('Generation error:', error);
-          responseContent.innerHTML = '<span class="text-red-600">\u26a0 Greška: ' + (error.message || 'AI trenutno nije dostupan') + '</span>';
-          responseDiv.classList.remove('hidden');
-          btn.textContent = '\ud83d\udd04 Pokušaj ponovo';
-          btn.disabled = false;
-          btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-          btn.classList.add('bg-orange-600', 'hover:bg-orange-700');
-        } finally {
-          isGenerating = false;
+        if (!response.ok || data.error) {
+          throw new Error(data.error || 'HTTP ' + response.status);
         }
+        
+        responseContent.textContent = data.response;
+        responseDiv.classList.remove('hidden');
+        responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        
+        btn.textContent = 'Odgovor generiran!';
+        btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+        btn.classList.add('bg-green-600', 'hover:bg-green-700');
+        
+      } catch (error) {
+        console.error('Error:', error);
+        responseContent.innerHTML = '<span class="text-red-600">Greška: ' + (error.message || 'AI nije dostupan') + '</span>';
+        responseDiv.classList.remove('hidden');
+        btn.textContent = 'Pokušaj ponovo';
+        btn.disabled = false;
+        btn.classList.remove('bg-blue-600');
+        btn.classList.add('bg-orange-600');
       }
-      
-      btn.addEventListener('click', handleClick);
-      btn.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        handleClick();
-      });
-    })();
+    };
+    
+    // Auto-attach for non-inline browsers
+    document.addEventListener('DOMContentLoaded', function() {
+      const btn = document.getElementById('send-to-ai');
+      if (btn && !btn._attached) {
+        btn._attached = true;
+        btn.addEventListener('click', function() { window.sendToAI(this); });
+        btn.addEventListener('touchend', function(e) { e.preventDefault(); window.sendToAI(this); });
+      }
+    });
   </script>
 </Layout>
