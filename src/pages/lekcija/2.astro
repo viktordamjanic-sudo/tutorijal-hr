@@ -1,268 +1,299 @@
 ---
-// Lesson 2: Two Agents Are Better Than One
+// Lekcija 2: Upoznaj svog digitalnog pomoćnika - OpenClaw
 import Layout from '../../layouts/Layout.astro';
 ---
 
-<Layout title="Lekcija 2: Dva agenta su bolja od jednog | tutorijal.hr">
-  <main class="min-h-screen bg-gradient-to-b from-green-50 to-white py-12 px-4">
+<Layout title="Lekcija 2: Upoznaj OpenClaw | tutorijal.hr">
+  <main class="min-h-screen bg-gradient-to-b from-indigo-50 via-purple-50 to-white py-12 px-4">
     <div class="max-w-3xl mx-auto">
       <!-- Breadcrumb -->
       <nav class="mb-6">
         <a href="/lekcija/1" class="text-blue-600 hover:underline">← Lekcija 1</a>
       </nav>
 
-      <div class="bg-white rounded-2xl p-8 shadow-sm mb-6">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="text-4xl">👥</span>
-          <div class="text-sm text-green-600 font-medium">Lekcija 2 od 5</div>
+      <!-- Hero s OpenClaw brandingom -->
+      <div class="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 rounded-2xl p-8 shadow-lg mb-6 text-white relative overflow-hidden">
+        <!-- Decorative claw marks -->
+        <div class="absolute top-4 right-4 opacity-20 text-6xl rotate-12">🐾</div>
+        <div class="absolute bottom-4 left-4 opacity-20 text-4xl -rotate-12">🐾</div>
+        
+        <div class="flex items-center gap-4 mb-4">
+          <div class="bg-white/20 backdrop-blur rounded-xl p-3">
+            <span class="text-5xl">🦁</span>
+          </div>
+          <div>
+            <div class="text-sm text-indigo-200 font-medium">Lekcija 2 od 5</div>
+            <h1 class="text-3xl font-bold">Upoznaj OpenClaw</h1>
+          </div>
         </div>
         
-        <h1 class="text-3xl font-bold text-gray-800 mb-4">Dva agenta su bolja od jednog</h1>
-        
-        <p class="text-lg text-gray-600">
-          Kako podijeliti zadatke između više agenata da svaki bude stručnjak 
-          za svoje područje.
+        <p class="text-lg text-indigo-100 leading-relaxed">
+          Zamisli da imaš pametnog, sposobnog prijatelja koji zna sve o tvojem računalu, 
+          može ti pisati kod, provjeravati vijesti, upravljati kućom... i dostupan ti je 
+          <strong>24/7</strong> na mobitelu. 🎯
         </p>
+        
+        <div class="mt-4 flex items-center gap-2 text-sm text-indigo-200">
+          <span>⚡</span>
+          <span>To je OpenClaw - tvoj AI asistent u džepu</span>
+        </div>
       </div>
 
       <!-- Content -->
       <div class="space-y-6">
-        <!-- Analogy -->
-        <div class="bg-white rounded-xl p-6 shadow-sm">
-          <h2 class="text-xl font-bold mb-4">🏢 Analognija: Tvrtka s odjelima</h2>
+        
+        <!-- Što je OpenClaw - Super jednostavno -->
+        <div class="bg-white rounded-xl p-6 shadow-sm border-t-4 border-indigo-500">
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <span class="text-2xl">🤔</span>
+            Što je OpenClaw (u 3 rečenice)?
+          </h2>
           
-          <p class="text-gray-700 mb-4">
-            Zamisli veliku tvrtku. Ima li jedan čovjek raditi sve?
-            <strong>Ne!</strong> Ima odjele:
-          </p>
+          <div class="space-y-4">
+            <div class="flex gap-4 items-start">
+              <div class="bg-indigo-100 rounded-full w-8 h-8 flex items-center justify-center font-bold text-indigo-600 shrink-0">1</div>
+              <p class="text-gray-700">
+                <strong>OpenClaw je pametan asistent</strong> koji živi na tvom računalu ili telefonu. 
+                Razumije što mu govoriš i može obavljati zadatke umjesto tebe.
+              </p>
+            </div>
+            
+            <div class="flex gap-4 items-start">
+              <div class="bg-purple-100 rounded-full w-8 h-8 flex items-center justify-center font-bold text-purple-600 shrink-0">2</div>
+              <p class="text-gray-700">
+                <strong>Može sve što i ti</strong> - čitati datoteke, slati poruke, 
+                pregledavati web, upravljati pametnom kućom... samo mnogo brže! ⚡
+              </p>
+            </div>
+            
+            <div class="flex gap-4 items-start">
+              <div class="bg-pink-100 rounded-full w-8 h-8 flex items-center justify-center font-bold text-pink-600 shrink-0">3</div>
+              <p class="text-gray-700">
+                <strong>Uči od tebe</strong> - što ga više koristiš, to bolje razumije 
+                što želiš. Postaje tvoj osobni expert. 🧠
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Zabavna analogija -->
+        <div class="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 border-l-4 border-yellow-400">
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <span class="text-2xl">🦸</span>
+            Analognija: OpenClaw je kao...
+          </h2>
           
-          <div class="grid md:grid-cols-3 gap-4 mb-4">
-            <div class="bg-blue-50 p-4 rounded-lg text-center">
-              <div class="text-3xl mb-2">📰</div>
-              <div class="font-bold">Marketing</div>
-              <div class="text-sm text-gray-600">Vijesti i objave</div>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+              <div class="text-4xl mb-2">🧞‍♂️</div>
+              <div class="font-bold text-gray-800">Duh iz boce</div>
+              <div class="text-sm text-gray-600 mt-1">Kaži što želiš, on obavi!</div>
             </div>
-            <div class="bg-green-50 p-4 rounded-lg text-center">
-              <div class="text-3xl mb-2">📊</div>
-              <div class="font-bold">Financije</div>
-              <div class="text-sm text-gray-600">Praćenje troškova</div>
+            <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+              <div class="text-4xl mb-2">🤖</div>
+              <div class="font-bold text-gray-800">R2-D2</div>
+              <div class="text-sm text-gray-600 mt-1">Uvijek tu da pomogne</div>
             </div>
-            <div class="bg-purple-50 p-4 rounded-lg text-center">
-              <div class="text-3xl mb-2">🔧</div>
-              <div class="font-bold">Tehnički</div>
-              <div class="text-sm text-gray-600">Održavanje</div>
+            <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+              <div class="text-4xl mb-2">🐾</div>
+              <div class="font-bold text-gray-800">Vjerni pas</div>
+              <div class="text-sm text-gray-600 mt-1">Zna tvoje navike, uvijek spreman</div>
             </div>
           </div>
           
-          <div class="bg-yellow-50 rounded-lg p-4">
-            <p class="text-yellow-800">
-              <strong>Isto vrijedi za agente:</strong> Svaki neka radi ono što najbolje zna.
+          <p class="mt-4 text-yellow-800 bg-yellow-100 rounded-lg p-3 text-sm">
+            <strong>💡 Ali bolji:</strong> Ne moraš ga hraniti i ne ostavlja dlake po podu! 😄
+          </p>
+        </div>
+
+        <!-- Što sve može - Interactive Cards -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <span class="text-2xl">✨</span>
+            Što OpenClaw može raditi za tebe?
+          </h2>
+          
+          <div class="grid md:grid-cols-2 gap-4">
+            <!-- Card 1 -->
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-200 hover:shadow-md transition">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="text-2xl">💻</span>
+                <span class="font-bold text-gray-800">Programira umjesto tebe</span>
+              </div>
+              <p class="text-sm text-gray-600">
+                "Napiši mi skriptu koja preuzima slike s weba" - i za 2 minute imaš radni kod!
+              </p>
+              <div class="mt-2 text-xs text-blue-600 font-medium">💡 Primjer: Automatsko preimenovanje 1000 fotografija</div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-4 border border-green-200 hover:shadow-md transition">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="text-2xl">🏠</span>
+                <span class="font-bold text-gray-800">Upravlja kućom</span>
+              </div>
+              <p class="text-sm text-gray-600">
+                Pali/gasi svjetla, prati temperaturu, upozorava ako nešto nije u redu.
+              </p>
+              <div class="mt-2 text-xs text-green-600 font-medium">💡 Primjer: "Ugasi sva svjetla kad legnem spavati"</div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-4 border border-purple-200 hover:shadow-md transition">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="text-2xl">📰</span>
+                <span class="font-bold text-gray-800">Čita vijesti za tebe</span>
+              </div>
+              <p class="text-sm text-gray-600">
+                Svako jutro ti šalje sažetak važnih vijesti - bez clickbaita!
+              </p>
+              <div class="mt-2 text-xs text-purple-600 font-medium">💡 Primjer: "Javi mi ako ima vijesti o Zadru"</div>
+            </div>
+            
+            <!-- Card 4 -->
+            <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg p-4 border border-orange-200 hover:shadow-md transition">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="text-2xl">📱</span>
+                <span class="font-bold text-gray-800">Dostupan svugdje</span>
+              </div>
+              <p class="text-sm text-gray-600">
+                Telegram, WhatsApp, web... Dostupan ti je na mobitelu 24/7.
+              </p>
+              <div class="mt-2 text-xs text-orange-600 font-medium">💡 Primjer: Pitaj ga dok si u tramvaju!</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OpenClaw vs Klasičan AI - Zabavna usporedba -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <span class="text-2xl">🆚</span>
+            OpenClaw vs. Običan ChatGPT
+          </h2>
+          
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b-2 border-indigo-200">
+                  <th class="text-left py-2 px-2">Zadatak</th>
+                  <th class="text-left py-2 px-2 text-gray-500">Običan AI</th>
+                  <th class="text-left py-2 px-2 text-indigo-600 font-bold">OpenClaw 🐾</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-gray-100">
+                  <td class="py-3 px-2">"Preimenuj mi slike"</td>
+                  <td class="py-3 px-2 text-gray-500">Napiše ti kod</td>
+                  <td class="py-3 px-2 text-indigo-700 font-medium">✅ ODMAH PREIMENUJE!</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-3 px-2">"Pošalji email baki"</td>
+                  <td class="py-3 px-2 text-gray-500">Napiše tekst</td>
+                  <td class="py-3 px-2 text-indigo-700 font-medium">✅ POŠALJE EMAIL!</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-3 px-2">"Provjeri je li kiša"</td>
+                  <td class="py-3 px-2 text-gray-500">Kaže ti gdje gledati</td>
+                  <td class="py-3 px-2 text-indigo-700 font-medium">✅ POGLEDA I JAVI!</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-2">"Upali svjetlo"</td>
+                  <td class="py-3 px-2 text-gray-500">"Ne mogu, nisam povezan"</td>
+                  <td class="py-3 px-2 text-indigo-700 font-medium">✅ UPALI SVJETLO!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="mt-4 bg-indigo-50 rounded-lg p-4 text-center">
+            <p class="text-indigo-800">
+              <strong>🎯 Razlika:</strong> OpenClaw ne samo da <em>zna</em> što učiniti - 
+              on to stvarno <em>učini</em>!
             </p>
           </div>
         </div>
 
-        <!-- Example: News + Weather Agents -->
-        <div class="bg-white rounded-xl p-6 shadow-sm">
-          <h2 class="text-xl font-bold mb-4">🌤️ Primjer: Vremenski + Vijesti agent</h2>
+        <!-- Interactive Demo: Probaj zamisliti -->
+        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6 border-2 border-indigo-200">
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <span class="text-2xl">🎮</span>
+            Zamisli scenarij...
+          </h2>
           
-          <p class="text-gray-700 mb-4">
-            Umjesto jednog agenta koji radi sve (i loše), napravimo dva specijalizirana:
-          </p>
-
-          <!-- Interactive Comparison -->
-          <div class="grid md:grid-cols-2 gap-4 mb-6">
-            <!-- Bad Example -->
-            <div class="border-2 border-red-200 rounded-xl p-4 bg-red-50">
-              <h3 class="font-bold text-red-800 mb-2">❌ Jedan agent (slabo)</h3>
-              
-              <div class="bg-white rounded p-3 text-sm font-mono text-gray-600">
-                Agent: "Što ima novo?"<br/>
-                Rezultat: 🌤️ Vrijeme je lijepo.
-                📰 Neke vijesti. 
-                🗓️ Imaš sastanak.
-                🚗 Promet je gužva.
-                ⏰ Rođendan mame je...
-                (previše informacija, 
-                ništa detaljno)
-              </div>
-            </div>
-
-            <!-- Good Example -->
-            <div class="border-2 border-green-200 rounded-xl p-4 bg-green-50">
-              <h3 class="font-bold text-green-800 mb-2">✅ Dva agenta (odlično)</h3>
-              
-              <div class="space-y-2">
-                <div class="bg-white rounded p-2 text-sm font-mono text-blue-600">
-                  <strong>Vremenski agent:</strong><br/>
-                  🌤️ Danas: 22°C, sunčano<br/>
-                  ☔ Preporuka: Bez kišobrana
-                </div>                
-                
-                <div class="bg-white rounded p-2 text-sm font-mono text-purple-600">
-                  <strong>Vijesti agent:</strong><br/>
-                  📰 3 važne vijesti:<br/>
-                  1. Novi park otvoren<br/>
-                  2. Zatvorena ulica... 
-                  (detaljnije)
-                </div>
-              </div>
-            </div>
+          <div class="bg-white rounded-lg p-4 mb-4">
+            <p class="text-gray-700 italic">
+              "Ustaješ ujutro. OpenClaw ti već šalje poruku:"
+            </p>
           </div>
-
-          <!-- Interactive Setup -->
-          <div class="border-2 border-green-200 rounded-xl p-4 bg-green-50">
-            <h3 class="font-bold text-green-800 mb-3">🎮 Isprobaj: Postavi dva agenta</h3>
+          
+          <div class="bg-indigo-600 text-white rounded-xl p-4 font-mono text-sm relative">
+            <!-- Claw icon decoration -->
+            <div class="absolute -top-2 -right-2 bg-white text-indigo-600 rounded-full w-8 h-8 flex items-center justify-center shadow-lg">🐾</div>
             
-            <div id="two-agents-demo" class="space-y-4">
-              <div class="grid md:grid-cols-2 gap-4">
-                <!-- Agent 1 -->
-                <div class="bg-white rounded-lg p-4 border-2 border-blue-200">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class="text-2xl">🌤️</span>
-                    <input 
-                      type="text" 
-                      value="Vremenski agent"
-                      class="font-bold text-gray-800 bg-transparent border-b border-dashed w-full"
-                      id="agent1-name"
-                    />
-                  </div>
-                  
-                  <select id="agent1-task" class="w-full p-2 border rounded-lg text-sm">
-                    <option value="weather">🌤️ Provjeri vrijeme</option>
-                    <option value="news">📰 Čitaj vijesti</option>
-                    <option value="calendar">📅 Provjeri kalendar</option>
-                    <option value="traffic">🚗 Prati promet</option>
-                  </select>
-                  
-                  <div class="mt-3 text-xs text-gray-500">
-                    ⏰ Svaki dan u: 
-                    <input type="time" value="07:00" class="border rounded px-2 py-1" id="agent1-time" />
-                  </div>
-                </div>
-
-                <!-- Agent 2 -->
-                <div class="bg-white rounded-lg p-4 border-2 border-purple-200">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class="text-2xl">📰</span>
-                    <input 
-                      type="text" 
-                      value="Vijesti agent"
-                      class="font-bold text-gray-800 bg-transparent border-b border-dashed w-full"
-                      id="agent2-name"
-                    />
-                  </div>
-                  
-                  <select id="agent2-task" class="w-full p-2 border rounded-lg text-sm">
-                    <option value="news" selected>📰 Čitaj vijesti</option>
-                    <option value="weather">🌤️ Provjeri vrijeme</option>
-                    <option value="calendar">📅 Provjeri kalendar</option>
-                    <option value="traffic">🚗 Prati promet</option>
-                  </select>
-                  
-                  <div class="mt-3 text-xs text-gray-500">
-                    ⏰ Svaki dan u: 
-                    <input type="time" value="07:30" class="border rounded px-2 py-1" id="agent2-time" />
-                  </div>
-                </div>
-              </div>
-
-              <button 
-                id="create-two-agents"
-                class="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition"
-              >
-                🚀 Stvori moja dva agenta
-              </button>
-
-              <div id="two-agents-result" class="hidden bg-white rounded-lg p-4 border border-green-300">
-                <h4 class="font-bold text-green-800 mb-2">📋 Konfiguracija spremljena!</h4>                
-                <pre id="two-agents-config" class="bg-gray-800 text-green-400 p-3 rounded-lg text-xs overflow-x-auto"></pre>
-              </div>
+            <div class="space-y-2">
+              <div>🌤️ Vrijeme: 18°C, oblačno - uzmi jaknu</div>
+              <div>📰 Vijesti: Tvoja ulica se remontira, koristi alternativnu</div>
+              <div>📅 Podsjetnik: Sastanak u 14:00</div>
+              <div>☕ Kava: Počela se kuhati u 7:30</div>
             </div>
+            <div class="mt-3 pt-3 border-t border-indigo-400 text-indigo-200">
+              - Tvoj OpenClaw 🤖
+            </div>
+          </div>
+          
+          <div class="mt-4 text-center">
+            <p class="text-gray-600">
+              Zamisli da ti netko svako jutro pripremi sve važne informacije. 
+              <strong>To je OpenClaw.</strong> 🦁
+            </p>
           </div>
         </div>
 
-        <!-- Communication between agents -->
-        <div class="bg-blue-50 rounded-xl p-6 border-l-4 border-blue-400">
-          <h2 class="text-xl font-bold mb-4">💬 Kako agenti razgovaraju?</h2>
+        <!-- Ključna lekcija -->
+        <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl p-6 text-white relative overflow-hidden">
+          <!-- Decorative elements -->
+          <div class="absolute top-0 right-0 opacity-10 text-8xl">🐾</div>
+          <div class="absolute bottom-0 left-0 opacity-10 text-6xl rotate-45">⚡</div>
           
-          <p class="text-gray-700 mb-4">
-            Agenti mogu međusobno dijeliti informacije. Primjer:
+          <h2 class="text-xl font-bold mb-3 flex items-center gap-2">
+            <span class="text-2xl">🎯</span>
+            Ključna lekcija
+          </h2>          
+          
+          <p class="text-lg leading-relaxed">
+            <strong>OpenClaw nije samo "pametan chatbot".</strong><br/>
+            On je tvoj <em>osobni asistent</em> koji može raditi stvarne poslove 
+            u stvarnom svijetu - na tvom računalu, u tvojoj kući, na tvom mobitelu. 🚀
           </p>
-
-          <div class="bg-white rounded-lg p-4 font-mono text-sm">
-            <div class="mb-2">
-              <span class="text-blue-600 font-bold">🌤️ Vremenski agent → Vijesti agent:</span><br/>
-              <span class="text-gray-600">"Obavještavam: Danas kiša. Možda odgoditi planirani prosvjed?"</span>
-            </div>            
-            <div class="ml-8">
-              <span class="text-purple-600 font-bold">📰 Vijesti agent → Vremenski agent:</span><br/>
-              <span class="text-gray-600">"Hvala! U vijestima dodajem: 'Prosvjed odgođen zbog kiše'"</span>
-            </div>
+          
+          <div class="mt-4 flex items-center gap-2 text-indigo-200">
+            <span>🐾</span>
+            <span class="text-sm">S njim postaješ superheroj svakodnevnice!</span>
           </div>
         </div>
 
-        <!-- Key Takeaway -->
-        <div class="bg-gradient-to-r from-green-500 to-blue-500 rounded-xl p-6 text-white">
-          <h2 class="text-xl font-bold mb-3">🎯 Ključna lekcija</h2>          
-          
-          <p class="text-lg">
-            <strong>Specijalizacija = Kvaliteta</strong><br/>
-            Dva agenta koja rade po jednu stvar odlično su bolja od jednog koji radi sve slabo.
+        <!-- Zabavni footer -->
+        <div class="bg-white rounded-xl p-6 shadow-sm text-center">
+          <p class="text-gray-600 mb-2">Želiš li vidjeti OpenClaw u akciji?</p>
+          <p class="text-sm text-gray-500">
+            U sljedećoj lekciji učimo kako ga postaviti da radi baš ono što TI želiš! 
+            <span class="text-2xl">🎉</span>
           </p>
         </div>
 
         <!-- Navigation -->
         <div class="flex justify-between items-center pt-6">
-          <a href="/lekcija/1" class="text-gray-600 hover:text-blue-600 transition">
-            ← Lekcija 1: Prvi agent
+          <a href="/lekcija/1" class="text-gray-600 hover:text-blue-600 transition flex items-center gap-2">
+            <span>←</span> Lekcija 1: Prvi koraci
           </a>          
           <a 
             href="/lekcija/3" 
-            class="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition"
+            class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition flex items-center gap-2 shadow-lg hover:shadow-xl"
           >
-            Sljedeća: Lošija od tri →
+            Sljedeća: Postavi svog agenta →
           </a>
         </div>
       </div>
     </div>
   </main>
-
-  <script>
-    // Two agents demo
-    document.getElementById('create-two-agents')?.addEventListener('click', function() {
-      const name1 = (document.getElementById('agent1-name') as HTMLInputElement)?.value || 'Agent 1';
-      const name2 = (document.getElementById('agent2-name') as HTMLInputElement)?.value || 'Agent 2';
-      const task1 = (document.getElementById('agent1-task') as HTMLSelectElement)?.value;
-      const task2 = (document.getElementById('agent2-task') as HTMLSelectElement)?.value;
-      const time1 = (document.getElementById('agent1-time') as HTMLInputElement)?.value || '07:00';
-      const time2 = (document.getElementById('agent2-time') as HTMLInputElement)?.value || '07:30';
-      
-      const config = `# DVA AGENTA - Konfiguracija
-# Kreirano na tutorijal.hr
-
-agents:
-  - name: "${name1}"
-    task: "${task1}"
-    schedule: "${time1}"
-    notify: "telegram"
-    
-  - name: "${name2}"
-    task: "${task2}"
-    schedule: "${time2}"
-    notify: "telegram"
-    
-# Komunikacija između agenata:
-# - Agenti mogu dijeliti informacije
-# - Ako jedan nađe važno, obavještava drugog
-# - Zajedno daju kompletnu sliku`;
-      
-      const resultDiv = document.getElementById('two-agents-result');
-      const configPre = document.getElementById('two-agents-config');
-      
-      if (resultDiv && configPre) {
-        configPre.textContent = config;
-        resultDiv.classList.remove('hidden');
-      }
-    });
-  </script>
 </Layout>
