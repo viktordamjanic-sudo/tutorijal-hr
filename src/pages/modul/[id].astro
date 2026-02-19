@@ -115,15 +115,15 @@ if (!task) {
 
   <script is:inline>
     window.sendToAI = async function(btn) {
+      console.log('sendToAI called');
       const responseDiv = document.getElementById('ai-response');
       const responseContent = document.getElementById('response-content');
       const promptTextarea = document.getElementById('ai-prompt');
       const loginNotice = document.getElementById('login-notice');
       
-      if (!promptTextarea || !responseDiv || !responseContent) {
-        alert('Greška: Elementi nisu pronađeni');
-        return;
-      }
+      if (!promptTextarea) { alert('Greška: textarea nije pronađena'); return; }
+      if (!responseDiv) { alert('Greška: responseDiv nije pronađen'); return; }
+      if (!responseContent) { alert('Greška: responseContent nije pronađen'); return; }
       
       const prompt = promptTextarea.value.trim();
       if (!prompt) {
@@ -137,6 +137,7 @@ if (!task) {
       btn.textContent = 'AI razmišlja...';
       
       try {
+        console.log('Šaljem request...');
         const response = await fetch('/api/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -146,6 +147,8 @@ if (!task) {
           })
         });
         
+        console.log('Response status:', response.status);
+        
         if (response.status === 401) {
           if (loginNotice) loginNotice.classList.remove('hidden');
           btn.textContent = 'Pošalji AI-ju i vidi rješenje';
@@ -154,6 +157,7 @@ if (!task) {
         }
         
         const data = await response.json();
+        console.log('Response data:', data);
         
         if (!response.ok || data.error) {
           throw new Error(data.error || 'HTTP ' + response.status);
@@ -167,13 +171,6 @@ if (!task) {
         btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
         btn.classList.add('bg-green-600', 'hover:bg-green-700');
         
-        // Save progress
-        fetch('/api/progress', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ taskId: location.pathname.split('/').pop(), timeSpent: 5 })
-        }).catch(() => {});
-        
       } catch (error) {
         console.error('Error:', error);
         responseContent.innerHTML = '<span class="text-red-600">Greška: ' + (error.message || 'AI nije dostupan') + '</span>';
@@ -184,15 +181,5 @@ if (!task) {
         btn.classList.add('bg-orange-600');
       }
     };
-    
-    // Auto-attach for non-inline browsers
-    document.addEventListener('DOMContentLoaded', function() {
-      const btn = document.getElementById('send-to-ai');
-      if (btn && !btn._attached) {
-        btn._attached = true;
-        btn.addEventListener('click', function() { window.sendToAI(this); });
-        btn.addEventListener('touchend', function(e) { e.preventDefault(); window.sendToAI(this); });
-      }
-    });
   </script>
 </Layout>
