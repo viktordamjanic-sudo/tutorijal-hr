@@ -1,5 +1,5 @@
 // Convex mutations for modifying data
-import { mutation } from './_generated/server';
+import { mutation, query } from './_generated/server';
 import { v } from 'convex/values';
 
 // Create a new task (from AI generation)
@@ -210,8 +210,6 @@ export const toggleFavorite = mutation({
 });
 
 // Query for fetching user progress
-import { query } from './_generated/server';
-
 export const getUserProgress = query({
   args: {
     userId: v.string(),
