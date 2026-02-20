@@ -70,15 +70,30 @@ if (!task) {
         </h2>
         
         <SignedIn>
-          <div class="bg-slate-50 rounded-2xl p-5 mb-6 border border-slate-200 shadow-inner">
-            <label class="block text-sm font-bold text-slate-700 mb-3 tracking-wide uppercase">
-              Tvoj zadatak (možeš ga promijeniti!):
+          <div class="mb-4 flex items-center justify-between">
+            <h3 class="font-extrabold text-xl text-purple-700 font-['Outfit']">Tvoj zadatak: Napiši savršen prompt! 🎯</h3>
+          </div>
+          
+          <div class="bg-purple-50 rounded-2xl p-6 mb-6 border-2 border-purple-200 border-dashed relative group focus-within:border-solid focus-within:border-purple-400 focus-within:ring-4 focus-within:ring-purple-100 transition-all">
+            <div class="absolute -top-4 -right-4 bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg animate-bounce z-10">
+              <span class="text-xl">✍️</span>
+            </div>
+            
+            <label for="ai-prompt" class="block text-sm font-bold text-purple-800 mb-2 tracking-wide">
+              Ovo je tvoja radna ploča. Što ćeš točno reći umjetnoj inteligenciji da ti pomogne riješiti problem?
             </label>
+            
             <textarea
               id="ai-prompt"
-              class="w-full p-5 border-2 border-slate-200 rounded-xl font-mono text-slate-700 text-base focus:border-purple-400 focus:ring focus:ring-purple-200 transition-all outline-none resize-none leading-relaxed"
+              class="w-full p-4 bg-white/80 backdrop-blur border-0 rounded-xl font-mono text-slate-800 text-lg focus:ring-0 transition-all outline-none resize-y leading-relaxed shadow-sm min-h-[120px]"
               rows={4}
+              placeholder="Napiši svoj prompt ovdje..."
             >{task.aiPrompt}</textarea>
+            
+            <div class="mt-4 flex gap-3 text-sm text-purple-700 bg-purple-100/50 p-3 rounded-xl border border-purple-100">
+              <span class="text-xl">💡</span>
+              <p><strong>Savjet:</strong> AI je jako pametan, ali mu trebaš dati jasnu uputu (prompt). Probaj obrisati ovaj tekst gore i napisati ga svojim riječima! Što si precizniji, AI će ti dati bolji odgovor.</p>
+            </div>
           </div>
           
           <button
