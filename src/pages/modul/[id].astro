@@ -147,7 +147,7 @@ if (!task) {
       </div>
 
       <!-- Learning Point -->
-      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-[2rem] p-8 mb-8 border border-blue-100 shadow-sm relative overflow-hidden">
+      <div id="learning-point-section" class="hidden bg-gradient-to-r from-blue-50 to-indigo-50 rounded-[2rem] p-8 mb-8 border border-blue-100 shadow-sm relative overflow-hidden transition-all duration-500">
         <h2 class="font-extrabold text-2xl mb-3 text-blue-900 font-['Outfit'] flex items-center gap-3">
           <span>💡</span> Što smo naučili?
         </h2>
@@ -174,11 +174,13 @@ if (!task) {
       const promptTextarea = document.getElementById('ai-prompt');
       const chatContainer = document.getElementById('chat-container');
       const loginNotice = document.getElementById('login-notice');
+      const learningPointSection = document.getElementById('learning-point-section');
       
       const prompt = promptTextarea.value.trim();
       if (!prompt) return; // do nothing if empty
       
       if (loginNotice) loginNotice.classList.add('hidden');
+      if (learningPointSection) learningPointSection.classList.add('hidden'); // Skrij pouku dok novi zahtjev traje
       
       // 1. Add User Bubble
       const userBubble = document.createElement('div');
@@ -237,11 +239,21 @@ if (!task) {
           <div class="bg-white border border-green-200 rounded-2xl p-4 md:p-5 text-slate-800 leading-relaxed max-w-[85%] shadow-sm whitespace-pre-wrap">${data.response}</div>
         `;
         
+        // Prikaži edukativnu poruku nakon uspješnog generiranja
+        if (learningPointSection) {
+          learningPointSection.classList.remove('hidden');
+        }
+        
       } catch (error) {
         aiBubble.innerHTML = `
           <div class="w-10 h-10 rounded-full bg-rose-500 flex items-center justify-center text-white text-xl shrink-0 shadow-md">❌</div>
           <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 md:p-5 text-rose-700 leading-relaxed max-w-[85%] shadow-sm">Greška: ${error.message || 'AI nije dostupan trenutno'}</div>
         `;
+        
+        // Prikaži pouku čak i kod pogreške, jer je dobar trenutak za refleksiju
+        if (learningPointSection) {
+           learningPointSection.classList.remove('hidden');
+        }
       } finally {
         btn.disabled = false;
         btn.innerHTML = `<svg class="w-5 h-5 group-hover:block transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19V5m0 0l-7 7m7-7l7 7"></path></svg>`;
