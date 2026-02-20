@@ -4,10 +4,60 @@ import type { APIRoute } from 'astro';
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || import.meta.env.OPENROUTER_API_KEY;
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-export const POST: APIRoute = async ({ request }) => {
-  console.log('API /generate called');
-  console.log('API Key exists:', !!OPENROUTER_API_KEY);
+// Basic in-memory rate limiter
+// Note: In a serverless environment like Vercel, this state is lost on cold starts
+// and isn't shared across multiple lambdas. However, it's highly effective at
+// preventing simple "spam clicking" bursts from a single user within an active instance at 0 cost.
+const rateLimitMap = new Map<string, { count: number; windowStart: number }>();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 5;
 
+function checkRateLimit(userId: string): boolean {
+  const now = Date.now();
+  let userRecord = rateLimitMap.get(userId);
+
+  if (!userRecord || now - userRecord.windowStart > RATE_LIMIT_WINDOW_MS) {
+    // Start a new window
+    rateLimitMap.set(userId, { count: 1, windowStart: now });
+    return true;
+  }
+
+  if (userRecord.count >= MAX_REQUESTS_PER_WINDOW) {
+    return false; // Rate limit exceeded
+  }
+
+  // Increment within current window
+  userRecord.count++;
+  rateLimitMap.set(userId, userRecord);
+  return true;
+}
+
+export const POST: APIRoute = async (context) => {
+  const { request, locals } = context;
+  console.log('API /generate called');
+
+  // 1. Authentication Check via Astro Locals
+  // @ts-ignore - Clerk locals might not be fully typed in the user's env.d.ts
+  const userId = locals.auth?.()?.userId;
+  if (!userId) {
+    console.warn('Unauthorized attempt to access /api/generate');
+    return new Response(
+      JSON.stringify({ error: 'Morate biti prijavljeni za korištenje AI asistenta.' }),
+      { status: 401, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  // 2. Rate Limiting Check
+  if (!checkRateLimit(userId)) {
+    console.warn(`Rate limit exceeded for user ${userId}`);
+    return new Response(
+      JSON.stringify({ error: 'Zbog zaštite, dozvoljeno je 5 poruka po minuti. Molimo pričekajte malo.' }),
+      { status: 429, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  // 3. Setup Check
+  console.log('API Key exists:', !!OPENROUTER_API_KEY);
   if (!OPENROUTER_API_KEY) {
     console.error('OpenRouter API key not found');
     return new Response(
@@ -28,8 +78,8 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    const { prompt, context } = body;
-    console.log('Received prompt:', prompt?.substring(0, 50));
+    const { prompt, context: taskContext } = body;
+    console.log(`Received prompt from ${userId}:`, prompt?.substring(0, 50));
 
     if (!prompt) {
       return new Response(
@@ -42,7 +92,7 @@ export const POST: APIRoute = async ({ request }) => {
     const systemMessage = `Ti si AI asistent u edukacijskoj platformi "AI Tutorijal" koja uči ljude kako koristiti AI asistente.
 
 Kontekst zadatka:
-${context || 'Korisnik želi naučiti kako efikasno koristiti AI asistenta za rješavanje stvarnog problema.'}
+${taskContext || 'Korisnik želi naučiti kako efikasno koristiti AI asistenta za rješavanje stvarnog problema.'}
 
 Upute:
 - Budi pristupačan i koristan

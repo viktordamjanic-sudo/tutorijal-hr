@@ -2,56 +2,73 @@
 // Hero Section Component
 ---
 
-<section class="relative py-20 px-4 overflow-hidden">
-  <!-- Background decoration -->
-  <div class="absolute inset-0 bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 opacity-50"></div>
-  <div class="absolute top-20 right-10 text-6xl opacity-20 animate-bounce">🤖</div>
-  <div class="absolute bottom-20 left-10 text-5xl opacity-20 animate-pulse">✨</div>
+<section class="relative pt-32 pb-24 px-4 overflow-hidden min-h-[90vh] flex flex-col justify-center">
+  <!-- Dynamic Animated Background Decorators -->
+  <div class="absolute inset-0 bg-[#FAFAFF] -z-20"></div>
   
-  <div class="relative max-w-4xl mx-auto text-center">
-    <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm mb-6">
-      <span class="animate-pulse w-2 h-2 bg-green-500 rounded-full"></span>
-      <span class="text-sm text-gray-600">Živo generirani zadaci iz današnjih vijesti</span>
+  <!-- Blobs -->
+  <div class="absolute top-0 -left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-blob -z-10"></div>
+  <div class="absolute top-0 -right-10 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-blob animation-delay-2000 -z-10"></div>
+  <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-blob animation-delay-4000 -z-10"></div>
+  
+  <!-- Floating Emojis -->
+  <div class="absolute top-32 right-[15%] text-6xl opacity-40 animate-float hidden md:block">🤖</div>
+  <div class="absolute bottom-32 left-[15%] text-5xl opacity-40 animate-float hidden md:block" style="animation-delay: 2s;">✨</div>
+  <div class="absolute top-40 left-[20%] text-4xl opacity-40 animate-float hidden md:block" style="animation-delay: 1s;">💡</div>
+  
+  <div class="relative max-w-5xl mx-auto text-center z-10">
+    <!-- Live Indicator Badge -->
+    <div class="inline-flex items-center gap-3 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-full shadow-sm border border-slate-100 mb-8 transform hover:scale-105 transition-transform cursor-default">
+      <span class="relative flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+      </span>
+      <span class="text-sm font-semibold text-slate-700 tracking-wide">Stvarni zadaci iz vijesti</span>
     </div>
     
-    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+    <!-- Main Headline - using Outfit font -->
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-slate-900 mb-8 leading-[1.1] tracking-tight font-['Outfit']">
       Nauči AI riješiti
-      <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-        stvarne probleme
+      <br class="hidden md:block" />
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 drop-shadow-sm pb-2">
+        tvoje probleme
       </span>
     </h1>
     
-    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-      Od parkinga do padeža — otkrij kako AI može pomoći u svakodnevnom životu.
-      <span class="font-medium text-blue-600">Zabavno, praktično, za sve uzraste.</span>
+    <!-- Subtitle - using Nunito -->
+    <p class="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto font-['Nunito'] leading-relaxed">
+      Od parkinga do padeža — otkrij kako AI može pomoći tebi ili tvojoj obitelji u svakodnevnom životu.
+      <br class="hidden md:block"/>
+      <span class="font-bold text-purple-600 block mt-2">Zabavno, jednostavno i sigurno za sve!</span>
     </p>
     
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    <!-- CTA Buttons with glassmorphism and lift effects -->
+    <div class="flex flex-col sm:flex-row gap-5 justify-center mt-4">
       <a
         href="#moduli"
-        class="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl"
+        class="inline-flex items-center justify-center gap-3 bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold text-lg lg:text-xl hover:bg-purple-600 transition-all shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(147,51,234,0.3)] hover:-translate-y-1"
       >
-        🚀 Započni učenje
+        🚀 Započni avanturu
       </a>
       
       <a
         href="#kako-radi"
-        class="inline-flex items-center justify-center gap-2 bg-white text-gray-700 px-8 py-4 rounded-xl font-semibold border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 transition"
+        class="inline-flex items-center justify-center gap-3 bg-white/60 backdrop-blur-sm text-slate-700 px-10 py-5 rounded-2xl font-bold text-lg lg:text-xl border-2 border-slate-200 hover:border-purple-400 hover:text-purple-600 transition-all hover:bg-white hover:-translate-y-1"
       >
-        🎮 Kako funkcionira?
+        🎮 Kako igramo?
       </a>
     </div>
     
-    <!-- Stats -->
-    <div class="grid grid-cols-3 gap-8 mt-16 max-w-lg mx-auto">
+    <!-- Stats Row -->
+    <div class="grid grid-cols-3 gap-4 md:gap-8 mt-20 max-w-2xl mx-auto pt-10 border-t border-slate-200/60">
       {[
-        { number: '5+', label: 'Interaktivnih modula' },
-        { number: '∞', label: 'Svježih zadataka' },
-        { number: '0€', label: 'Besplatno za uvijek' },
+        { number: '5+', label: 'Zabavnih modula' },
+        { number: '∞', label: 'Stvarnih zadataka' },
+        { number: '0€', label: 'Zauvijek besplatno' },
       ].map(stat => (
-        <div class="text-center">
-          <div class="text-3xl font-bold text-blue-600">{stat.number}</div>
-          <div class="text-sm text-gray-500">{stat.label}</div>
+        <div class="text-center group">
+          <div class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-600 group-hover:scale-110 transition-transform font-['Outfit']">{stat.number}</div>
+          <div class="text-sm md:text-base font-semibold text-slate-500 mt-2 font-['Nunito']">{stat.label}</div>
         </div>
       ))}
     </div>
