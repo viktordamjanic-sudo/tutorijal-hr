@@ -32,9 +32,13 @@ git push -u origin main
 4. **Framework Preset**: Astro
 5. **Build Command**: `npm run build`
 6. **Output Directory**: `dist`
-7. U **Environment Variables** dodaj:
+7. U **Environment Variables** (Vercel Settings -> Environment Variables) OBAVEZNO dodaj:
    - `PUBLIC_CONVEX_URL` = `https://efficient-antelope-653.convex.cloud`
-8. Klikni **Deploy**
+   - `PUBLIC_CLERK_PUBLISHABLE_KEY` = (tvoj Clerk Publishable Key, kreće s pk_test ili pk_live)
+   - `CLERK_SECRET_KEY` = (tvoj Clerk Secret Key, kreće s sk_test ili sk_live)
+   - `PUBLIC_CLERK_SIGN_IN_URL` = `/sign-in`
+   - `PUBLIC_CLERK_SIGN_UP_URL` = `/sign-up`
+8. Odi na karticu **Deployments** u Vercelu i napravi **Redeploy** da server povuče nove ključeve.
 
 ## ✅ Gotovo!
 

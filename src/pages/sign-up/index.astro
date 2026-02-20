@@ -21,7 +21,8 @@ import { SignUp } from '@clerk/astro/components';
         <SignUp 
           routing="path" 
           path="/sign-up"
-          redirectUrl="/profil"
+          fallbackRedirectUrl="/profil"
+          forceRedirectUrl="/profil"
           appearance={{
             elements: {
               formButtonPrimary: 'bg-green-600 hover:bg-green-700',
