@@ -15,6 +15,11 @@ export default {
         'mesh-2': 'mesh-2 20s ease-in-out infinite alternate',
         'mesh-3': 'mesh-3 18s ease-in-out infinite alternate',
       },
+      boxShadow: {
+        'brutal-sm': '2px 2px 0px 0px rgba(0,0,0,1)',
+        'brutal': '4px 4px 0px 0px rgba(0,0,0,1)',
+        'brutal-lg': '8px 8px 0px 0px rgba(0,0,0,1)',
+      },
       keyframes: {
         blob: {
           '0%': { transform: 'translate(0px, 0px) scale(1)' },

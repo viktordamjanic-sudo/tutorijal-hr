@@ -13,33 +13,30 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
     <Hero />
     
     <!-- Live AI-Generated Tasks from News -->
-    <section class="py-16 px-4 relative overflow-hidden bg-[#0a0a0c] border-t border-white/5 z-20">
+    <section class="py-16 px-4 relative overflow-hidden bg-[#8CFF98] border-b-8 border-black z-20">
       <div class="max-w-6xl mx-auto relative z-10">
-        <div class="flex items-center gap-4 mb-4 justify-center md:justify-start">
-          <span class="relative flex h-3 w-3">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"></span>
-          </span>
-          <h2 class="text-3xl font-bold text-slate-100 font-['Outfit'] tracking-tight">Stvarni zadaci iz vijesti</h2>
+        <div class="flex items-center gap-4 mb-6 justify-center md:justify-start">
+          <div class="w-6 h-6 bg-[#FF4911] border-4 border-black shadow-[2px_2px_0px_#000]"></div>
+          <h2 class="text-4xl md:text-5xl font-black text-black uppercase tracking-tighter">Stvarni zadaci iz vijesti</h2>
         </div>
-        <p class="text-slate-400 mb-10 max-w-3xl text-lg font-['Nunito'] text-center md:text-left leading-relaxed">
-          Zadaci se učitavaju istog trena iz naše baze podataka. 
-          <span class="text-indigo-400 font-semibold underline decoration-white/20 underline-offset-4">Zajedno rješavamo današnje probleme!</span>
+        <p class="text-black mb-10 max-w-3xl text-xl font-bold bg-white p-4 border-4 border-black text-center md:text-left shadow-[4px_4px_0px_#000]">
+          Zadaci se učitavaju istog trena iz naše baze. 
+          <span class="bg-[#FFDF00] px-2 border-2 border-black inline-block mt-2 font-black uppercase tracking-widest">Zajedno rješavamo današnje probleme!</span>
         </p>
         
-        <div class="bg-[#050508] border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.5)] p-2 md:p-6 overflow-hidden relative">
+        <div class="bg-white border-4 border-black shadow-[8px_8px_0px_#000] p-4 md:p-8 overflow-hidden relative">
           <LiveFeedConvex client:only="react" />
         </div>
       </div>
     </section>
 
     <!-- Core Learning Modules -->
-    <section class="py-16 px-4 bg-[#0a0a0c] relative border-t border-white/5">
+    <section class="py-24 px-4 bg-[#F4F4F0] relative border-b-8 border-black">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
-          <span class="inline-block px-4 py-1.5 border border-white/20 text-slate-300 text-xs font-bold tracking-[0.2em] uppercase mb-4 font-mono">Zabavno učenje</span>
-          <h2 class="text-4xl md:text-5xl font-bold text-slate-100 mb-6 font-['Outfit'] tracking-tight">Izaberi svoju avanturu</h2>
-          <p class="text-slate-400 text-xl max-w-2xl mx-auto font-['Nunito'] leading-relaxed">
+          <span class="inline-block px-4 py-2 bg-black text-white text-sm font-black tracking-[0.2em] uppercase mb-6 shadow-[4px_4px_0px_#FFDF00]">Zabavno učenje</span>
+          <h2 class="text-5xl md:text-7xl font-black text-black mb-8 uppercase tracking-tighter">Izaberi svoju avanturu</h2>
+          <p class="text-black text-xl font-bold bg-white p-6 border-4 border-black max-w-3xl mx-auto shadow-[4px_4px_0px_#000]">
             Svaki modul rješava jedan stvaran izazov. Od parkinga do padeža — 
             otkrij kako ti AI može biti najbolji pomoćnik!
           </p>
@@ -50,31 +47,31 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
     </section>
 
     <!-- Course Section -->
-    <section class="py-24 px-4 bg-[#050508] text-white relative overflow-hidden border-y border-white/5">
+    <section class="py-24 px-4 bg-[#FFE5F1] text-black relative overflow-hidden border-b-8 border-black">
       <div class="max-w-6xl mx-auto relative z-10">
         <div class="text-center mb-16">
-          <span class="inline-block px-4 py-1.5 border border-white/20 bg-white/5 text-slate-300 text-xs font-bold tracking-[0.2em] uppercase mb-6 backdrop-blur-sm">Napredni Koncepti</span>
-          <h2 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 mb-6 font-['Outfit'] tracking-tight">Moćni AI Agenti</h2>
-          <p class="text-slate-400 text-xl max-w-2xl mx-auto font-['Nunito'] leading-[1.7]">
+          <span class="inline-block px-4 py-2 border-4 border-black bg-white text-black text-sm font-black tracking-widest uppercase mb-6 shadow-[4px_4px_0px_#000]">Napredni Koncepti</span>
+          <h2 class="text-6xl md:text-8xl font-black text-black mb-8 uppercase tracking-tighter drop-shadow-[4px_4px_0px_#fff]">Moćni AI Agenti</h2>
+          <p class="text-black text-xl font-bold bg-white p-6 border-4 border-black max-w-3xl mx-auto shadow-[4px_4px_0px_#000]">
             Spreman za sljedeći korak? Nauči kako stvoriti vlastite AI radnike koji će umjesto tebe obavljati dosadne zadatke.
           </p>
         </div>
         
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
           {[
-            { num: 1, title: "Prvi koraci", icon: "🚀", color: "white" },
-            { num: 2, title: "Tvoj tim", icon: "👥", color: "indigo" },
-            { num: 3, title: "Pametno suđenje", icon: "⚖️", color: "blue" },
-            { num: 4, title: "Supermoći", icon: "🧰", color: "purple" },
-            { num: 5, title: "Konačna magija", icon: "🎉", color: "fuchsia" },
+            { num: 1, title: "Prvi koraci", icon: "🚀" },
+            { num: 2, title: "Tvoj tim", icon: "👥" },
+            { num: 3, title: "Suđenje", icon: "⚖️" },
+            { num: 4, title: "Supermoći", icon: "🧰" },
+            { num: 5, title: "Magija", icon: "🎉" },
           ].map((lesson, i) => (
             <a 
               href={`/lekcija/${lesson.num}`}
-              class={`bg-[#0a0a0c] p-6 border border-white/10 hover:border-white/30 hover:bg-white/5 transition-all duration-300 group`}
+              class="bg-white p-6 border-4 border-black shadow-[4px_4px_0px_#000] hover:shadow-[8px_8px_0px_#000] hover:-translate-y-2 hover:bg-[#FFDF00] transition-all group flex flex-col items-center text-center"
             >
-              <div class="text-3xl mb-4 text-slate-400 group-hover:text-white transition-colors">{lesson.icon}</div>
-              <div class={`text-[10px] font-mono text-slate-500 mb-2 tracking-[0.2em] uppercase`}>Nivo {lesson.num}</div>
-              <div class="font-bold text-lg text-slate-200 group-hover:text-white transition-colors font-['Outfit']">
+              <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">{lesson.icon}</div>
+              <div class="bg-black text-white px-2 py-0.5 text-xs font-black uppercase mb-3">Nivo {lesson.num}</div>
+              <div class="font-black text-xl text-black uppercase tracking-tight">
                 {lesson.title}
               </div>
             </a>
@@ -85,7 +82,7 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
           <SignedIn>
             <a 
               href="/lekcija/1" 
-              class="inline-flex items-center justify-center gap-3 bg-white text-slate-900 px-10 py-5 rounded-2xl font-bold text-lg lg:text-xl shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:-translate-y-1 transition-all duration-300 transform"
+              class="inline-flex items-center justify-center gap-3 bg-[#FF4911] text-white px-10 py-6 border-4 border-black font-black text-2xl uppercase shadow-[8px_8px_0px_#000] hover:translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all"
             >
               🚀 Nastavi rad u terminalu
             </a>
@@ -93,86 +90,83 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
           <SignedOut>
             <a 
               href="/sign-up" 
-              class="inline-flex items-center justify-center gap-3 bg-white text-slate-900 px-10 py-5 rounded-2xl font-bold text-lg lg:text-xl shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:-translate-y-1 transition-all duration-300 transform"
+              class="inline-flex items-center justify-center gap-3 bg-white text-black px-10 py-6 border-4 border-black font-black text-2xl uppercase shadow-[8px_8px_0px_#000] hover:bg-[#8CFF98] hover:translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all"
             >
               🚀 Otključaj napredne alate
             </a>
-            <p class="mt-6 text-slate-400 font-medium">
-              Imaš pristup? <a href="/sign-in" class="text-indigo-400 hover:text-indigo-300 font-bold hover:underline decoration-2 underline-offset-4 transition-colors">Prijavi se ovdje</a>
+            <p class="mt-8 text-black font-black text-lg bg-white inline-block px-4 py-2 border-4 border-black shadow-[4px_4px_0px_#000]">
+              Imaš pristup? <a href="/sign-in" class="text-[#FF4911] hover:text-black hover:underline decoration-4 transition-colors">Prijavi se ovdje</a>
             </p>
           </SignedOut>
-          <SignedIn>
-            <a 
-              href="/lekcija/1" 
-              class="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-10 py-5 rounded-2xl font-bold text-lg lg:text-xl shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:shadow-[0_8px_30px_rgba(236,72,153,0.5)] hover:-translate-y-1 transition-all"
-            >
-              🚀 Nastavi tamo gdje si stao
-            </a>
-          </SignedIn>
         </div>
       </div>
     </section>
 
-    <!-- How It Works (Dark Studio style) -->
-    <section class="py-24 px-4 bg-[#0a0a0c] relative overflow-hidden border-b border-white/5">
-      <div class="max-w-5xl mx-auto text-center relative z-10">
-        <h2 class="text-4xl md:text-5xl font-bold mb-16 font-['Outfit'] tracking-tight text-white">Način rada <span class="text-slate-500 tracking-normal font-mono text-2xl mix-blend-screen">// SYS_FLOW</span></h2>
-        <div class="grid md:grid-cols-4 gap-4 md:gap-6">
+    <!-- How It Works (Brutalist blocks) -->
+    <section class="py-24 px-4 bg-[#FF4911] relative overflow-hidden border-b-8 border-black">
+      <div class="max-w-6xl mx-auto text-center relative z-10 w-full">
+        <h2 class="text-6xl md:text-8xl font-black text-white mb-16 uppercase tracking-tighter drop-shadow-[4px_4px_0px_#000]">
+          Način rada <span class="bg-black text-white px-4 border-4 border-white inline-block mt-4 md:mt-0 tracking-widest text-3xl">SYS_FLOW</span>
+        </h2>
+        
+        <div class="grid md:grid-cols-4 gap-6">
           {[
-            { tag: 'SYS.01', title: 'Problem', desc: 'Identificiraj izazov iz stvarnog svijeta' },
-            { tag: 'SYS.02', title: 'Kontekst', desc: 'Analiziraj kako stručnjaci pristupaju zadatku' },
-            { tag: 'SYS.03', title: 'Izvršenje', desc: 'Upotrijebi AI terminal za rješavanje' },
-            { tag: 'SYS.04', title: 'Memorija', desc: 'Spremi proces za buduće ponavljanje' }
+            { tag: 'KORAK 1', title: 'Problem', desc: 'Identificiraj izazov iz stvarnog svijeta' },
+            { tag: 'KORAK 2', title: 'Kontekst', desc: 'Analiziraj kako stručnjaci pristupaju zadatku' },
+            { tag: 'KORAK 3', title: 'Izvršenje', desc: 'Upotrijebi AI terminal za rješavanje' },
+            { tag: 'KORAK 4', title: 'Memorija', desc: 'Spremi proces za buduće ponavljanje' }
           ].map((step) => (
-            <div class={`bg-[#050508] p-6 border border-white/10 hover:border-white/30 transition-colors text-left group`}>
-              <div class="font-mono text-[10px] text-indigo-400 mb-4 tracking-[0.2em]">{step.tag}</div>
-              <h3 class="font-bold text-xl mb-2 text-slate-200 font-['Outfit'] tracking-tight">{step.title}</h3>
-              <p class="text-slate-500 font-['Nunito'] leading-relaxed text-sm">{step.desc}</p>
+            <div class="bg-white border-4 border-black p-8 shadow-[8px_8px_0px_#000] text-left hover:-translate-y-2 hover:shadow-[12px_12px_0px_#000] hover:bg-[#FFDF00] transition-all group flex flex-col">
+              <div class="bg-black text-white self-start px-3 py-1 font-black text-xs uppercase mb-6 border-2 border-black group-hover:bg-[#FF4911] group-hover:text-black group-hover:border-white transition-colors">{step.tag}</div>
+              <h3 class="font-black text-3xl text-black mb-4 uppercase tracking-tighter">{step.title}</h3>
+              <p class="text-black font-bold text-lg leading-relaxed border-t-4 border-black pt-4 mt-auto">{step.desc}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- For Everyone (Dark Mode variant) -->
-    <section class="py-24 px-4 bg-[#050508]">
-      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-6 relative z-10">
+    <!-- For Everyone (Neo-brutalist) -->
+    <section class="py-24 px-4 bg-white pb-32">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 relative z-10">
         <!-- For Seniors -->
-        <div class="bg-[#0a0a0c] p-10 border border-white/5 hover:border-white/20 transition-colors">
-          <div class="font-mono text-[10px] tracking-[0.2em] text-amber-500 mb-6 uppercase">Pristupačnost</div>
-          <h3 class="text-3xl font-bold mb-6 text-white font-['Outfit']">Prijateljsko za starije</h3>
-          <ul class="space-y-4 text-slate-400 font-['Nunito'] text-base">
-            <li class="flex items-center gap-4">
-              <span class="text-amber-500 font-bold">✓</span> Velika slova i jasnije boje
+        <div class="bg-[#FFE5F1] p-10 lg:p-14 border-4 border-black shadow-[12px_12px_0px_#000] relative">
+          <div class="absolute -top-6 -left-6 w-16 h-16 bg-[#FFDF00] border-4 border-black shadow-[4px_4px_0px_#000] flex items-center justify-center text-3xl">👴</div>
+          <div class="bg-black text-white inline-block px-3 py-1 font-black text-sm uppercase tracking-widest mb-8">Pristupačnost</div>
+          <h3 class="text-4xl md:text-5xl font-black mb-10 text-black uppercase tracking-tighter">Prijateljsko za starije</h3>
+          <ul class="space-y-6 text-black font-bold text-xl">
+            <li class="flex items-start gap-4">
+              <span class="text-3xl mt-[-4px]">✓</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Velika slova i jasnije boje</span>
             </li>
-            <li class="flex items-center gap-4">
-              <span class="text-amber-500 font-bold">✓</span> Glasovna pomoć (AI čita naglas)
+            <li class="flex items-start gap-4">
+              <span class="text-3xl mt-[-4px]">✓</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Glasovna pomoć (AI čita naglas)</span>
             </li>
-            <li class="flex items-center gap-4">
-              <span class="text-amber-500 font-bold">✓</span> Bez teških engleskih riječi
+            <li class="flex items-start gap-4">
+              <span class="text-3xl mt-[-4px]">✓</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Bez teških engleskih riječi</span>
             </li>
-            <li class="flex items-center gap-4">
-              <span class="text-amber-500 font-bold">✓</span> Situacije iz stvarnog života
+            <li class="flex items-start gap-4">
+              <span class="text-3xl mt-[-4px]">✓</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Situacije iz stvarnog života</span>
             </li>
           </ul>
         </div>
 
         <!-- For Kids -->
-        <div class="bg-[#0a0a0c] p-10 border border-white/5 hover:border-white/20 transition-colors">
-          <div class="font-mono text-[10px] tracking-[0.2em] text-emerald-500 mb-6 uppercase">Edukacija</div>
-          <h3 class="text-3xl font-bold mb-6 text-white font-['Outfit']">Zabavno za mlađe</h3>
-          <ul class="space-y-4 text-slate-400 font-['Nunito'] text-base">
-            <li class="flex items-center gap-4">
-              <span class="text-emerald-500 font-bold">★</span> Slatke ilustracije i animacije
+        <div class="bg-[#8CFF98] p-10 lg:p-14 border-4 border-black shadow-[12px_12px_0px_#000] relative mt-12 md:mt-0">
+          <div class="absolute -top-6 -left-6 w-16 h-16 bg-[#FF4911] border-4 border-black shadow-[4px_4px_0px_#000] flex items-center justify-center text-3xl text-white">👦</div>
+          <div class="bg-black text-white inline-block px-3 py-1 font-black text-sm uppercase tracking-widest mb-8">Edukacija</div>
+          <h3 class="text-4xl md:text-5xl font-black mb-10 text-black uppercase tracking-tighter">Zabavno za mlađe</h3>
+          <ul class="space-y-6 text-black font-bold text-xl">
+            <li class="flex items-start gap-4">
+              <span class="text-3xl mt-[-4px]">★</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Šarene ilustracije</span>
             </li>
-            <li class="flex items-center gap-4">
-              <span class="text-emerald-500 font-bold">★</span> Sakupljanje bodova i pehara
+            <li class="flex items-start gap-4">
+              <span class="text-3xl mt-[-4px]">★</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Sakupljanje bodova i pehara</span>
             </li>
-            <li class="flex items-center gap-4">
-              <span class="text-emerald-500 font-bold">★</span> Kratke misije (gotove za 2 min)
+            <li class="flex items-start gap-4">
+              <span class="text-3xl mt-[-4px]">★</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Kratke misije (za 2 min)</span>
             </li>
-            <li class="flex items-center gap-4">
-              <span class="text-emerald-500 font-bold">★</span> Školska gradiva kroz igru
+            <li class="flex items-start gap-4">
+              <span class="text-3xl mt-[-4px]">★</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Školska gradiva kroz igru</span>
             </li>
           </ul>
         </div>

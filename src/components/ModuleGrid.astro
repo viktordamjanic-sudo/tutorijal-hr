@@ -13,9 +13,9 @@ const tasksWithPaths: TaskWithPath[] = PREDEFINED_TASKS.map(task => ({
 }));
 
 const audienceStyles: Record<string, { bg: string; text: string; label: string }> = {
-  kids: { bg: 'bg-emerald-500/10', text: 'text-emerald-400', label: 'SYS_EDU' },
-  seniors: { bg: 'bg-amber-500/10', text: 'text-amber-400', label: 'SYS_ACC' },
-  all: { bg: 'bg-indigo-500/10', text: 'text-indigo-400', label: 'SYS_GEN' },
+  kids: { bg: 'bg-[#8CFF98]', text: 'text-black', label: 'SYS_EDU' },
+  seniors: { bg: 'bg-[#FFE5F1]', text: 'text-black', label: 'SYS_ACC' },
+  all: { bg: 'bg-[#FFDF00]', text: 'text-black', label: 'SYS_GEN' },
 };
 ---
 
@@ -26,32 +26,32 @@ const audienceStyles: Record<string, { bg: string; text: string; label: string }
     return (
       <a
         href={task.path}
-        class="group relative bg-[#050508] p-8 border border-white/10 hover:border-white/30 hover:bg-white/5 transition-all duration-300 hover:-translate-y-1 block"
+        class="group relative bg-white p-8 border-4 border-black shadow-[4px_4px_0px_#000] hover:shadow-[8px_8px_0px_#000] hover:-translate-y-2 hover:bg-[#F4F4F0] transition-all block flex flex-col h-full"
       >
-        <div class="flex items-start justify-between mb-6 relative z-10">
-          <div class="text-3xl text-slate-400 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+        <div class="flex items-start justify-between mb-8 relative z-10 w-full">
+          <div class="text-5xl group-hover:scale-110 transition-transform">
             {task.icon}
           </div>
-          <span class={`text-[10px] font-mono tracking-[0.2em] px-3 py-1.5 border border-white/5 ${style.bg} ${style.text}`}>
+          <span class={`text-xs font-black uppercase tracking-widest px-3 py-1.5 border-2 border-black ${style.bg} ${style.text} shadow-[2px_2px_0px_#000]`}>
             {style.label}
           </span>
         </div>
         
-        <h3 class="font-bold text-2xl text-slate-200 mb-3 group-hover:text-white transition-colors font-['Outfit'] relative z-10 tracking-tight">
+        <h3 class="font-black text-2xl text-black mb-4 uppercase tracking-tighter">
           {task.title}
         </h3>
         
-        <p class="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed font-['Nunito'] relative z-10">
+        <p class="text-black font-bold text-base mb-8 line-clamp-2 leading-relaxed flex-grow">
           {task.scenario}
         </p>
         
-        <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5 relative z-10">
-          <span class="text-[10px] font-mono text-slate-500 tracking-wider truncate pr-4 uppercase">
+        <div class="flex items-center justify-between mt-auto pt-6 border-t-4 border-black relative z-10">
+          <span class="text-xs font-black text-black tracking-widest truncate pr-4 uppercase">
             // {task.learningPoint?.substring(0, 35)}...
           </span>
           
-          <div class="text-slate-600 group-hover:text-white transition-colors">
-            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          <div class="text-black group-hover:bg-[#FF4911] group-hover:text-white border-2 border-transparent group-hover:border-black p-1 transition-colors">
+            <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
           </div>
         </div>
       </a>
@@ -60,23 +60,20 @@ const audienceStyles: Record<string, { bg: string; text: string; label: string }
 </div>
 
 <!-- Coming Soon Teaser -->
-<div class="mt-16 relative overflow-hidden bg-[#0a0a0c] border border-white/10 p-10 md:p-14 text-center">
-  <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full mix-blend-screen filter blur-3xl"></div>
-  <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full mix-blend-screen filter blur-3xl"></div>
-  
+<div class="mt-16 bg-[#FF4911] border-4 border-black p-10 md:p-14 text-center shadow-[12px_12px_0px_#000]">
   <div class="relative z-10 max-w-2xl mx-auto">
-    <div class="inline-flex items-center justify-center w-16 h-16 border border-white/10 bg-white/5 text-slate-300 mb-8 font-mono text-sm tracking-widest">
+    <div class="inline-flex items-center justify-center px-4 py-2 border-4 border-black bg-white text-black mb-8 font-black text-xl tracking-widest uppercase shadow-[4px_4px_0px_#000]">
       SYS_UP
     </div>
-    <h3 class="font-bold text-3xl md:text-4xl mb-4 text-white font-['Outfit'] tracking-tight">Sustav u razvoju</h3>
-    <p class="text-slate-400 text-lg md:text-xl mb-8 font-['Nunito'] leading-relaxed">
+    <h3 class="font-black text-4xl md:text-5xl mb-6 text-white uppercase tracking-tighter drop-shadow-[4px_4px_0px_#000]">Sustav u razvoju</h3>
+    <p class="text-white text-xl font-bold mb-10 leading-relaxed max-w-xl mx-auto">
       AI kontinuirano generira nove module na temelju globalne analize podataka. Procesiranje novih sektora u tijeku.
     </p>
     
-    <div class="flex flex-wrap gap-3 justify-center">
-      {['[ JEZIK ]', '[ FINANCIJE ]', '[ LOGISTIKA ]', '[ ZDRAVLJE ]', '[ KREATIVA ]'].map(tag => (
-        <span class="bg-transparent border border-white/10 px-4 py-2 font-mono text-[10px] tracking-[0.2em] text-slate-500 cursor-default hover:text-white hover:border-white/30 transition-colors">
-          {tag}
+    <div class="flex flex-wrap gap-4 justify-center">
+      {['JEZIK', 'FINANCIJE', 'LOGISTIKA', 'ZDRAVLJE', 'KREATIVA'].map(tag => (
+        <span class="bg-black text-white border-2 border-white px-4 py-2 font-black text-xs uppercase tracking-widest hover:bg-white hover:text-black hover:border-black transition-colors shadow-[2px_2px_0px_#fff]">
+          [{tag}]
         </span>
       ))}
     </div>
