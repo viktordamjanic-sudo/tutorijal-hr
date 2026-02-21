@@ -7,10 +7,13 @@ export default {
         sans: ['"Outfit"', '"Nunito"', 'system-ui', 'sans-serif'],
       },
       animation: {
-        'blob': 'blob 7s infinite',
+        'blob': 'blob 10s infinite',
         'float': 'float 6s ease-in-out infinite',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'bounce-slow': 'bounce 3s infinite',
+        'mesh-1': 'mesh-1 15s ease-in-out infinite alternate',
+        'mesh-2': 'mesh-2 20s ease-in-out infinite alternate',
+        'mesh-3': 'mesh-3 18s ease-in-out infinite alternate',
       },
       keyframes: {
         blob: {
@@ -22,6 +25,18 @@ export default {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-20px)' },
+        },
+        'mesh-1': {
+          '0%': { transform: 'translate(0, 0) scale(1)' },
+          '100%': { transform: 'translate(10%, -10%) scale(1.1)' }
+        },
+        'mesh-2': {
+          '0%': { transform: 'translate(0, 0) scale(1.1)' },
+          '100%': { transform: 'translate(-10%, 10%) scale(1.2)' }
+        },
+        'mesh-3': {
+          '0%': { transform: 'translate(0, 0) scale(1.2)' },
+          '100%': { transform: 'translate(5%, 15%) scale(1.1)' }
         }
       }
     },

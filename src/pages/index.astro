@@ -9,33 +9,33 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
 ---
 
 <Layout title="AI Tutorijal - Nauči AI riješiti stvarne probleme">
-  <main class="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+  <main class="min-h-screen bg-[#0a0a0c] selection:bg-indigo-500/30">
     <Hero />
     
     <!-- Live AI-Generated Tasks from News -->
-    <section class="py-20 px-4 relative overflow-hidden">
+    <section class="py-20 px-4 relative overflow-hidden bg-white rounded-t-[3rem] shadow-[0_-20px_40px_rgba(0,0,0,0.2)] z-20">
       <div class="absolute inset-0 bg-white/60 backdrop-blur-3xl -z-10"></div>
       <div class="max-w-6xl mx-auto relative z-10">
         <div class="flex items-center gap-4 mb-4 justify-center md:justify-start">
-          <span class="animate-pulse flex h-4 w-4 relative">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-4 w-4 bg-green-500"></span>
+          <span class="relative flex h-4 w-4">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
           </span>
-          <h2 class="text-3xl font-bold text-slate-800 font-['Outfit']">Stvarni zadaci iz vijesti</h2>
+          <h2 class="text-3xl font-bold text-slate-900 font-['Outfit'] tracking-tight">Stvarni zadaci iz vijesti</h2>
         </div>
-        <p class="text-slate-600 mb-10 max-w-2xl text-lg font-['Nunito'] text-center md:text-left">
-          Zadaci se učitavaju istog trena iz naše baze podataka.
-          <span class="text-purple-600 font-bold">Zajedno rješavamo današnje probleme!</span>
+        <p class="text-slate-500 mb-10 max-w-3xl text-lg font-['Nunito'] text-center md:text-left leading-relaxed">
+          Zadaci se učitavaju istog trena iz naše baze podataka. 
+          <span class="text-indigo-600 font-semibold under">Zajedno rješavamo današnje probleme!</span>
         </p>
         
-        <div class="bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-xl border border-slate-100 p-2 md:p-6 overflow-hidden relative">
+        <div class="bg-slate-50 border border-slate-200/60 rounded-[2rem] shadow-sm p-2 md:p-6 overflow-hidden relative">
           <LiveFeedConvex client:only="react" />
         </div>
       </div>
     </section>
 
     <!-- Core Learning Modules -->
-    <section class="py-24 px-4 bg-slate-50 relative">
+    <section class="py-24 px-4 bg-white relative">
       <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
       
       <div class="max-w-6xl mx-auto">
@@ -53,15 +53,15 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
     </section>
 
     <!-- Course Section -->
-    <section class="py-24 px-4 bg-gradient-to-b from-purple-50/50 to-white relative overflow-hidden">
+    <section class="py-32 px-4 bg-[#0a0a0c] text-white relative overflow-hidden -mx-4 md:mx-0 md:rounded-[3rem] md:my-12 shadow-2xl">
       <!-- Decorative background -->
-      <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-purple-200/40 to-pink-200/40 rounded-full blur-3xl -z-10 animate-blob"></div>
+      <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-[100px] -z-10 animate-mesh-1"></div>
       
       <div class="max-w-6xl mx-auto relative z-10">
         <div class="text-center mb-16">
-          <span class="animate-bounce inline-block text-4xl mb-4">🎓</span>
-          <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 font-['Outfit']">Moćni AI Agenti</h2>
-          <p class="text-slate-600 text-xl max-w-2xl mx-auto font-['Nunito'] leading-relaxed">
+          <span class="inline-block px-4 py-1.5 rounded-full border border-white/20 bg-white/5 text-slate-300 text-xs font-bold tracking-[0.2em] uppercase mb-6 backdrop-blur-sm">Napredni Koncepti</span>
+          <h2 class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 mb-6 font-['Outfit'] tracking-tight">Moćni AI Agenti</h2>
+          <p class="text-slate-400 text-xl max-w-2xl mx-auto font-['Nunito'] leading-[1.7]">
             Spreman za sljedeći korak? Nauči kako stvoriti vlastite AI radnike koji će umjesto tebe obavljati dosadne zadatke.
           </p>
         </div>
@@ -89,15 +89,23 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
         </div>
         
         <div class="text-center mt-16">
+          <SignedIn>
+            <a 
+              href="/lekcija/1" 
+              class="inline-flex items-center justify-center gap-3 bg-white text-slate-900 px-10 py-5 rounded-2xl font-bold text-lg lg:text-xl shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:-translate-y-1 transition-all duration-300 transform"
+            >
+              🚀 Nastavi rad u terminalu
+            </a>
+          </SignedIn>
           <SignedOut>
             <a 
               href="/sign-up" 
-              class="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-10 py-5 rounded-2xl font-bold text-lg lg:text-xl shadow-[0_8px_30px_rgba(236,72,153,0.3)] hover:shadow-[0_8px_30px_rgba(236,72,153,0.5)] hover:-translate-y-1 transition-all"
+              class="inline-flex items-center justify-center gap-3 bg-white text-slate-900 px-10 py-5 rounded-2xl font-bold text-lg lg:text-xl shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:-translate-y-1 transition-all duration-300 transform"
             >
-              🌟 Nastavi edukaciju - Besplatno
+              🚀 Otključaj napredne alate
             </a>
-            <p class="mt-6 text-slate-500 font-medium">
-              Imaš pristup? <a href="/sign-in" class="text-purple-600 hover:text-purple-700 font-bold hover:underline decoration-2 underline-offset-4">Prijavi se ovdje</a>
+            <p class="mt-6 text-slate-400 font-medium">
+              Imaš pristup? <a href="/sign-in" class="text-indigo-400 hover:text-indigo-300 font-bold hover:underline decoration-2 underline-offset-4 transition-colors">Prijavi se ovdje</a>
             </p>
           </SignedOut>
           <SignedIn>
@@ -112,28 +120,28 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
       </div>
     </section>
 
-    <!-- How It Works -->
-    <section class="py-24 px-4 bg-slate-900 text-white relative overflow-hidden">
+    <!-- How It Works (Light sleek section) -->
+    <section class="py-24 px-4 bg-white relative overflow-hidden">
       <!-- Decorative background circles -->
       <div class="absolute top-0 right-0 w-[500px] h-[500px] border-[40px] border-slate-800 rounded-full blur-sm -mt-40 -mr-40 pointer-events-none"></div>
       <div class="absolute bottom-0 left-0 w-[400px] h-[400px] border-[30px] border-slate-800 rounded-full blur-sm -mb-20 -ml-20 pointer-events-none"></div>
       
       <div class="max-w-5xl mx-auto text-center relative z-10">
-        <h2 class="text-4xl md:text-5xl font-extrabold mb-16 font-['Outfit'] tracking-tight">Kroz igru do znanja 🎮</h2>
+        <h2 class="text-4xl md:text-5xl font-bold mb-16 font-['Outfit'] tracking-tight text-slate-900">Način rada ⚙️</h2>
         <div class="grid md:grid-cols-4 gap-6 md:gap-8">
           {[
-            { emoji: '🎯', title: 'Pogledaj', desc: 'Zabavan kratki video uvodi te u problem' },
-            { emoji: '🧠', title: 'Shvati', desc: 'Prati kako pametni AI pronalazi rješenje' },
-            { emoji: '💬', title: 'Isprobaj', desc: 'Unesi svoj problem i dobij pomoć odmah' },
-            { emoji: '🎁', title: 'Pobijedi', desc: 'Spremi rješenje i primijeni ga u životu' }
+            { emoji: '🎯', title: 'Problem', desc: 'Identificiraj izazov iz stvarnog svijeta' },
+            { emoji: '🧠', title: 'Kontekst', desc: 'Analiziraj kako stručnjaci pristupaju zadatku' },
+            { emoji: '💻', title: 'Izvršenje', desc: 'Upotrijebi AI terminal za rješavanje' },
+            { emoji: '⚙️', title: 'Automatizacija', desc: 'Spremi proces za buduće ponavljanje' }
           ].map((step, i) => (
-            <div class={`bg-slate-800/80 backdrop-blur-sm p-8 rounded-[2rem] border border-slate-700 hover:bg-slate-700/80 hover:-translate-y-2 transition-all duration-300 relative`}>
-              <div class="absolute -top-6 -left-6 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg border-4 border-slate-900 border-solid z-10">
-                {i + 1}
+            <div class={`bg-slate-50 p-8 rounded-[2rem] border border-slate-200/60 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative group`}>
+              <div class="absolute -top-6 -left-6 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-mono font-bold text-xl shadow-lg border-4 border-white border-solid z-10 group-hover:scale-110 transition-transform">
+                0{i + 1}
               </div>
-              <div class="text-6xl mb-6 transform hover:scale-110 hover:rotate-6 transition-transform inline-block">{step.emoji}</div>
-              <h3 class="font-bold text-2xl mb-3 text-white font-['Outfit']">{step.title}</h3>
-              <p class="text-slate-400 font-['Nunito'] leading-relaxed">{step.desc}</p>
+              <div class="text-5xl mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-transform inline-block drop-shadow-sm">{step.emoji}</div>
+              <h3 class="font-bold text-2xl mb-3 text-slate-800 font-['Outfit'] tracking-tight">{step.title}</h3>
+              <p class="text-slate-500 font-['Nunito'] leading-relaxed text-sm">{step.desc}</p>
             </div>
           ))}
         </div>
@@ -141,7 +149,7 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
     </section>
 
     <!-- For Everyone -->
-    <section class="py-24 px-4 bg-white relative">
+    <section class="py-24 px-4 bg-slate-50 border-t border-slate-200/50">
       <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 relative z-10">
         <!-- For Seniors -->
         <div class="bg-gradient-to-br from-orange-50 to-amber-50 p-10 md:p-14 rounded-[3rem] border border-orange-100 shadow-[0_20px_40px_rgba(251,146,60,0.05)] hover:shadow-[0_20px_40px_rgba(251,146,60,0.1)] transition-shadow">
