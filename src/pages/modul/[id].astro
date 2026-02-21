@@ -41,14 +41,14 @@ if (!task) {
         <!-- ============================================== -->
         <!-- LEFT PANE: CONTEXT (Dark Editor Sidebar)       -->
         <!-- ============================================== -->
-        <div class="w-full lg:w-[450px] xl:w-[500px] shrink-0 border-r border-white/5 bg-[#0a0a0c] flex flex-col h-[40vh] lg:h-full relative z-10">
+        <div class="w-full lg:w-[350px] xl:w-[450px] shrink-0 border-r border-white/10 bg-[#0a0a0c] flex flex-col h-[40vh] lg:h-full relative z-10 transition-all">
           
           <!-- Editor Tabs -->
-          <div class="flex border-b border-white/5 shrink-0 bg-[#0a0a0c]">
-            <div class="px-4 py-2.5 border-r border-transparent bg-white/5 text-slate-200 text-xs font-mono border-t-2 border-t-indigo-500 flex items-center gap-2">
+          <div class="flex border-b border-white/5 shrink-0 bg-[#0a0a0c] overflow-x-auto no-scrollbar">
+            <div class="px-5 py-3 border-r border-transparent bg-white/5 text-slate-200 text-xs font-mono border-t-2 border-t-indigo-500 flex items-center gap-2 whitespace-nowrap">
               <span class="text-indigo-400">#</span> instructions.md
             </div>
-            <div class="px-4 py-2.5 border-r border-white/5 text-slate-600 text-xs font-mono flex items-center gap-2 hover:bg-white/5 cursor-pointer transition-colors">
+            <div class="px-5 py-3 border-r border-white/5 text-slate-600 text-xs font-mono flex items-center gap-2 hover:bg-white/5 cursor-pointer transition-colors whitespace-nowrap">
               <span class="text-emerald-400">{}</span> config.json
             </div>
           </div>
@@ -69,24 +69,24 @@ if (!task) {
                 </span>
               </div>
               
-              <h1 class="text-3xl font-bold text-slate-100 mb-4 font-['Outfit'] tracking-tight leading-tight">
+              <h1 class="text-2xl xl:text-3xl font-bold text-slate-100 mb-4 font-['Outfit'] tracking-tight leading-tight">
                 {task.title}
               </h1>
               
-              <div class="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-200/90 text-[0.95rem] leading-rela">
-                <span class="font-mono text-xs text-indigo-400 block mb-2 opacity-70">// Context</span>
+              <div class="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-200/90 text-sm leading-relaxed">
+                <span class="font-mono text-[10px] font-bold tracking-widest uppercase text-indigo-400 block mb-2 opacity-70">// Context</span>
                 {task.scenario}
               </div>
             </div>
 
             <!-- The Problem Area -->
             <div>
-              <h2 class="font-mono text-xs text-pink-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <h2 class="font-mono text-[11px] font-bold text-pink-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-pink-500 animate-pulse"></span>
                 Active Objective
               </h2>
               <div class="p-5 rounded-xl bg-white/5 border border-white/10 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
-                <p class="text-slate-300 text-lg leading-relaxed font-medium">
+                <p class="text-slate-300 text-[0.95rem] leading-relaxed font-medium">
                   {task.problem}
                 </p>
               </div>
@@ -96,12 +96,9 @@ if (!task) {
         </div> <!-- End Left Pane -->
 
         <!-- ============================================== -->
-        <!-- RIGHT PANE: ACTION/CHAT (Scrollable)           -->
-        <!-- ============================================== -->
-        <!-- ============================================== -->
         <!-- RIGHT PANE: ACTION/CHAT (Floating Canvas)      -->
         <!-- ============================================== -->
-        <div class="flex-1 flex flex-col h-full min-h-[500px] p-4 lg:p-6 pb-0 relative">
+        <div class="flex-1 flex flex-col h-full min-h-[500px] p-2 sm:p-4 lg:p-6 lg:pb-0 relative overflow-hidden bg-[#0a0a0c]">
           
           <!-- Background decorative mesh for the canvas side -->
           <div class="absolute inset-0 overflow-hidden pointer-events-none -z-10">
@@ -109,7 +106,7 @@ if (!task) {
           </div>
 
           <!-- The Floating Canvas (White/Glassy Workspace) -->
-          <div class="bg-[#fcfcfc] rounded-t-[1.5rem] lg:rounded-t-[2rem] flex flex-col h-full shadow-[0_-10px_40px_rgba(0,0,0,0.3)] border border-white/10 overflow-hidden relative">
+          <div class="bg-[#fcfcfc] rounded-2xl lg:rounded-b-none lg:rounded-t-[2rem] flex flex-col h-full shadow-[0_-10px_40px_rgba(0,0,0,0.3)] border border-white/10 overflow-hidden relative mx-auto w-full max-w-5xl">
             
             <!-- Canvas Header -->
             <div class="bg-white/80 backdrop-blur-md border-b border-slate-200/60 p-4 lg:p-5 shrink-0 flex items-center justify-between z-10">
@@ -216,19 +213,6 @@ if (!task) {
       </div> <!-- End Grid -->
 
 
-
-      <!-- Navigation -->
-      <div class="flex justify-between">
-        <a href="/" class="text-gray-600 hover:text-blue-600 transition">
-          ← Svi moduli
-        </a>
-        
-        <button class="bg-gray-100 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-200 transition"
-          onclick="alert('💾 Spremljeno u favorites! (Demo)')"
-        >
-          💾 Spremi
-        </button>
-      </div>
     </div>
   </main>
 
