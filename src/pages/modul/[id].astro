@@ -336,33 +336,7 @@ const isConvexTask = !task;
   }
   .task-block-text { font-size: 13.5px; color: #374151; line-height: 1.6; font-weight: 500; }
 
-  /* ===== MESSAGES ===== */
-  .msg-row { display: flex; gap: 10px; align-items: flex-start; }
-  .msg-ai { flex-direction: row; }
-  .msg-user { flex-direction: row-reverse; }
-
-  .msg-avatar {
-    width: 32px; height: 32px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 800; flex-shrink: 0;
-  }
-  .ai-avatar { background: #eef2ff; color: #4f6ef7; }
-  .user-avatar { background: #e5e7eb; color: #6b7280; }
-
-  .msg-bubble {
-    max-width: 80%; font-size: 14px; font-weight: 500;
-    line-height: 1.65; padding: 12px 18px; border-radius: 16px;
-  }
-  .ai-bubble {
-    background: #fff; color: #374151;
-    border: 1px solid #e8e8e4;
-    border-top-left-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,.04);
-  }
-  .user-bubble {
-    background: linear-gradient(135deg, #4f6ef7, #5a78f8); color: #fff;
-    border-top-right-radius: 4px;
-  }
+  /* Messages moved to <style is:global> below */
 
   /* ===== PROMPT INPUT AREA — BIG, CENTERED ===== */
   .ws-input-area {
@@ -466,6 +440,38 @@ const isConvexTask = !task;
 
 <!-- Global styles for React client:only components (Astro scoping can't reach them) -->
 <style is:global>
+  /* ===== CHAT MESSAGES (dynamically created via JS) ===== */
+  .msg-row { display: flex; gap: 10px; align-items: flex-start; }
+  .msg-ai { flex-direction: row; }
+  .msg-user { flex-direction: row-reverse; }
+  .msg-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; flex-shrink: 0;
+    overflow: hidden;
+  }
+  .msg-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .ai-avatar { background: #eef2ff; color: #4f6ef7; }
+  .user-avatar { background: #e5e7eb; color: #6b7280; }
+  .msg-bubble {
+    max-width: 80%; font-size: 14px; font-weight: 500;
+    line-height: 1.65; padding: 12px 18px; border-radius: 16px;
+  }
+  .ai-bubble {
+    background: #fff; color: #374151;
+    border: 1px solid #e8e8e4;
+    border-top-left-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  .user-bubble {
+    background: linear-gradient(135deg, #4f6ef7, #5a78f8); color: #fff;
+    border-top-right-radius: 4px;
+  }
+  .msg-username {
+    font-size: 10px; font-weight: 600; color: #9ca3af;
+    text-align: right; margin-top: 4px;
+  }
+
   /* ===== CONVEX WORKSPACE (cw-*) ===== */
   .cw-loading { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 80px 20px; flex: 1; }
   .cw-loading span { color: #9ca3af; font-weight: 600; font-size: 14px; }
@@ -540,12 +546,30 @@ const isConvexTask = !task;
     const prompt = promptTextarea.value.trim();
     if (!prompt) return;
 
+    // Get Clerk user info
+    let userName = 'Ti';
+    let userAvatar = '';
+    try {
+      const clerkUser = window.Clerk && window.Clerk.user;
+      if (clerkUser) {
+        userName = clerkUser.firstName || clerkUser.username || 'Ti';
+        userAvatar = clerkUser.imageUrl || '';
+      }
+    } catch(e) {}
+
+    const avatarHtml = userAvatar 
+      ? `<img src="${userAvatar}" alt="${userName}">`
+      : userName.charAt(0).toUpperCase();
+
     // 1. User bubble
     const userBubble = document.createElement('div');
     userBubble.className = 'msg-row msg-user';
     userBubble.innerHTML = `
-      <div class="msg-bubble user-bubble" style="white-space:pre-wrap">${prompt.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
-      <div class="msg-avatar user-avatar">Ja</div>
+      <div>
+        <div class="msg-bubble user-bubble" style="white-space:pre-wrap">${prompt.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+        <div class="msg-username">${userName.replace(/</g,'&lt;')}</div>
+      </div>
+      <div class="msg-avatar user-avatar">${avatarHtml}</div>
     `;
     chatContainer.appendChild(userBubble);
     userBubble.scrollIntoView({ behavior: 'smooth', block: 'end' });
