@@ -108,6 +108,7 @@ if (!task) {
               <button
                 id="send-to-ai"
                 class="bg-black text-white w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-800 hover:-translate-y-0.5 transition-all disabled:opacity-30 disabled:hover:translate-y-0 shadow-md group shrink-0"
+                data-task-id={task.id}
                 data-task-title={task.title}
                 data-task-scenario={task.scenario}
                 data-task-problem={task.problem}
@@ -217,6 +218,7 @@ if (!task) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             prompt: prompt,
+            taskId: btn.dataset.taskId,
             context: 'Zadatak: ' + (btn.dataset.taskTitle || '') + '\nScenarij: ' + (btn.dataset.taskScenario || '') + '\nProblem: ' + (btn.dataset.taskProblem || '')
           })
         });

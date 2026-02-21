@@ -49,8 +49,8 @@ export default defineSchema({
   userProgress: defineTable({
     userId: v.string(),
     completedLessons: v.array(v.number()),
-    completedTasks: v.array(v.id('tasks')),
-    favoriteTasks: v.array(v.id('tasks')),
+    completedTasks: v.array(v.string()), // Changed from v.id('tasks') to allow static IDs
+    favoriteTasks: v.array(v.string()), // Same here
     totalTimeSpent: v.number(), // minutes
     lastActive: v.number(),
     streak: v.number(), // consecutive days

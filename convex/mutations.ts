@@ -56,7 +56,7 @@ export const toggleAgent = mutation({
   handler: async (ctx, { id }) => {
     const agent = await ctx.db.get(id);
     if (!agent) throw new Error('Agent not found');
-    
+
     await ctx.db.patch(id, { isActive: !agent.isActive });
     return !agent.isActive;
   },
@@ -75,7 +75,7 @@ export const updateProgress = mutation({
   args: {
     userId: v.string(),
     lessonId: v.optional(v.number()),
-    taskId: v.optional(v.id('tasks')),
+    taskId: v.optional(v.string()),
     timeSpent: v.optional(v.number()), // minutes
   },
   handler: async (ctx, { userId, lessonId, taskId, timeSpent = 0 }) => {
@@ -83,22 +83,22 @@ export const updateProgress = mutation({
       .withIndex('by_user')
       .filter((q) => q.eq(q.field('userId'), userId))
       .first();
-    
+
     if (existing) {
       // Update existing
       const updates: any = {
         lastActive: Date.now(),
         totalTimeSpent: existing.totalTimeSpent + timeSpent,
       };
-      
+
       if (lessonId && !existing.completedLessons.includes(lessonId)) {
         updates.completedLessons = [...existing.completedLessons, lessonId];
       }
-      
+
       if (taskId && !existing.completedTasks.includes(taskId)) {
         updates.completedTasks = [...existing.completedTasks, taskId];
       }
-      
+
       await ctx.db.patch(existing._id, updates);
       return existing._id;
     } else {
@@ -164,12 +164,12 @@ export const logAgentRun = mutation({
       output,
       error,
     });
-    
+
     // Update agent last run
     await ctx.db.patch(agentId, {
       lastRunAt: Date.now(),
     });
-    
+
     return runId;
   },
 });
@@ -178,14 +178,14 @@ export const logAgentRun = mutation({
 export const toggleFavorite = mutation({
   args: {
     userId: v.string(),
-    taskId: v.id('tasks'),
+    taskId: v.string(),
   },
   handler: async (ctx, { userId, taskId }) => {
     const progress = await ctx.db.query('userProgress')
       .withIndex('by_user')
       .filter((q) => q.eq(q.field('userId'), userId))
       .first();
-    
+
     if (!progress) {
       // Create new progress with this favorite
       return await ctx.db.insert('userProgress', {
@@ -198,12 +198,12 @@ export const toggleFavorite = mutation({
         streak: 0,
       });
     }
-    
+
     const isFavorite = progress.favoriteTasks.includes(taskId);
     const favoriteTasks = isFavorite
       ? progress.favoriteTasks.filter((id) => id !== taskId)
       : [...progress.favoriteTasks, taskId];
-    
+
     await ctx.db.patch(progress._id, { favoriteTasks });
     return !isFavorite;
   },
@@ -219,7 +219,7 @@ export const getUserProgress = query({
       .withIndex('by_user')
       .filter((q) => q.eq(q.field('userId'), userId))
       .first();
-    
+
     return progress || {
       userId,
       completedLessons: [],

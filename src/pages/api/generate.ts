@@ -1,8 +1,13 @@
 import type { APIRoute } from 'astro';
+import { ConvexHttpClient } from 'convex/browser';
+import { api } from '../../../convex/_generated/api';
 
 // Use process.env for Vercel serverless environment
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || import.meta.env.OPENROUTER_API_KEY;
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
+
+const CONVEX_URL = process.env.PUBLIC_CONVEX_URL || import.meta.env.PUBLIC_CONVEX_URL || 'https://efficient-antelope-653.convex.cloud';
+const convex = new ConvexHttpClient(CONVEX_URL);
 
 // Basic in-memory rate limiter
 // Note: In a serverless environment like Vercel, this state is lost on cold starts
@@ -78,7 +83,7 @@ export const POST: APIRoute = async (context) => {
       );
     }
 
-    const { prompt, context: taskContext } = body;
+    const { prompt, context: taskContext, taskId } = body;
     console.log(`Received prompt from ${userId}:`, prompt?.substring(0, 50));
 
     if (!prompt) {
@@ -139,6 +144,21 @@ Upute:
         JSON.stringify({ error: 'Empty response from AI', details: data }),
         { status: 502, headers: { 'Content-Type': 'application/json' } }
       );
+    }
+
+    // Save progress to Convex if a taskId was provided
+    if (taskId) {
+      try {
+        await convex.mutation(api.mutations.updateProgress, {
+          userId,
+          taskId: taskId,
+          timeSpent: 5 // Default estimated time spent per task
+        });
+        console.log(`Progress saved for user ${userId} on task ${taskId}`);
+      } catch (err) {
+        console.error('Failed to save progress to Convex:', err);
+        // We don't fail the whole request if just analytics/progress fails
+      }
     }
 
     return new Response(
