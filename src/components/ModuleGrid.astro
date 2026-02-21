@@ -12,70 +12,110 @@ const tasksWithPaths: TaskWithPath[] = PREDEFINED_TASKS.map(task => ({
   path: `/modul/${task.id}`,
 }));
 
-const audienceStyles: Record<string, { bg: string; text: string; label: string }> = {
-  kids: { bg: 'bg-[#8CFF98]', text: 'text-black', label: 'SYS_EDU' },
-  seniors: { bg: 'bg-[#FFE5F1]', text: 'text-black', label: 'SYS_ACC' },
-  all: { bg: 'bg-[#FFDF00]', text: 'text-black', label: 'SYS_GEN' },
+const audienceMeta: Record<string, { label: string; color: string; bg: string }> = {
+  kids:    { label: 'Djeca',   color: '#059669', bg: '#f0fdf4' },
+  seniors: { label: 'Stariji', color: '#d97706', bg: '#fffbeb' },
+  all:     { label: 'Svi',     color: '#4f6ef7', bg: '#eef2ff' },
+};
+
+const difficultyMeta: Record<string, { label: string; color: string }> = {
+  beginner:     { label: 'Početnik',  color: '#10b981' },
+  intermediate: { label: 'Srednji',   color: '#f59e0b' },
+  advanced:     { label: 'Napredni',  color: '#ef4444' },
 };
 ---
 
-<div id="moduli" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 py-8">
-  {tasksWithPaths.map((task, index) => {
-    const style = audienceStyles[task.targetAudience] || audienceStyles.all;
-    
+<div class="module-grid">
+  {tasksWithPaths.map((task) => {
+    const aud = audienceMeta[task.targetAudience] || audienceMeta.all;
+    const diff = difficultyMeta[task.difficulty] || difficultyMeta.beginner;
     return (
-      <a
-        href={task.path}
-        class="group relative bg-white p-8 border-4 border-black shadow-[4px_4px_0px_#000] hover:shadow-[8px_8px_0px_#000] hover:-translate-y-2 hover:bg-[#F4F4F0] transition-all block flex flex-col h-full"
-      >
-        <div class="flex items-start justify-between mb-8 relative z-10 w-full">
-          <div class="text-5xl group-hover:scale-110 transition-transform">
-            {task.icon}
+      <a href={task.path} class="module-card">
+        <div class="module-top">
+          <div class="module-icon">{task.icon}</div>
+          <div class="module-badges">
+            <span class="badge" style={`background: ${aud.bg}; color: ${aud.color};`}>{aud.label}</span>
+            <span class="diff-dot" style={`background: ${diff.color};`} title={diff.label}></span>
           </div>
-          <span class={`text-xs font-black uppercase tracking-widest px-3 py-1.5 border-2 border-black ${style.bg} ${style.text} shadow-[2px_2px_0px_#000]`}>
-            {style.label}
-          </span>
         </div>
-        
-        <h3 class="font-black text-2xl text-black mb-4 uppercase tracking-tighter">
-          {task.title}
-        </h3>
-        
-        <p class="text-black font-bold text-base mb-8 line-clamp-2 leading-relaxed flex-grow">
-          {task.scenario}
-        </p>
-        
-        <div class="flex items-center justify-between mt-auto pt-6 border-t-4 border-black relative z-10">
-          <span class="text-xs font-black text-black tracking-widest truncate pr-4 uppercase">
-            // {task.learningPoint?.substring(0, 35)}...
-          </span>
-          
-          <div class="text-black group-hover:bg-[#FF4911] group-hover:text-white border-2 border-transparent group-hover:border-black p-1 transition-colors">
-            <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-          </div>
+        <h3 class="module-title">{task.title.replace(/^[\u{1F300}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]\s*/u, '')}</h3>
+        <p class="module-desc">{task.scenario}</p>
+        <div class="module-footer">
+          <span class="module-diff" style={`color: ${diff.color};`}>{diff.label}</span>
+          <span class="module-arrow">→</span>
         </div>
       </a>
     );
   })}
-</div>
 
-<!-- Coming Soon Teaser -->
-<div class="mt-16 bg-[#FF4911] border-4 border-black p-10 md:p-14 text-center shadow-[12px_12px_0px_#000]">
-  <div class="relative z-10 max-w-2xl mx-auto">
-    <div class="inline-flex items-center justify-center px-4 py-2 border-4 border-black bg-white text-black mb-8 font-black text-xl tracking-widest uppercase shadow-[4px_4px_0px_#000]">
-      SYS_UP
+  <!-- Coming soon card -->
+  <div class="module-card coming-soon">
+    <div class="module-top">
+      <div class="module-icon" style="opacity:.4;">🔮</div>
     </div>
-    <h3 class="font-black text-4xl md:text-5xl mb-6 text-white uppercase tracking-tighter drop-shadow-[4px_4px_0px_#000]">Sustav u razvoju</h3>
-    <p class="text-white text-xl font-bold mb-10 leading-relaxed max-w-xl mx-auto">
-      AI kontinuirano generira nove module na temelju globalne analize podataka. Procesiranje novih sektora u tijeku.
-    </p>
-    
-    <div class="flex flex-wrap gap-4 justify-center">
-      {['JEZIK', 'FINANCIJE', 'LOGISTIKA', 'ZDRAVLJE', 'KREATIVA'].map(tag => (
-        <span class="bg-black text-white border-2 border-white px-4 py-2 font-black text-xs uppercase tracking-widest hover:bg-white hover:text-black hover:border-black transition-colors shadow-[2px_2px_0px_#fff]">
-          [{tag}]
-        </span>
+    <h3 class="module-title" style="color: #9ca3af;">Uskoro...</h3>
+    <p class="module-desc" style="color:#c4c9d4;">AI kontinuirano generira nove module. Procesiranje novih sektora u tijeku.</p>
+    <div class="coming-tags">
+      {['JEZIK', 'FINANCIJE', 'ZDRAVLJE'].map(tag => (
+        <span class="coming-tag">{tag}</span>
       ))}
     </div>
   </div>
 </div>
+
+<style>
+  .module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 14px;
+  }
+  .module-card {
+    background: #fafaf8;
+    border: 1px solid #e8e8e4;
+    border-radius: 14px;
+    padding: 18px 18px 14px;
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column; gap: 8px;
+    transition: all .18s;
+    cursor: pointer;
+  }
+  .module-card:hover:not(.coming-soon) {
+    background: #fff;
+    border-color: rgba(79,110,247,.3);
+    box-shadow: 0 4px 18px rgba(79,110,247,.10);
+    transform: translateY(-2px);
+  }
+  .coming-soon { opacity: .65; cursor: default; }
+
+  .module-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .module-icon { font-size: 28px; line-height: 1; }
+  .module-badges { display: flex; align-items: center; gap: 7px; }
+  .badge {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .05em;
+    padding: 3px 9px; border-radius: 99px;
+  }
+  .diff-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .module-title { font-size: 14.5px; font-weight: 700; color: #1e1e1e; line-height: 1.3; }
+  .module-desc {
+    font-size: 12.5px; color: #6b7280; font-weight: 500;
+    line-height: 1.55; flex: 1;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .module-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 10px; border-top: 1px solid #e8e8e4; margin-top: 4px;
+  }
+  .module-diff { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+  .module-arrow { color: #d1d5db; font-size: 14px; transition: all .15s; }
+  .module-card:hover .module-arrow { color: #4f6ef7; transform: translateX(3px); }
+
+  .coming-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .coming-tag {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em;
+    padding: 3px 8px; border-radius: 99px;
+    background: #f3f4f6; color: #9ca3af;
+    border: 1px solid #e8e8e4;
+  }
+</style>

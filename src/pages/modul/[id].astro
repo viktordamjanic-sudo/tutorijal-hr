@@ -1,294 +1,509 @@
 ---
-// Module Detail Page - Server Rendered
+// Module Detail Page — Prompt-centered workspace
+// Supports both PREDEFINED_TASKS and Convex-generated tasks
 import Layout from '../../layouts/Layout.astro';
 import { PREDEFINED_TASKS } from '../../lib/constants';
 import { SignedIn, SignedOut } from '@clerk/astro/components';
+import ConvexWorkspace from '../../components/workspace/ConvexWorkspace.tsx';
 
 const { id } = Astro.params;
 const task = PREDEFINED_TASKS.find(t => t.id === id);
-
-if (!task) {
-  return Astro.redirect('/');
-}
+const isConvexTask = !task;
+// Convex tasks will be loaded client-side by ConvexWorkspace component
 ---
 
-<Layout title={`[ ${task.id}.json ] | tutorijal.hr`}>
-  <main class="h-[100dvh] bg-[#F4F4F0] text-black font-['Nunito'] overflow-hidden flex flex-col selection:bg-black selection:text-[#FFDF00]">
-    
-    <!-- Top Nav Bar (Brutalist style) -->
-    <header class="h-10 md:h-12 border-b-4 border-black shrink-0 flex items-center px-4 justify-between bg-white z-20">
-      <div class="flex items-center gap-4">
-        <a href="/" class="font-black text-sm md:text-base tracking-tighter uppercase border-2 border-transparent hover:border-black px-2 py-1 transition-all">
-          ← Nazad
-        </a>
-      </div>
-      <div class="text-[10px] md:text-xs font-bold font-mono text-black flex gap-3 uppercase bg-[#FFDF00] px-2 md:px-3 py-1 border-2 border-black shadow-[2px_2px_0px_#000]">
-        <span>status: online</span>
-      </div>
-    </header>
+<Layout title={`${task?.title || 'Zadatak'} | tutorijal.hr`} hideSidebar={true}>
+  <div class="workspace" id="workspace-root">
 
-    <div class="flex-1 flex overflow-hidden">
-      <!-- Main Layout Grid (Now Flex for exact split) -->
-      <div class="flex-1 flex flex-col lg:flex-row w-full max-w-[100vw]">
-        
-        <!-- ============================================== -->
-        <!-- LEFT PANE: CONTEXT (Brutalist Sidebar)         -->
-        <!-- ============================================== -->
-        <div class="w-full lg:w-[320px] xl:w-[380px] shrink-0 border-r-4 border-black bg-white flex flex-col h-[35vh] lg:h-full relative z-10">
-          
-          <div class="flex border-b-4 border-black shrink-0 bg-[#F4F4F0] overflow-x-auto no-scrollbar font-bold uppercase">
-            <div class="px-3 py-2 border-r-4 border-black bg-white text-black text-[10px] flex items-center gap-2 border-b-4 border-b-transparent">
-              # UPUTE
+    {isConvexTask ? (
+      <!-- Convex task: loaded client-side -->
+      <SignedIn>
+        <ConvexWorkspace taskId={id!} client:only="react" />
+      </SignedIn>
+      <SignedOut>
+        <div class="locked-state">
+          <div class="locked-card">
+            <div class="locked-icon">🔒</div>
+            <h3>Pristup zaključan</h3>
+            <p>Prijavi se za testiranje AI modela u radnom prostoru.</p>
+            <div class="locked-actions">
+              <a href="/sign-up" class="btn-lock-primary">Kreiraj račun</a>
+              <a href="/sign-in" class="btn-lock-secondary">Prijava</a>
             </div>
-            <div class="px-3 py-2 border-r-4 border-black text-black text-[10px] flex items-center hover:bg-[#FFDF00] cursor-pointer transition-colors">
-              {} KONFIG
+          </div>
+        </div>
+      </SignedOut>
+    ) : (
+    <SignedIn>
+      <!-- TOP BAR -->
+      <div class="ws-topbar">
+        <a href="/" class="ws-back">← Natrag</a>
+        <div class="ws-title-row">
+          <span class="ws-icon">{task.icon}</span>
+          <span class="ws-title">{task.title}</span>
+        </div>
+        <div class="ws-status">
+          <span class="status-dot"></span> Online
+        </div>
+      </div>
+
+      <!-- SCROLLABLE AREA — chat messages + centered prompt -->
+      <div class="ws-scroll" id="chat-wrapper">
+        <div class="ws-content" id="chat-container">
+
+          <!-- TASK CONTEXT CARD — compact, centered -->
+          <div class="task-card">
+            <div class="task-chips">
+              <span class="chip chip-category">{task.category}</span>
+              <span class="chip chip-difficulty">{task.difficulty}</span>
+            </div>
+            <div class="task-blocks">
+              <div class="task-block">
+                <div class="task-block-label">Kontekst</div>
+                <p class="task-block-text">{task.scenario}</p>
+              </div>
+              <div class="task-block task-block-accent">
+                <div class="task-block-label" style="color:#4f6ef7;">🎯 Cilj</div>
+                <p class="task-block-text" style="font-weight:600;color:#1e1e1e;">{task.problem}</p>
+              </div>
+              <div class="task-block task-block-hint">
+                <div class="task-block-label" style="color:#7c3aed;">✨ Prijedlog prompta</div>
+                <p class="task-block-text" style="font-size:13px;">{task.aiPrompt}</p>
+              </div>
             </div>
           </div>
 
-          <!-- Editor Content (Scrollable) -->
-          <div class="flex-1 overflow-y-auto p-4 styled-scroll flex flex-col gap-5">
-            
-            <!-- Metadata Area -->
-            <div>
-              <div class="flex flex-wrap gap-2 mb-3 font-bold text-[9px] uppercase tracking-widest">
-                <span class="px-2 py-1 border-2 border-black bg-[#E2F1E7] shadow-[2px_2px_0px_#000]">
-                  Type: {task.category}
-                </span>
-                <span class="px-2 py-1 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000]">
-                  Level: {task.difficulty}
-                </span>
-              </div>
-              
-              <h1 class="text-xl xl:text-2xl font-black text-black mb-2 font-['Outfit'] uppercase leading-none tracking-tighter">
-                {task.title}
-              </h1>
-              
-              <div class="p-3 border-4 border-black bg-[#FFE5F1] shadow-[2px_2px_0px_#000] text-black text-sm font-medium leading-relaxed mt-4">
-                <span class="font-black text-[10px] uppercase block mb-1 border-b-2 border-black pb-1">Kontekst</span>
-                {task.scenario}
-              </div>
+          <!-- AI greeting -->
+          <div class="msg-row msg-ai">
+            <div class="msg-avatar ai-avatar">AI</div>
+            <div class="msg-bubble ai-bubble">
+              Spreman sam! Upiši prompt ispod ili koristi prijedlog iz zadatka.
             </div>
-
-            <!-- The Problem Area -->
-            <div class="mt-0">
-              <h2 class="font-black text-xs uppercase mb-2 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-none border-2 border-black bg-[#FF4911]"></span>
-                Aktivni Cilj
-              </h2>
-              <div class="p-3 border-4 border-black bg-white shadow-[2px_2px_0px_#000]">
-                <p class="text-black text-sm leading-relaxed font-bold">
-                  {task.problem}
-                </p>
-              </div>
-            </div>
-            
           </div>
-        </div> <!-- End Left Pane -->
 
-        <!-- ============================================== -->
-        <!-- RIGHT PANE: ACTION/CHAT (Brutalist Canvas)     -->
-        <!-- ============================================== -->
-        <div class="flex-1 flex flex-col h-full p-2 lg:p-4 relative bg-[#F4F4F0]">
-          
-          <!-- The floating brutalist window -->
-          <div class="bg-white border-4 border-black shadow-brutal flex flex-col h-full overflow-hidden mx-auto w-full max-w-5xl relative">
-            
-            <!-- Canvas Header -->
-            <div class="border-b-4 border-black bg-[#8CFF98] p-2 md:p-3 shrink-0 flex items-center justify-between z-10">
-              <div class="flex items-center gap-2">
-                <span class="font-black text-sm md:text-base uppercase tracking-tighter text-black">Radni Prostor</span>
-              </div>
-            </div>
-            
-            <SignedIn>
-              <div class="flex flex-col flex-1 h-full min-h-0 relative">
-                <!-- Scrollable Chat Area -->
-                <div id="chat-wrapper" class="flex-1 overflow-y-auto p-3 md:p-4 styled-scroll bg-[url('/noise.png')] bg-repeat">
-                  <div id="chat-container" class="flex flex-col gap-4 max-w-4xl mx-auto pb-2">
-                    <!-- Initial System Greeting -->
-                    <div class="flex gap-3 items-start group">
-                      <div class="w-8 h-8 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-xs shrink-0">AI</div>
-                      <div class="text-black font-bold text-sm leading-relaxed max-w-[90%] md:max-w-[85%] border-2 border-black bg-white p-3 shadow-[2px_2px_0px_#000]">
-                        Spreman. Rješavamo <span class="bg-[#FF4911] text-white px-1 border border-black uppercase">"{task.title}"</span>. <br/><br/>
-                        Unesite prompt za obradu ispod.
-                      </div>
-                    </div>
-                  </div>
-                </div>
+        </div>
+      </div>
 
-                <!-- Fix: Solid inline prompt area (NO absolute positioning) -->
-                <div class="shrink-0 border-t-4 border-black bg-[#F4F4F0] p-2 md:p-4 w-full z-20">
-                  <div class="max-w-4xl mx-auto w-full">
-                    
-                    <!-- Idea Chip -->
-                    <div class="flex justify-end mb-2">
-                      <button 
-                        onclick={`document.getElementById('ai-prompt').value = \`${task.aiPrompt.replace(/`/g, '\\`')}\`; document.getElementById('ai-prompt').focus();`}
-                        class="text-[10px] font-black uppercase tracking-wider text-black bg-[#FFE5F1] hover:bg-white border-2 border-black px-3 py-1 shadow-[2px_2px_0px_#000] active:translate-y-[2px] active:shadow-none transition-all flex items-center gap-1.5"
-                      >
-                        ⭐ SUGESTIJA
-                      </button>
-                    </div>
+      <!-- PROMPT INPUT — fixed at bottom, centered, prominent -->
+      <div class="ws-input-area">
+        <div class="ws-composer">
+          <!-- Quick suggestion -->
+          <div class="composer-suggestions">
+            <button
+              class="suggest-chip"
+              onclick={`document.getElementById('ai-prompt').value = \`${task.aiPrompt.replace(/`/g, '\\`')}\`; document.getElementById('ai-prompt').focus(); document.getElementById('ai-prompt').dispatchEvent(new Event('input'));`}
+            >
+              ✨ Koristi prijedlog
+            </button>
+          </div>
+          <!-- Input row -->
+          <div class="composer-row">
+            <textarea
+              id="ai-prompt"
+              class="composer-input"
+              rows={1}
+              placeholder="Upiši svoj prompt ovdje..."
+              oninput="this.style.height = 'auto'; this.style.height = Math.min(this.scrollHeight, 140) + 'px'"
+              onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); document.getElementById('send-to-ai').click(); }"
+            ></textarea>
+            <button
+              id="send-to-ai"
+              class="send-btn"
+              data-task-id={task.id}
+              data-task-title={task.title}
+              data-task-scenario={task.scenario}
+              data-task-problem={task.problem}
+              onclick="window.sendToAI && window.sendToAI(this)"
+              title="Pošalji (Enter)"
+            >
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+            </button>
+          </div>
+          <p class="composer-hint">Enter za slanje · Shift+Enter za novi red</p>
+          <p id="rate-limit-notice" class="hidden rate-limit-msg">
+            Prekoračen limit zahtjeva. Pričekajte trenutak.
+          </p>
+        </div>
+      </div>
+    </SignedIn>
 
-                    <!-- Input Container -->
-                    <div class="bg-white border-4 border-black shadow-[2px_2px_0px_#000] flex items-end p-1 focus-within:bg-[#FFFDE7]">
-                      <textarea
-                        id="ai-prompt"
-                        class="w-full bg-transparent border-0 font-bold text-black text-sm md:text-base focus:ring-0 outline-none resize-none leading-relaxed min-h-[44px] max-h-[120px] py-2 md:py-2.5 pl-2 styled-scroll placeholder:text-slate-400"
-                        rows={1}
-                        placeholder="Upiši prompt ovdje..."
-                        oninput="this.style.height = 'auto'; this.style.height = Math.min(this.scrollHeight, 120) + 'px'"
-                        onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); document.getElementById('send-to-ai').click(); }"
-                      ></textarea>
-                      
-                      <button
-                        id="send-to-ai"
-                        class="bg-[#FF4911] text-white font-black text-lg w-10 h-10 border-4 border-black shadow-[2px_2px_0px_#000] active:translate-y-[2px] active:shadow-none flex items-center justify-center hover:bg-[#E63E00] transition-all disabled:opacity-50 shrink-0 mb-0.5 mr-0.5"
-                        data-task-id={task.id}
-                        data-task-title={task.title}
-                        data-task-scenario={task.scenario}
-                        data-task-problem={task.problem}
-                        onclick="window.sendToAI && window.sendToAI(this)"
-                        title="Pošalji (Enter)"
-                      >
-                        →
-                      </button>
-                    </div>
-                    
-                    <p id="rate-limit-notice" class="hidden mt-4 text-sm font-black text-black bg-rose-400 p-2 border-2 border-black text-center shadow-[4px_4px_0px_#000] w-full max-w-md mx-auto">
-                      ERROR: RATE LIMIT EXCEEDED. ODMORI.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </SignedIn>
+    <SignedOut>
+      <div class="locked-state">
+        <div class="locked-card">
+          <div class="locked-icon">🔒</div>
+          <h3>Pristup zaključan</h3>
+          <p>Prijavi se za testiranje AI modela u radnom prostoru.</p>
+          <div class="locked-actions">
+            <a href="/sign-up" class="btn-lock-primary">Kreiraj račun</a>
+            <a href="/sign-in" class="btn-lock-secondary">Prijava</a>
+          </div>
+        </div>
+      </div>
+    </SignedOut>
+    )}
 
-            <!-- Locked State -->
-            <SignedOut>
-              <div class="h-full flex flex-1 items-center justify-center p-8 bg-[#F4F4F0] bg-[url('/noise.png')] bg-repeat">
-                <div class="bg-white border-4 border-black p-10 text-center shadow-brutal max-w-md w-full relative">
-                  
-                  <div class="w-20 h-20 bg-[#FFDF00] border-4 border-black shadow-[4px_4px_0px_#000] flex items-center justify-center text-4xl mx-auto mb-8 font-black">
-                    !
-                  </div>
-                  <h3 class="font-black text-3xl text-black mb-4 uppercase tracking-tighter">Zaključano</h3>
-                  <p class="text-black font-bold mb-8 text-lg leading-relaxed">Prijavi se za testiranje AI modela.</p>
-                  
-                  <div class="flex flex-col gap-4">
-                    <a href="/sign-up" class="bg-black text-white px-6 py-4 uppercase font-black text-xl hover:bg-[#FF4911] hover:text-black border-4 border-black shadow-[4px_4px_0px_#FFDF00] transition-colors">
-                      Registracija
-                    </a>
-                    <a href="/sign-in" class="bg-transparent text-black px-6 py-4 uppercase font-black text-xl border-4 border-transparent hover:border-black transition-all">
-                      Prijava
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </SignedOut>
-          </div> <!-- End Brutalist Canvas container -->
+  </div>
 
-      <!-- Hidden Learning Point Data -->
-      <div id="learning-point-data" class="hidden" data-content={task.learningPoint}></div>
+  <!-- Learning point data -->
+  {task && <div id="learning-point-data" class="hidden" data-content={task.learningPoint}></div>}
+</Layout>
 
-        </div> <!-- End Right Pane -->
-      </div> <!-- End Grid -->
+<style>
+  .workspace {
+    display: flex; flex-direction: column;
+    height: 100vh; overflow: hidden;
+    background: #f5f5f0;
+  }
 
+  /* ===== TOP BAR ===== */
+  .ws-topbar {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 24px;
+    background: #fff; border-bottom: 1px solid #e8e8e4;
+    flex-shrink: 0;
+  }
+  .ws-back {
+    font-size: 13px; color: #9ca3af; text-decoration: none; font-weight: 600;
+    transition: color .15s; flex-shrink: 0;
+  }
+  .ws-back:hover { color: #4f6ef7; }
+  .ws-title-row {
+    display: flex; align-items: center; gap: 8px; flex: 1;
+    justify-content: center;
+  }
+  .ws-icon { font-size: 18px; }
+  .ws-title { font-size: 14px; font-weight: 700; color: #1e1e1e; }
+  .ws-status {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 11px; color: #10b981; font-weight: 600; flex-shrink: 0;
+  }
+  .status-dot { width: 6px; height: 6px; background: #10b981; border-radius: 50%; animation: livepulse 2s infinite; }
+  @keyframes livepulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-    </div>
-  </main>
+  /* ===== SCROLLABLE CHAT AREA ===== */
+  .ws-scroll {
+    flex: 1; overflow-y: auto; padding: 24px;
+    min-height: 0;
+  }
+  .ws-content {
+    max-width: 720px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 20px;
+  }
 
-  <script is:inline>
-    window.sendToAI = async function(btn) {
-      const promptTextarea = document.getElementById('ai-prompt');
-      const chatContainer = document.getElementById('chat-container');
-      const loginNotice = document.getElementById('login-notice');
-      const learningPointData = document.getElementById('learning-point-data');
-      
-      const prompt = promptTextarea.value.trim();
-      if (!prompt) return; // do nothing if empty
-      
-      if (loginNotice) loginNotice.classList.add('hidden');
-      
-      // 1. Add User Bubble (Brutalist styled)
-      const userBubble = document.createElement('div');
-      userBubble.className = 'flex gap-3 items-start group max-w-4xl mx-auto w-full justify-end';
-      userBubble.innerHTML = `
-        <div class="text-black font-bold text-sm leading-relaxed max-w-[90%] md:max-w-[85%] border-2 border-black bg-[#E2F1E7] p-3 shadow-[2px_2px_0px_#000] whitespace-pre-wrap">${prompt}</div>
-        <div class="w-8 h-8 border-2 border-black bg-white shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-[10px] shrink-0 uppercase">JA</div>
-      `;
-      chatContainer.appendChild(userBubble);
-      
-      // Clear input and change button state
-      promptTextarea.value = '';
-      promptTextarea.style.height = '50px';
-      btn.disabled = true;
-      btn.innerHTML = `<span class="animate-pulse">⏳</span>`;
-      
-      // 2. Add AI Loading Bubble
-      const aiBubble = document.createElement('div');
-      aiBubble.className = 'flex gap-3 items-start max-w-4xl mx-auto w-full';
+  /* ===== TASK CONTEXT CARD ===== */
+  .task-card {
+    background: #fff; border-radius: 16px; padding: 20px 24px;
+    border: 1px solid #e8e8e4;
+    box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  }
+  .task-chips { display: flex; gap: 8px; margin-bottom: 14px; }
+  .chip {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .07em; padding: 3px 10px; border-radius: 99px;
+  }
+  .chip-category { background: #f3f4f6; color: #6b7280; border: 1px solid #e5e7eb; }
+  .chip-difficulty { background: #eef2ff; color: #4f6ef7; border: 1px solid rgba(79,110,247,.2); }
+
+  .task-blocks { display: flex; flex-direction: column; gap: 10px; }
+  .task-block {
+    background: #fafaf8; border: 1px solid #e8e8e4; border-radius: 10px; padding: 12px 16px;
+  }
+  .task-block-accent { background: #eef2ff; border-color: rgba(79,110,247,.2); }
+  .task-block-hint { background: #f5f3ff; border-color: rgba(124,58,237,.15); }
+  .task-block-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; color: #9ca3af; margin-bottom: 5px;
+  }
+  .task-block-text { font-size: 13.5px; color: #374151; line-height: 1.6; font-weight: 500; }
+
+  /* ===== MESSAGES ===== */
+  .msg-row { display: flex; gap: 10px; align-items: flex-start; }
+  .msg-ai { flex-direction: row; }
+  .msg-user { flex-direction: row-reverse; }
+
+  .msg-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; flex-shrink: 0;
+  }
+  .ai-avatar { background: #eef2ff; color: #4f6ef7; }
+  .user-avatar { background: #e5e7eb; color: #6b7280; }
+
+  .msg-bubble {
+    max-width: 80%; font-size: 14px; font-weight: 500;
+    line-height: 1.65; padding: 12px 18px; border-radius: 16px;
+  }
+  .ai-bubble {
+    background: #fff; color: #374151;
+    border: 1px solid #e8e8e4;
+    border-top-left-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  .user-bubble {
+    background: linear-gradient(135deg, #4f6ef7, #5a78f8); color: #fff;
+    border-top-right-radius: 4px;
+  }
+
+  /* ===== PROMPT INPUT AREA — BIG, CENTERED ===== */
+  .ws-input-area {
+    background: #fff; border-top: 1px solid #e8e8e4;
+    padding: 16px 24px 20px; flex-shrink: 0;
+  }
+  .ws-composer {
+    max-width: 720px; margin: 0 auto;
+  }
+  .composer-suggestions { margin-bottom: 10px; text-align: center; }
+  .suggest-chip {
+    background: #f5f3ff; color: #7c3aed; border: 1px solid rgba(124,58,237,.15);
+    border-radius: 99px; padding: 6px 16px;
+    font-size: 12.5px; font-weight: 700; cursor: pointer;
+    transition: all .15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .suggest-chip:hover { background: #ede9fe; transform: translateY(-1px); }
+
+  .composer-row {
+    display: flex; align-items: flex-end; gap: 12px;
+    background: #fafaf8; border: 2px solid #e8e8e4;
+    border-radius: 16px; padding: 12px 12px 12px 18px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .composer-row:focus-within {
+    border-color: #4f6ef7;
+    box-shadow: 0 0 0 4px rgba(79,110,247,.08);
+  }
+  .composer-input {
+    flex: 1; background: transparent; border: none;
+    outline: none; resize: none;
+    font-size: 15px; font-weight: 500; color: #1e1e1e;
+    line-height: 1.55; min-height: 26px; max-height: 140px;
+    font-family: 'Inter', sans-serif;
+  }
+  .composer-input::placeholder { color: #b0b0a8; }
+  .send-btn {
+    width: 42px; height: 42px; border-radius: 12px;
+    background: linear-gradient(135deg, #4f6ef7, #5a78f8); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; flex-shrink: 0; transition: all .15s;
+    box-shadow: 0 2px 8px rgba(79,110,247,.3);
+  }
+  .send-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(79,110,247,.4); }
+  .send-btn:disabled { opacity: .5; transform: none; cursor: not-allowed; }
+
+  .composer-hint {
+    text-align: center; font-size: 11px; color: #b0b0a8;
+    margin-top: 8px; font-weight: 500;
+  }
+
+  .rate-limit-msg {
+    margin-top: 8px; font-size: 12.5px; font-weight: 600;
+    color: #ef4444; background: #fef2f2; padding: 8px 14px;
+    border-radius: 8px; border: 1px solid #fecaca; text-align: center;
+  }
+  .hidden { display: none; }
+
+  /* Locked state */
+  .locked-state {
+    flex: 1; display: flex; align-items: center;
+    justify-content: center; padding: 40px 20px;
+  }
+  .locked-card {
+    background: #fff; border: 1px solid #e8e8e4;
+    border-radius: 18px; padding: 36px 40px;
+    text-align: center; max-width: 340px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.05);
+  }
+  .locked-icon { font-size: 40px; margin-bottom: 14px; }
+  .locked-card h3 { font-size: 18px; font-weight: 800; color: #1e1e1e; margin-bottom: 8px; }
+  .locked-card p { font-size: 13.5px; color: #6b7280; font-weight: 500; line-height: 1.55; margin-bottom: 22px; }
+  .locked-actions { display: flex; flex-direction: column; gap: 10px; }
+  .btn-lock-primary {
+    background: linear-gradient(135deg, #4f6ef7, #5a78f8); color: #fff;
+    padding: 11px 20px; border-radius: 10px;
+    font-size: 14px; font-weight: 700; text-decoration: none;
+    text-align: center; transition: all .15s;
+    box-shadow: 0 2px 8px rgba(79,110,247,.3);
+  }
+  .btn-lock-primary:hover { transform: translateY(-1px); }
+  .btn-lock-secondary {
+    background: #fff; color: #374151;
+    border: 1.5px solid #e8e8e4;
+    padding: 11px 20px; border-radius: 10px;
+    font-size: 14px; font-weight: 700; text-decoration: none;
+    text-align: center; transition: all .15s;
+  }
+  .btn-lock-secondary:hover { border-color: #4f6ef7; color: #4f6ef7; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .ws-topbar, .cw-topbar { padding: 10px 16px; }
+    .ws-scroll, .cw-scroll { padding: 16px; }
+    .ws-input-area, .cw-input-area { padding: 12px 16px 16px; }
+    .task-card, .cw-task-card { padding: 16px; }
+  }
+
+</style>
+
+<!-- Global styles for React client:only components (Astro scoping can't reach them) -->
+<style is:global>
+  /* ===== CONVEX WORKSPACE (cw-*) ===== */
+  .cw-loading { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 80px 20px; flex: 1; }
+  .cw-loading span { color: #9ca3af; font-weight: 600; font-size: 14px; }
+  .cw-spinner { width: 28px; height: 28px; border: 3px solid #e5e7eb; border-top-color: #4f6ef7; border-radius: 50%; animation: cwspin 1s linear infinite; }
+  @keyframes cwspin { to { transform: rotate(360deg); } }
+
+  .cw-error { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 60px 20px; text-align: center; }
+  .cw-error-icon { font-size: 40px; }
+  .cw-error h3 { font-size: 18px; font-weight: 800; color: #1e1e1e; }
+  .cw-error p { font-size: 13.5px; color: #6b7280; font-weight: 500; }
+  .cw-back-btn { margin-top: 8px; color: #4f6ef7; font-size: 14px; font-weight: 700; text-decoration: none; }
+  .cw-back-btn:hover { text-decoration: underline; }
+
+  .cw-topbar { display: flex; align-items: center; gap: 16px; padding: 12px 24px; background: #fff; border-bottom: 1px solid #e8e8e4; flex-shrink: 0; }
+  .cw-back { font-size: 13px; color: #9ca3af; text-decoration: none; font-weight: 600; transition: color .15s; flex-shrink: 0; }
+  .cw-back:hover { color: #4f6ef7; }
+  .cw-title-row { display: flex; align-items: center; gap: 8px; flex: 1; justify-content: center; }
+  .cw-icon { font-size: 18px; }
+  .cw-title { font-size: 14px; font-weight: 700; color: #1e1e1e; }
+  .cw-status { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #10b981; font-weight: 600; flex-shrink: 0; }
+  .cw-status-dot { width: 6px; height: 6px; background: #10b981; border-radius: 50%; animation: livepulse 2s infinite; }
+
+  .cw-scroll { flex: 1; overflow-y: auto; padding: 24px; min-height: 0; }
+  .cw-content { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+
+  .cw-task-card { background: #fff; border-radius: 16px; padding: 20px 24px; border: 1px solid #e8e8e4; box-shadow: 0 1px 4px rgba(0,0,0,.03); }
+  .cw-chips { display: flex; gap: 8px; margin-bottom: 14px; }
+  .cw-chip { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; padding: 3px 10px; border-radius: 99px; background: #f3f4f6; color: #6b7280; border: 1px solid #e5e7eb; }
+  .cw-chip-diff { background: #eef2ff; color: #4f6ef7; border-color: rgba(79,110,247,.2); }
+
+  .cw-block { background: #fafaf8; border: 1px solid #e8e8e4; border-radius: 10px; padding: 12px 16px; margin-top: 10px; }
+  .cw-block-goal { background: #eef2ff; border-color: rgba(79,110,247,.2); }
+  .cw-block-hint { background: #f5f3ff; border-color: rgba(124,58,237,.15); }
+  .cw-block-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #9ca3af; margin-bottom: 5px; }
+  .cw-block-text { font-size: 13.5px; color: #374151; line-height: 1.6; font-weight: 500; }
+
+  .cw-msg { display: flex; gap: 10px; align-items: flex-start; }
+  .cw-msg-ai { flex-direction: row; }
+  .cw-msg-user { flex-direction: row-reverse; }
+  .cw-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+  .cw-avatar-ai { background: #eef2ff; color: #4f6ef7; }
+  .cw-avatar-user { background: #e5e7eb; color: #6b7280; }
+  .cw-bubble { max-width: 80%; font-size: 14px; font-weight: 500; line-height: 1.65; padding: 12px 18px; border-radius: 16px; }
+  .cw-bubble-ai { background: #fff; color: #374151; border: 1px solid #e8e8e4; border-top-left-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+  .cw-bubble-user { background: linear-gradient(135deg, #4f6ef7, #5a78f8); color: #fff; border-top-right-radius: 4px; }
+
+  .cw-dot { animation: cwbounce .8s infinite; }
+  .cw-dot-2 { animation-delay: .15s; }
+  .cw-dot-3 { animation-delay: .3s; }
+  @keyframes cwbounce { 0%,100%{ opacity:1 } 50%{ opacity:.3 } }
+
+  .cw-input-area { background: #fff; border-top: 1px solid #e8e8e4; padding: 16px 24px 20px; flex-shrink: 0; }
+  .cw-composer { max-width: 720px; margin: 0 auto; text-align: center; }
+  .cw-suggest { background: #f5f3ff; color: #7c3aed; border: 1px solid rgba(124,58,237,.15); border-radius: 99px; padding: 6px 16px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: all .15s; font-family: 'Inter', sans-serif; margin-bottom: 10px; }
+  .cw-suggest:hover { background: #ede9fe; transform: translateY(-1px); }
+  .cw-input-row { display: flex; align-items: flex-end; gap: 12px; background: #fafaf8; border: 2px solid #e8e8e4; border-radius: 16px; padding: 12px 12px 12px 18px; transition: border-color .2s, box-shadow .2s; }
+  .cw-input-row:focus-within { border-color: #4f6ef7; box-shadow: 0 0 0 4px rgba(79,110,247,.08); }
+  .cw-input-row textarea { flex: 1; background: transparent; border: none; outline: none; resize: none; font-size: 15px; font-weight: 500; color: #1e1e1e; line-height: 1.55; min-height: 26px; max-height: 140px; font-family: 'Inter', sans-serif; }
+  .cw-input-row textarea::placeholder { color: #b0b0a8; }
+  .cw-send { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #4f6ef7, #5a78f8); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0; transition: all .15s; box-shadow: 0 2px 8px rgba(79,110,247,.3); font-size: 18px; font-weight: 700; }
+  .cw-send:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(79,110,247,.4); }
+  .cw-send:disabled { opacity: .5; transform: none; cursor: not-allowed; }
+  .cw-hint { text-align: center; font-size: 11px; color: #b0b0a8; margin-top: 8px; font-weight: 500; }
+</style>
+
+<script is:inline>
+  window.sendToAI = async function(btn) {
+    const promptTextarea = document.getElementById('ai-prompt');
+    const chatContainer = document.getElementById('chat-container');
+    const learningPointData = document.getElementById('learning-point-data');
+
+    const prompt = promptTextarea.value.trim();
+    if (!prompt) return;
+
+    // 1. User bubble
+    const userBubble = document.createElement('div');
+    userBubble.className = 'msg-row msg-user';
+    userBubble.innerHTML = `
+      <div class="msg-bubble user-bubble" style="white-space:pre-wrap">${prompt.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+      <div class="msg-avatar user-avatar">Ja</div>
+    `;
+    chatContainer.appendChild(userBubble);
+    userBubble.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+    // Clear input
+    promptTextarea.value = '';
+    promptTextarea.style.height = '26px';
+    btn.disabled = true;
+    btn.innerHTML = `<span style="animation:spin 1s linear infinite;display:inline-block;">⏳</span>`;
+
+    // 2. AI loading bubble
+    const aiBubble = document.createElement('div');
+    aiBubble.className = 'msg-row msg-ai';
+    aiBubble.innerHTML = `
+      <div class="msg-avatar ai-avatar">AI</div>
+      <div class="msg-bubble ai-bubble" style="color:#9ca3af;display:flex;align-items:center;gap:4px;">
+        Razmišlja
+        <span style="animation:bounce .8s infinite;">.</span>
+        <span style="animation:bounce .8s .15s infinite;">.</span>
+        <span style="animation:bounce .8s .3s infinite;">.</span>
+      </div>
+    `;
+    chatContainer.appendChild(aiBubble);
+    aiBubble.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+    try {
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt,
+          taskId: btn.dataset.taskId,
+          context: 'Zadatak: ' + (btn.dataset.taskTitle || '') + '\nScenarij: ' + (btn.dataset.taskScenario || '') + '\nProblem: ' + (btn.dataset.taskProblem || '')
+        })
+      });
+
+      if (response.status === 401) {
+        chatContainer.removeChild(aiBubble);
+        chatContainer.removeChild(userBubble);
+        promptTextarea.value = prompt;
+        return;
+      }
+
+      const data = await response.json();
+      if (!response.ok || data.error) throw new Error(data.error || 'HTTP ' + response.status);
+
       aiBubble.innerHTML = `
-        <div class="w-8 h-8 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-[10px] shrink-0">AI</div>
-        <div class="text-black font-bold text-sm leading-relaxed max-w-[85%] border-2 border-black bg-white p-3 shadow-[2px_2px_0px_#000] flex items-center gap-2">
-          RADI <span class="animate-bounce">.</span><span class="animate-bounce" style="animation-delay: 0.1s">.</span><span class="animate-bounce" style="animation-delay: 0.2s">.</span>
+        <div class="msg-avatar ai-avatar">AI</div>
+        <div class="msg-bubble ai-bubble" style="white-space:pre-wrap">${data.response}</div>
+      `;
+
+      // Learning point
+      if (learningPointData && learningPointData.dataset.content) {
+        const lpBubble = document.createElement('div');
+        lpBubble.className = 'msg-row msg-ai';
+        lpBubble.innerHTML = `
+          <div class="msg-avatar" style="background:#d1fae5;color:#059669;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">✓</div>
+          <div class="msg-bubble" style="background:#f0fdf4;border:1px solid #bbf7d0;border-top-left-radius:4px;color:#065f46;max-width:80%;padding:12px 18px;border-radius:16px;font-size:14px;font-weight:500;line-height:1.65;">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#059669;margin-bottom:6px;">💡 Što smo naučili?</div>
+            ${learningPointData.dataset.content}
+          </div>
+        `;
+        chatContainer.appendChild(lpBubble);
+      }
+
+    } catch (error) {
+      aiBubble.innerHTML = `
+        <div class="msg-avatar" style="background:#fee2e2;color:#ef4444;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">!</div>
+        <div class="msg-bubble" style="background:#fef2f2;border:1px solid #fecaca;border-top-left-radius:4px;color:#991b1b;max-width:80%;padding:12px 18px;border-radius:16px;font-size:14px;font-weight:500;">
+          Greška: ${(error.message || 'Sustav nedostupan.').replace(/</g,'&lt;')}
         </div>
       `;
-      chatContainer.appendChild(aiBubble);
-      chatContainer.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
-      
-      try {
-        const response = await fetch('/api/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            prompt: prompt,
-            taskId: btn.dataset.taskId,
-            context: 'Zadatak: ' + (btn.dataset.taskTitle || '') + '\nScenarij: ' + (btn.dataset.taskScenario || '') + '\nProblem: ' + (btn.dataset.taskProblem || '')
-          })
-        });
-        
-        if (response.status === 401) {
-          if (loginNotice) loginNotice.classList.remove('hidden');
-          // cleanup UI on auth error
-          chatContainer.removeChild(aiBubble);
-          chatContainer.removeChild(userBubble);
-          promptTextarea.value = prompt;
-          return;
-        }
-        
-        const data = await response.json();
-        if (!response.ok || data.error) throw new Error(data.error || 'HTTP ' + response.status);
-        
-        // Update AI bubble with response
-        aiBubble.innerHTML = `
-          <div class="w-8 h-8 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-[10px] shrink-0">AI</div>
-          <div class="text-black font-bold text-sm leading-relaxed max-w-[85%] border-2 border-black bg-white p-3 shadow-[2px_2px_0px_#000] whitespace-pre-wrap">${data.response}</div>
-        `;
-        
-        // Spawn the Learning Point bubble
-        if (learningPointData && learningPointData.dataset.content) {
-          const lpBubble = document.createElement('div');
-          lpBubble.className = 'flex gap-3 items-start mt-4 max-w-4xl mx-auto w-full';
-          lpBubble.innerHTML = `
-            <div class="w-8 h-8 border-2 border-black bg-[#8CFF98] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-[10px] shrink-0 mt-2">!</div>
-            <div class="border-4 border-black bg-white p-4 shadow-[2px_2px_0px_#000] text-black w-full relative group">
-              <span class="absolute -top-3 left-4 bg-black text-white px-2 py-0.5 font-black text-[8px] uppercase tracking-widest">Što smo naučili?</span>
-              <p class="font-bold leading-relaxed text-sm mt-1">${learningPointData.dataset.content}</p>
-            </div>
-          `;
-          chatContainer.appendChild(lpBubble);
-        }
-        
-      } catch (error) {
-        aiBubble.innerHTML = `
-          <div class="w-8 h-8 border-2 border-black bg-[#FF4911] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-white text-[10px] shrink-0">ERR</div>
-          <div class="border-4 border-black bg-white p-3 text-black text-sm font-bold shadow-[2px_2px_0px_#FF4911] w-full">GRESKA: ${error.message || 'Sustav pao'}</div>
-        `;
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `→`;
-        chatContainer.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
-      }
-    };
-  </script>
-</Layout>
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = `<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>`;
+      chatContainer.lastElementChild && chatContainer.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+  };
+</script>

@@ -8,169 +8,434 @@ import LiveFeedConvex from '../components/LiveFeedConvex.tsx';
 import { SignedIn, SignedOut } from '@clerk/astro/components';
 ---
 
-<Layout title="AI Tutorijal - Nauči AI riješiti stvarne probleme">
-  <main class="min-h-screen bg-[#0a0a0c] selection:bg-indigo-500/30">
-    <Hero />
-    
-    <!-- Live AI-Generated Tasks from News -->
-    <section class="py-16 px-4 relative overflow-hidden bg-[#8CFF98] border-b-8 border-black z-20">
-      <div class="max-w-6xl mx-auto relative z-10">
-        <div class="flex items-center gap-4 mb-6 justify-center md:justify-start">
-          <div class="w-6 h-6 bg-[#FF4911] border-4 border-black shadow-[2px_2px_0px_#000]"></div>
-          <h2 class="text-4xl md:text-5xl font-black text-black uppercase tracking-tighter">Stvarni zadaci iz vijesti</h2>
+<Layout title="Početna | tutorijal.hr">
+  <!-- Hero -->
+  <Hero />
+
+  <!-- 1. MODULI — OSNOVE PROMPTA, odmah nakon heroja -->
+  <section class="dash-card" id="moduli">
+    <div class="card-header" style="margin-bottom: 20px;">
+      <div>
+        <span class="section-badge">Počni ovdje</span>
+        <h2 class="card-title" style="margin-top:8px;">✏️ Počni pisati prompte</h2>
+        <p class="card-desc">Svaki modul je stvarna situacija. Napiši AI uputu i vidi kako reagira. Nema teorije — odmah vježbaš!</p>
+      </div>
+    </div>
+    <ModuleGrid />
+  </section>
+
+  <!-- 2. LEKCIJE — naprednije, o agentima -->
+  <section class="dash-card" id="lekcije" style="margin-top:20px;">
+    <div class="card-header">
+      <span class="section-badge" style="background:rgba(124,58,237,.08);color:#7c3aed;border-color:rgba(124,58,237,.15);">Naprednije</span>
+      <h2 class="card-title" style="margin-top:8px;">📖 Lekcije o AI agentima</h2>
+      <p class="card-desc">Kad savladaš pisanje promptova, nauči kako napraviti AI agente koji rade umjesto tebe.</p>
+    </div>
+    <div class="lessons-row">
+      {[
+        { num: 1, title: 'Tvoj prvi prompt', icon: '✏️', color: '#4f6ef7', bg: '#eef2ff' },
+        { num: 2, title: 'Kontekst i ton', icon: '🎭', color: '#7c3aed', bg: '#f5f3ff' },
+        { num: 3, title: 'Složeniji zadaci', icon: '🧩', color: '#d97706', bg: '#fffbeb' },
+        { num: 4, title: 'AI alati u praksi', icon: '🧰', color: '#db2777', bg: '#fdf2f8' },
+        { num: 5, title: 'Automatizacija', icon: '🤖', color: '#059669', bg: '#f0fdf4' },
+      ].map((lesson) => (
+        <a href={`/lekcija/${lesson.num}`} class="lesson-card">
+          <div class="lesson-icon" style={`background: ${lesson.bg}; color: ${lesson.color};`}>{lesson.icon}</div>
+          <span class="lesson-num">Lekcija {lesson.num}</span>
+          <span class="lesson-name">{lesson.title}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- 3. KAKO UČIŠ — metode učenja za AI školu -->
+  <section class="learning-section" id="kako-radi" style="margin-top:20px;">
+
+    <!-- Header -->
+    <div class="learning-header">
+      <span class="section-badge" style="background:rgba(16,185,129,.08);color:#059669;border-color:rgba(16,185,129,.18);">Naša metoda</span>
+      <h2 class="learning-title">Kako učiš na tutorijal.hr?</h2>
+      <p class="learning-subtitle">Koristimo metode koje su dokazano najučinkovitije za online učenje.<br/>Svaka je osmišljena da ti AI postane alat, ne misterija.</p>
+    </div>
+
+    <!-- Learning Path Progress -->
+    <div class="learning-path">
+      <div class="path-track">
+        <div class="path-step path-active">
+          <div class="path-dot">1</div>
+          <span>Otkrij</span>
         </div>
-        <p class="text-black mb-10 max-w-3xl text-xl font-bold bg-white p-4 border-4 border-black text-center md:text-left shadow-[4px_4px_0px_#000]">
-          Zadaci se učitavaju istog trena iz naše baze. 
-          <span class="bg-[#FFDF00] px-2 border-2 border-black inline-block mt-2 font-black uppercase tracking-widest">Zajedno rješavamo današnje probleme!</span>
-        </p>
-        
-        <div class="bg-white border-4 border-black shadow-[8px_8px_0px_#000] p-4 md:p-8 overflow-hidden relative">
-          <LiveFeedConvex client:only="react" />
+        <div class="path-line"></div>
+        <div class="path-step">
+          <div class="path-dot">2</div>
+          <span>Vježbaj</span>
+        </div>
+        <div class="path-line"></div>
+        <div class="path-step">
+          <div class="path-dot">3</div>
+          <span>Primijeni</span>
+        </div>
+        <div class="path-line"></div>
+        <div class="path-step">
+          <div class="path-dot">4</div>
+          <span>Automatiziraj</span>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Core Learning Modules -->
-    <section class="py-24 px-4 bg-[#F4F4F0] relative border-b-8 border-black">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <span class="inline-block px-4 py-2 bg-black text-white text-sm font-black tracking-[0.2em] uppercase mb-6 shadow-[4px_4px_0px_#FFDF00]">Zabavno učenje</span>
-          <h2 class="text-5xl md:text-7xl font-black text-black mb-8 uppercase tracking-tighter">Izaberi svoju avanturu</h2>
-          <p class="text-black text-xl font-bold bg-white p-6 border-4 border-black max-w-3xl mx-auto shadow-[4px_4px_0px_#000]">
-            Svaki modul rješava jedan stvaran izazov. Od parkinga do padeža — 
-            otkrij kako ti AI može biti najbolji pomoćnik!
-          </p>
-        </div>
-        
-        <ModuleGrid />
-      </div>
-    </section>
+    <!-- Methods Grid -->
+    <div class="methods-grid">
 
-    <!-- Course Section -->
-    <section class="py-24 px-4 bg-[#FFE5F1] text-black relative overflow-hidden border-b-8 border-black">
-      <div class="max-w-6xl mx-auto relative z-10">
-        <div class="text-center mb-16">
-          <span class="inline-block px-4 py-2 border-4 border-black bg-white text-black text-sm font-black tracking-widest uppercase mb-6 shadow-[4px_4px_0px_#000]">Napredni Koncepti</span>
-          <h2 class="text-6xl md:text-8xl font-black text-black mb-8 uppercase tracking-tighter drop-shadow-[4px_4px_0px_#fff]">Moćni AI Agenti</h2>
-          <p class="text-black text-xl font-bold bg-white p-6 border-4 border-black max-w-3xl mx-auto shadow-[4px_4px_0px_#000]">
-            Spreman za sljedeći korak? Nauči kako stvoriti vlastite AI radnike koji će umjesto tebe obavljati dosadne zadatke.
-          </p>
+      <!-- 1. Learning by Doing -->
+      <div class="method-card method-primary">
+        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#4f6ef7,#818cf8);">
+          <span class="method-icon">🎯</span>
         </div>
-        
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
-          {[
-            { num: 1, title: "Prvi koraci", icon: "🚀" },
-            { num: 2, title: "Tvoj tim", icon: "👥" },
-            { num: 3, title: "Suđenje", icon: "⚖️" },
-            { num: 4, title: "Supermoći", icon: "🧰" },
-            { num: 5, title: "Magija", icon: "🎉" },
-          ].map((lesson, i) => (
-            <a 
-              href={`/lekcija/${lesson.num}`}
-              class="bg-white p-6 border-4 border-black shadow-[4px_4px_0px_#000] hover:shadow-[8px_8px_0px_#000] hover:-translate-y-2 hover:bg-[#FFDF00] transition-all group flex flex-col items-center text-center"
-            >
-              <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">{lesson.icon}</div>
-              <div class="bg-black text-white px-2 py-0.5 text-xs font-black uppercase mb-3">Nivo {lesson.num}</div>
-              <div class="font-black text-xl text-black uppercase tracking-tight">
-                {lesson.title}
-              </div>
-            </a>
-          ))}
-        </div>
-        
-        <div class="text-center mt-16">
-          <SignedIn>
-            <a 
-              href="/lekcija/1" 
-              class="inline-flex items-center justify-center gap-3 bg-[#FF4911] text-white px-10 py-6 border-4 border-black font-black text-2xl uppercase shadow-[8px_8px_0px_#000] hover:translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all"
-            >
-              🚀 Nastavi rad u terminalu
-            </a>
-          </SignedIn>
-          <SignedOut>
-            <a 
-              href="/sign-up" 
-              class="inline-flex items-center justify-center gap-3 bg-white text-black px-10 py-6 border-4 border-black font-black text-2xl uppercase shadow-[8px_8px_0px_#000] hover:bg-[#8CFF98] hover:translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all"
-            >
-              🚀 Otključaj napredne alate
-            </a>
-            <p class="mt-8 text-black font-black text-lg bg-white inline-block px-4 py-2 border-4 border-black shadow-[4px_4px_0px_#000]">
-              Imaš pristup? <a href="/sign-in" class="text-[#FF4911] hover:text-black hover:underline decoration-4 transition-colors">Prijavi se ovdje</a>
-            </p>
-          </SignedOut>
+        <div class="method-content">
+          <h3 class="method-title">Učiš radeći</h3>
+          <p class="method-subtitle" style="color:#4f6ef7;">Learning by Doing</p>
+          <p class="method-desc">Nema dugih predavanja. Od prve minute <strong>pišeš prompte</strong> i gledaš što AI napravi. Svaki modul je stvarna situacija — parking, kuhanje, diplomacija — u kojoj ti daješ upute AI-ju.</p>
+          <div class="method-example">
+            <span class="method-example-label">Primjer iz modula:</span>
+            <em>"Marko parkira na tvom mjestu. Napiši AI uputu koja će generirati pristojnu, ali odlučnu poruku."</em>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- How It Works (Brutalist blocks) -->
-    <section class="py-24 px-4 bg-[#FF4911] relative overflow-hidden border-b-8 border-black">
-      <div class="max-w-6xl mx-auto text-center relative z-10 w-full">
-        <h2 class="text-6xl md:text-8xl font-black text-white mb-16 uppercase tracking-tighter drop-shadow-[4px_4px_0px_#000]">
-          Način rada <span class="bg-black text-white px-4 border-4 border-white inline-block mt-4 md:mt-0 tracking-widest text-3xl">SYS_FLOW</span>
-        </h2>
-        
-        <div class="grid md:grid-cols-4 gap-6">
-          {[
-            { tag: 'KORAK 1', title: 'Problem', desc: 'Identificiraj izazov iz stvarnog svijeta' },
-            { tag: 'KORAK 2', title: 'Kontekst', desc: 'Analiziraj kako stručnjaci pristupaju zadatku' },
-            { tag: 'KORAK 3', title: 'Izvršenje', desc: 'Upotrijebi AI terminal za rješavanje' },
-            { tag: 'KORAK 4', title: 'Memorija', desc: 'Spremi proces za buduće ponavljanje' }
-          ].map((step) => (
-            <div class="bg-white border-4 border-black p-8 shadow-[8px_8px_0px_#000] text-left hover:-translate-y-2 hover:shadow-[12px_12px_0px_#000] hover:bg-[#FFDF00] transition-all group flex flex-col">
-              <div class="bg-black text-white self-start px-3 py-1 font-black text-xs uppercase mb-6 border-2 border-black group-hover:bg-[#FF4911] group-hover:text-black group-hover:border-white transition-colors">{step.tag}</div>
-              <h3 class="font-black text-3xl text-black mb-4 uppercase tracking-tighter">{step.title}</h3>
-              <p class="text-black font-bold text-lg leading-relaxed border-t-4 border-black pt-4 mt-auto">{step.desc}</p>
+      <!-- 2. Scaffolding -->
+      <div class="method-card">
+        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">
+          <span class="method-icon">🪜</span>
+        </div>
+        <div class="method-content">
+          <h3 class="method-title">Od lakšeg prema težem</h3>
+          <p class="method-subtitle" style="color:#d97706;">Scaffolding</p>
+          <p class="method-desc">Moduli idu od <strong>POČETNIK → SREDNJI → NAPREDNI</strong>. Počinješ s jednostavnim uputama (jedno pitanje), a završavaš s kompleksnim zadacima koji kombiniraju kontekst, ton i formate.</p>
+          <div class="method-levels">
+            <span class="level level-easy">Početnik</span>
+            <span class="level-arrow">→</span>
+            <span class="level level-mid">Srednji</span>
+            <span class="level-arrow">→</span>
+            <span class="level level-hard">Napredni</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Instant Feedback -->
+      <div class="method-card">
+        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#10b981,#34d399);">
+          <span class="method-icon">⚡</span>
+        </div>
+        <div class="method-content">
+          <h3 class="method-title">Trenutna povratna informacija</h3>
+          <p class="method-subtitle" style="color:#059669;">Instant Feedback</p>
+          <p class="method-desc">Napišeš prompt → AI odmah odgovori → <strong>vidiš rezultat u sekundi</strong>. Ako tvoja uputa nije jasna, odmah prepoznaješ problem. Nema čekanja — učiš iz svake greške u realnom vremenu.</p>
+          <div class="method-feedback-demo">
+            <div class="fb-row"><span class="fb-label fb-you">Ti:</span> <span class="fb-text">"Napiši poruku"</span></div>
+            <div class="fb-row"><span class="fb-label fb-ai">AI:</span> <span class="fb-text fb-bad">Preširok prompt — nejasan rezultat</span></div>
+            <div class="fb-row"><span class="fb-label fb-you">Ti:</span> <span class="fb-text">"Napiši pristojnu SMS poruku susjedu o parkingu, max 2 rečenice"</span></div>
+            <div class="fb-row"><span class="fb-label fb-ai">AI:</span> <span class="fb-text fb-good">Precizan rezultat ✓</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Micro-lessons -->
+      <div class="method-card">
+        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#ec4899,#f472b6);">
+          <span class="method-icon">⏱️</span>
+        </div>
+        <div class="method-content">
+          <h3 class="method-title">Kratke lekcije od 5 minuta</h3>
+          <p class="method-subtitle" style="color:#db2777;">Micro-learning</p>
+          <p class="method-desc">Svaki modul traje <strong>5-10 minuta</strong>. Nema lekcija od 45 minuta. Istraživanja pokazuju da se kratki sadržaji pamte 20% bolje. Možeš učiti na pauzi, u tramvaju, prije spavanja.</p>
+          <div class="method-time">
+            <div class="time-bar">
+              <div class="time-fill" style="width:20%"></div>
             </div>
-          ))}
+            <span class="time-label">~5 min po modulu</span>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- For Everyone (Neo-brutalist) -->
-    <section class="py-24 px-4 bg-white pb-32">
-      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 relative z-10">
-        <!-- For Seniors -->
-        <div class="bg-[#FFE5F1] p-10 lg:p-14 border-4 border-black shadow-[12px_12px_0px_#000] relative">
-          <div class="absolute -top-6 -left-6 w-16 h-16 bg-[#FFDF00] border-4 border-black shadow-[4px_4px_0px_#000] flex items-center justify-center text-3xl">👴</div>
-          <div class="bg-black text-white inline-block px-3 py-1 font-black text-sm uppercase tracking-widest mb-8">Pristupačnost</div>
-          <h3 class="text-4xl md:text-5xl font-black mb-10 text-black uppercase tracking-tighter">Prijateljsko za starije</h3>
-          <ul class="space-y-6 text-black font-bold text-xl">
-            <li class="flex items-start gap-4">
-              <span class="text-3xl mt-[-4px]">✓</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Velika slova i jasnije boje</span>
-            </li>
-            <li class="flex items-start gap-4">
-              <span class="text-3xl mt-[-4px]">✓</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Glasovna pomoć (AI čita naglas)</span>
-            </li>
-            <li class="flex items-start gap-4">
-              <span class="text-3xl mt-[-4px]">✓</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Bez teških engleskih riječi</span>
-            </li>
-            <li class="flex items-start gap-4">
-              <span class="text-3xl mt-[-4px]">✓</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Situacije iz stvarnog života</span>
-            </li>
-          </ul>
+      <!-- 5. Gamification -->
+      <div class="method-card">
+        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);">
+          <span class="method-icon">🏆</span>
         </div>
-
-        <!-- For Kids -->
-        <div class="bg-[#8CFF98] p-10 lg:p-14 border-4 border-black shadow-[12px_12px_0px_#000] relative mt-12 md:mt-0">
-          <div class="absolute -top-6 -left-6 w-16 h-16 bg-[#FF4911] border-4 border-black shadow-[4px_4px_0px_#000] flex items-center justify-center text-3xl text-white">👦</div>
-          <div class="bg-black text-white inline-block px-3 py-1 font-black text-sm uppercase tracking-widest mb-8">Edukacija</div>
-          <h3 class="text-4xl md:text-5xl font-black mb-10 text-black uppercase tracking-tighter">Zabavno za mlađe</h3>
-          <ul class="space-y-6 text-black font-bold text-xl">
-            <li class="flex items-start gap-4">
-              <span class="text-3xl mt-[-4px]">★</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Šarene ilustracije</span>
-            </li>
-            <li class="flex items-start gap-4">
-              <span class="text-3xl mt-[-4px]">★</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Sakupljanje bodova i pehara</span>
-            </li>
-            <li class="flex items-start gap-4">
-              <span class="text-3xl mt-[-4px]">★</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Kratke misije (za 2 min)</span>
-            </li>
-            <li class="flex items-start gap-4">
-              <span class="text-3xl mt-[-4px]">★</span> <span class="bg-white border-2 border-black p-2 w-full shadow-[2px_2px_0px_#000]">Školska gradiva kroz igru</span>
-            </li>
-          </ul>
+        <div class="method-content">
+          <h3 class="method-title">Napredak kroz razine</h3>
+          <p class="method-subtitle" style="color:#7c3aed;">Gamification</p>
+          <p class="method-desc">Svaki modul pokazuje tvoju razinu (Početnik, Srednji, Napredni). Vidiš kategorije, <strong>pratiš napredak</strong> i otključavaš složenije zadatke. Učenje postaje igra, ne obveza.</p>
+          <div class="method-badges">
+            <span class="m-badge">🚗 Parking</span>
+            <span class="m-badge">🍳 Kuhanje</span>
+            <span class="m-badge m-badge-locked">🔒 Uskoro...</span>
+          </div>
         </div>
       </div>
-    </section>
-  </main>
+
+      <!-- 6. Contextual Learning -->
+      <div class="method-card">
+        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#06b6d4,#22d3ee);">
+          <span class="method-icon">🌍</span>
+        </div>
+        <div class="method-content">
+          <h3 class="method-title">Stvarni kontekst, ne školski</h3>
+          <p class="method-subtitle" style="color:#0891b2;">Contextual Learning</p>
+          <p class="method-desc">Nema "Hello World" vježbi. Svaki zadatak dolazi iz <strong>stvarnog života</strong> — komunikacija sa susjedima, planiranje budžeta, kuhanje, pisanje diplomatskih odgovora. Učiš ono što ćeš <em>stvarno koristiti</em>.</p>
+          <div class="method-contexts">
+            <span class="ctx-tag">💬 Komunikacija</span>
+            <span class="ctx-tag">🍽️ Kuhanje</span>
+            <span class="ctx-tag">💰 Financije</span>
+            <span class="ctx-tag">📰 Vijesti</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="learning-cta">
+      <p class="cta-text">Spreman/na za prvu AI uputu?</p>
+      <a href="/#moduli" class="cta-button">Počni besplatno →</a>
+      <p class="cta-sub">Bez registracije. Bez kartice. Odmah vježbaš.</p>
+    </div>
+
+  </section>
+
+  <!-- 4. FEED — na kraju za one koji su već naučili osnove -->
+  <section class="dash-card" id="feed" style="margin-top:20px;">
+    <div class="card-header">
+      <div class="card-title-row">
+        <span class="live-dot"></span>
+        <h2 class="card-title">Stvarni zadaci iz vijesti</h2>
+      </div>
+      <p class="card-desc">Za napredne: svježi zadaci iz naše baze. Ako si prošao lekcije, ovo je tvoj sljedeći korak!</p>
+    </div>
+    <div class="feed-body">
+      <LiveFeedConvex client:only="react" />
+    </div>
+  </section>
+
+  <!-- Footer (inline, compact) -->
+  <footer class="site-footer">
+    <div class="footer-left">
+      <span class="footer-logo">🎓 tutorijal.hr</span>
+      <span class="footer-copy">© 2026 · Sva prava pridržana</span>
+    </div>
+    <div class="footer-links">
+      <a href="/">Početna</a>
+      <a href="/#lekcije">Lekcije</a>
+      <a href="/#moduli">Moduli</a>
+      <a href="mailto:info@tutorijal.hr">Kontakt</a>
+    </div>
+  </footer>
 </Layout>
+
+<style>
+  .dash-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px 24px;
+    border: 1px solid #e8e8e4;
+    box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  }
+  .card-header { margin-bottom: 16px; }
+  .card-title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .card-title { font-size: 16px; font-weight: 700; color: #1e1e1e; }
+  .card-desc { font-size: 13px; color: #9ca3af; font-weight: 500; line-height: 1.5; margin-top: 4px; }
+  .live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #10b981; flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(16,185,129,.2);
+    animation: livepulse 2s infinite;
+  }
+  @keyframes livepulse {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(16,185,129,.2); }
+    50% { box-shadow: 0 0 0 5px rgba(16,185,129,.08); }
+  }
+  .feed-body { min-height: 200px; }
+
+  /* Lessons — horizontal cards */
+  .lessons-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 900px) { .lessons-row { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 600px) { .lessons-row { grid-template-columns: repeat(2, 1fr); } }
+  .lesson-card {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 6px; padding: 18px 12px; border-radius: 12px;
+    background: #fafaf8; border: 1px solid #e8e8e4;
+    text-decoration: none; color: inherit; text-align: center;
+    transition: all .18s;
+  }
+  .lesson-card:hover {
+    background: #eef2ff; border-color: rgba(79,110,247,.2);
+    transform: translateY(-2px); box-shadow: 0 4px 14px rgba(79,110,247,.08);
+  }
+  .lesson-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .lesson-num { font-size: 10px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: .06em; }
+  .lesson-name { font-size: 13px; font-weight: 600; color: #1e1e1e; }
+
+  /* Section badge */
+  .section-badge {
+    display: inline-block;
+    background: #eef2ff; color: #4f6ef7;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em;
+    padding: 4px 10px; border-radius: 99px;
+    border: 1px solid rgba(79,110,247,.2);
+  }
+
+  /* ===== LEARNING SECTION ===== */
+  .learning-section {
+    background: #fff; border-radius: 16px;
+    padding: 32px 28px; border: 1px solid #e8e8e4;
+    box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  }
+
+  /* Header */
+  .learning-header { text-align: center; margin-bottom: 28px; }
+  .learning-title { font-size: 22px; font-weight: 800; color: #1e1e1e; margin-top: 10px; }
+  .learning-subtitle { font-size: 14px; color: #6b7280; font-weight: 500; line-height: 1.6; margin-top: 8px; }
+
+  /* Learning Path */
+  .learning-path {
+    background: #fafaf8; border: 1px solid #e8e8e4; border-radius: 14px;
+    padding: 20px 24px; margin-bottom: 28px;
+  }
+  .path-track { display: flex; align-items: center; justify-content: center; gap: 0; }
+  .path-step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .path-step span { font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: .04em; }
+  .path-dot {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #e5e7eb; color: #9ca3af;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800;
+    transition: all .2s;
+  }
+  .path-active .path-dot { background: linear-gradient(135deg,#4f6ef7,#818cf8); color: #fff; box-shadow: 0 2px 10px rgba(79,110,247,.3); }
+  .path-active span { color: #4f6ef7; }
+  .path-line { width: 48px; height: 2px; background: #e5e7eb; margin: 0 8px; margin-bottom: 20px; }
+
+  @media (max-width: 600px) {
+    .path-line { width: 24px; }
+    .path-dot { width: 30px; height: 30px; font-size: 11px; }
+    .path-step span { font-size: 9px; }
+  }
+
+  /* Methods Grid */
+  .methods-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 768px) { .methods-grid { grid-template-columns: 1fr; } }
+
+  .method-card {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: #fafaf8; border: 1px solid #e8e8e4; border-radius: 14px;
+    padding: 20px; transition: all .2s;
+  }
+  .method-card:hover { border-color: rgba(79,110,247,.2); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.04); }
+  .method-primary { grid-column: 1 / -1; background: #f8f9ff; border-color: rgba(79,110,247,.15); }
+  .method-primary .method-content { max-width: 100%; }
+
+  .method-icon-wrap {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .method-icon { font-size: 22px; filter: brightness(1.1); }
+
+  .method-content { flex: 1; min-width: 0; }
+  .method-title { font-size: 15px; font-weight: 800; color: #1e1e1e; margin-bottom: 2px; }
+  .method-subtitle { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .method-desc { font-size: 13px; color: #4b5563; font-weight: 500; line-height: 1.6; }
+  .method-desc strong { color: #1e1e1e; }
+
+  /* Method: Example box */
+  .method-example {
+    margin-top: 12px; background: #fff; border: 1px solid #e8e8e4;
+    border-radius: 10px; padding: 12px 14px;
+    font-size: 12.5px; color: #6b7280; line-height: 1.55;
+  }
+  .method-example-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #9ca3af; display: block; margin-bottom: 4px; }
+  .method-example em { color: #374151; font-style: italic; }
+
+  /* Method: Difficulty levels */
+  .method-levels { display: flex; align-items: center; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .level { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 99px; }
+  .level-easy { background: #d1fae5; color: #065f46; }
+  .level-mid { background: #fef3c7; color: #92400e; }
+  .level-hard { background: #fee2e2; color: #991b1b; }
+  .level-arrow { color: #d1d5db; font-size: 12px; font-weight: 800; }
+
+  /* Method: Feedback demo */
+  .method-feedback-demo {
+    margin-top: 12px; background: #fff; border: 1px solid #e8e8e4;
+    border-radius: 10px; padding: 10px 14px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .fb-row { display: flex; align-items: baseline; gap: 6px; font-size: 12px; }
+  .fb-label { font-weight: 800; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; flex-shrink: 0; }
+  .fb-you { color: #4f6ef7; }
+  .fb-ai { color: #9ca3af; }
+  .fb-text { color: #6b7280; font-weight: 500; }
+  .fb-bad { color: #ef4444; text-decoration: line-through; opacity: .7; }
+  .fb-good { color: #059669; font-weight: 700; }
+
+  /* Method: Time bar */
+  .method-time { margin-top: 12px; }
+  .time-bar { height: 8px; background: #e5e7eb; border-radius: 99px; overflow: hidden; }
+  .time-fill { height: 100%; background: linear-gradient(90deg,#ec4899,#f472b6); border-radius: 99px; transition: width .6s; }
+  .time-label { font-size: 11px; font-weight: 600; color: #9ca3af; margin-top: 6px; display: block; }
+
+  /* Method: Badges */
+  .method-badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .m-badge {
+    font-size: 11px; font-weight: 700; padding: 5px 12px;
+    background: #eef2ff; color: #4f6ef7; border: 1px solid rgba(79,110,247,.15);
+    border-radius: 99px;
+  }
+  .m-badge-locked { background: #f3f4f6; color: #9ca3af; border-color: #e5e7eb; }
+
+  /* Method: Context tags */
+  .method-contexts { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .ctx-tag {
+    font-size: 11px; font-weight: 600; padding: 5px 12px;
+    background: #f0f9ff; color: #0891b2; border: 1px solid rgba(6,182,212,.15);
+    border-radius: 99px;
+  }
+
+  /* Bottom CTA */
+  .learning-cta {
+    text-align: center; margin-top: 28px;
+    padding-top: 24px; border-top: 1px solid #e8e8e4;
+  }
+  .cta-text { font-size: 18px; font-weight: 800; color: #1e1e1e; margin-bottom: 14px; }
+  .cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #4f6ef7, #5a78f8); color: #fff;
+    padding: 13px 32px; border-radius: 12px;
+    font-size: 15px; font-weight: 700; text-decoration: none;
+    box-shadow: 0 3px 12px rgba(79,110,247,.3);
+    transition: all .18s;
+  }
+  .cta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(79,110,247,.35); }
+  .cta-sub { font-size: 12px; color: #9ca3af; font-weight: 500; margin-top: 10px; }
+
+  /* Footer */
+  .site-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+    margin-top: 20px; padding: 16px 20px;
+    background: #fff; border-radius: 12px;
+    border: 1px solid #e8e8e4;
+    font-size: 13px;
+  }
+  .footer-left { display: flex; align-items: center; gap: 14px; }
+  .footer-logo { font-weight: 700; color: #1e1e1e; }
+  .footer-copy { color: #9ca3af; font-weight: 500; }
+  .footer-links { display: flex; gap: 16px; }
+  .footer-links a { color: #6b7280; text-decoration: none; font-weight: 500; transition: color .15s; }
+  .footer-links a:hover { color: #4f6ef7; }
+</style>

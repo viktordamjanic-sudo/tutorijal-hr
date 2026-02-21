@@ -1,63 +1,161 @@
 ---
-// Hero Section Component
+// Hero Section Component — Two-column with visual panel
 ---
 
-<section class="relative pt-24 pb-24 px-4 overflow-hidden min-h-[90vh] md:min-h-screen flex flex-col justify-center border-b-8 border-black bg-[#FFDF00]">
-  <!-- Grid background for brutalist feel -->
-  <div class="absolute inset-0 z-0 opacity-20 pointer-events-none" style="background-image: linear-gradient(#000 2px, transparent 2px), linear-gradient(90deg, #000 2px, transparent 2px); background-size: 40px 40px;"></div>
-  
-  <div class="relative max-w-5xl mx-auto text-center z-10 w-full mt-8">
-    <!-- Premium Live Indicator Badge (Brutalist) -->
-    <div class="inline-flex items-center gap-3 bg-white border-4 border-black px-6 py-3 shadow-[4px_4px_0px_#000] mb-12 transform hover:-translate-y-1 hover:shadow-[6px_6px_0px_#000] transition-all cursor-default group">
-      <span class="relative flex h-4 w-4">
-        <span class="animate-ping absolute inline-flex h-full w-full bg-[#FF4911] opacity-75"></span>
-        <span class="relative inline-flex h-4 w-4 bg-[#FF4911] border-2 border-black"></span>
-      </span>
-      <span class="text-sm font-black text-black tracking-[0.2em] uppercase">Sistem Rješavanja Problema</span>
+<!-- Hero Banner Card -->
+<div class="hero-card">
+  <!-- Left: CTA content -->
+  <div class="hero-left">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Sistem rješavanja problema
     </div>
-    
-    <!-- Next-Gen Headline (Brutalist) -->
-    <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-[8rem] font-black text-black mb-8 leading-[0.9] tracking-tighter uppercase uppercase border-black drop-shadow-[4px_4px_0px_rgba(255,255,255,1)]">
-      Alat za 
-      <span class="block mt-4 inline-block bg-[#8CFF98] border-8 border-black px-4 py-2 shadow-[8px_8px_0px_#000] transform -rotate-2 hover:rotate-0 transition-transform">
-        stvarne
-      </span>
-      <span class="block mt-4">
-        probleme.
-      </span>
-    </h1>
-    
-    <!-- Subtitle (Brutalist) -->
-    <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 max-w-3xl mx-auto mb-16 transform rotate-1">
-      <p class="text-xl md:text-3xl text-black font-bold leading-tight">
-        Nauči dizajnirati AI upute i prepusti dosadan posao mašinama.
-        <span class="font-black text-black block mt-2 py-1 uppercase decoration-4 underline decoration-[#FF4911]">Zauvijek besplatno.</span>
-      </p>
+    <h1 class="hero-title">Alat za <span class="hero-highlight">stvarne</span> probleme.</h1>
+    <p class="hero-sub">Nauči dizajnirati AI upute i prepusti dosadan posao mašinama. Zauvijek besplatno.</p>
+    <div class="hero-actions">
+      <a href="#moduli" class="btn-primary">Pokreni modele →</a>
+      <a href="#kako-radi" class="btn-secondary">Saznaj više</a>
     </div>
-    
-    <!-- Ultra-Premium Call to Actions (Brutalist Blocks) -->
-    <div class="flex flex-col sm:flex-row gap-6 justify-center mt-8">
-      <a
-        href="#moduli"
-        class="inline-flex items-center justify-center gap-3 bg-[#FF4911] text-white px-10 py-5 font-black text-2xl uppercase tracking-tighter border-4 border-black shadow-[8px_8px_0px_#000] hover:-translate-y-2 hover:shadow-[12px_12px_0px_#000] active:translate-y-2 active:shadow-none transition-all"
-      >
-        Pokreni Radni Prostor <span class="text-3xl">→</span>
-      </a>
-      
-      <a
-        href="#kako-radi"
-        class="inline-flex items-center justify-center gap-3 bg-white text-black px-10 py-5 font-black text-2xl uppercase tracking-tighter border-4 border-black shadow-[8px_8px_0px_#000] hover:-translate-y-2 hover:shadow-[12px_12px_0px_#000] hover:bg-[#FFE5F1] active:translate-y-2 active:shadow-none transition-all"
-      >
-        Saznaj Više
-      </a>
+
+    <!-- Stats row -->
+    <div class="hero-stats-row">
+      <div class="stat-item">
+        <span class="stat-value">5 <span class="stat-delta up">+2</span></span>
+        <span class="stat-label">Modula</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value">256 <span class="stat-delta up">↑ 32%</span></span>
+        <span class="stat-label">Korisnika</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value">100% <span class="stat-delta check">✓</span></span>
+        <span class="stat-label">Besplatno</span>
+      </div>
     </div>
-    
   </div>
-</section>
+
+  <!-- Right: Visual illustration -->
+  <div class="hero-right">
+    <div class="hero-visual">
+      <!-- Soft visual card -->
+      <div class="visual-card">
+        <div class="visual-dots">
+          <span class="vdot vdot-red"></span>
+          <span class="vdot vdot-yellow"></span>
+          <span class="vdot vdot-green"></span>
+        </div>
+        <div class="visual-lines">
+          <div class="vl"><span class="vl-tag">prompt</span> Napiši ljubaznu poruku...</div>
+          <div class="vl vl-muted"><span class="vl-tag vl-tag-ai">AI</span> Analiziram kontekst...</div>
+          <div class="vl vl-success"><span class="vl-tag vl-tag-ok">✓</span> Poruka generirana!</div>
+        </div>
+      </div>
+
+      <!-- Floating module chips -->
+      <div class="floating-chips">
+        <span class="fchip fchip-1">🚗 Parking</span>
+        <span class="fchip fchip-2">🍲 Kuhanje</span>
+        <span class="fchip fchip-3">📚 Jezik</span>
+        <span class="fchip fchip-4">🤝 Diplomacija</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <style>
-  @keyframes shimmer {
-    100% {
-      transform: translateX(100%);
-    }
+  .hero-card {
+    background: linear-gradient(135deg, #fafaf7 0%, #eef2ff 50%, #f7f5ff 100%);
+    border-radius: 20px; padding: 36px; margin-bottom: 20px;
+    border: 1px solid #e8e8e4;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
+    align-items: center; min-height: 280px;
+    position: relative; overflow: hidden;
   }
+  @media (max-width: 768px) {
+    .hero-card { grid-template-columns: 1fr; min-height: auto; padding: 24px; }
+    .hero-right { display: none; }
+  }
+  .hero-left { position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(79,110,247,.08); color: #4f6ef7;
+    font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 99px; border: 1px solid rgba(79,110,247,.15); margin-bottom: 14px;
+  }
+  .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #4f6ef7; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+  .hero-title { font-size: clamp(24px, 3.5vw, 36px); font-weight: 800; color: #1e1e1e; line-height: 1.2; margin-bottom: 12px; letter-spacing: -.02em; }
+  .hero-highlight { background: linear-gradient(135deg, #4f6ef7, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: 14px; color: #6b7280; font-weight: 500; line-height: 1.65; margin-bottom: 20px; }
+  .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #4f6ef7, #5a78f8); color: #fff;
+    padding: 10px 22px; border-radius: 10px; font-size: 13.5px; font-weight: 700;
+    text-decoration: none; box-shadow: 0 2px 10px rgba(79,110,247,.3); transition: all .18s;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(79,110,247,.4); }
+  .btn-secondary {
+    background: #fff; color: #4b5563; padding: 10px 20px; border-radius: 10px;
+    font-size: 13.5px; font-weight: 600; text-decoration: none;
+    border: 1.5px solid #e5e7eb; transition: all .18s;
+  }
+  .btn-secondary:hover { border-color: #4f6ef7; color: #4f6ef7; }
+
+  /* Stats */
+  .hero-stats-row {
+    display: flex; gap: 0;
+    background: #fff; border-radius: 12px; padding: 12px 20px;
+    border: 1px solid #e8e8e4; width: fit-content;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .stat-item { display: flex; flex-direction: column; gap: 2px; padding: 0 16px; }
+  .stat-item:first-child { padding-left: 0; }
+  .stat-item:last-child { padding-right: 0; }
+  .stat-label { font-size: 10px; color: #9ca3af; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+  .stat-value { font-size: 19px; font-weight: 800; color: #1e1e1e; display: flex; align-items: center; gap: 5px; }
+  .stat-delta { font-size: 11px; font-weight: 700; }
+  .stat-delta.up { color: #10b981; }
+  .stat-delta.check { color: #4f6ef7; }
+  .stat-divider { width: 1px; background: #e8e8e4; margin: 4px 0; flex-shrink: 0; }
+
+  /* Right visual — LIGHT */
+  .hero-right { position: relative; z-index: 1; }
+  .visual-card {
+    background: #fff; border-radius: 14px; padding: 18px 20px;
+    border: 1px solid #e8e8e4;
+    box-shadow: 0 4px 20px rgba(0,0,0,.06);
+  }
+  .visual-dots { display: flex; gap: 6px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #f0f0ec; }
+  .vdot { width: 8px; height: 8px; border-radius: 50%; }
+  .vdot-red { background: #fca5a5; }
+  .vdot-yellow { background: #fcd34d; }
+  .vdot-green { background: #86efac; }
+
+  .visual-lines { display: flex; flex-direction: column; gap: 8px; }
+  .vl { font-size: 13px; font-family: 'Inter', monospace; font-weight: 500; color: #374151; display: flex; align-items: center; gap: 8px; }
+  .vl-muted { color: #9ca3af; }
+  .vl-success { color: #059669; }
+  .vl-tag {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+    padding: 2px 8px; border-radius: 5px;
+    background: #eef2ff; color: #4f6ef7;
+  }
+  .vl-tag-ai { background: #fef3c7; color: #d97706; }
+  .vl-tag-ok { background: #d1fae5; color: #059669; }
+
+  .floating-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; justify-content: center; }
+  .fchip {
+    font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: 99px;
+    background: #fff; border: 1px solid #e8e8e4; color: #374151;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    animation: float 3s ease-in-out infinite;
+  }
+  .fchip-1 { animation-delay: 0s; }
+  .fchip-2 { animation-delay: .5s; }
+  .fchip-3 { animation-delay: 1s; }
+  .fchip-4 { animation-delay: 1.5s; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 </style>
