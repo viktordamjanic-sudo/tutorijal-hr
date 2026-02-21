@@ -9,18 +9,25 @@ export const PREDEFINED_TASKS: Task[] = [
     difficulty: 'beginner',
     targetAudience: 'seniors',
     category: 'parking',
-    scenario: 'Marko svaki dan parkira na tvojem rezerviranom mjestu. Trebaš ga zamoliti da prestane, ali ne želiš svađu.',
-    problem: 'Kako ljubazno zamoliti susjeda da ne parkira tu?',
-    aiPrompt: 'Napiši ljubaznu poruku susjedu koji parkira na mom mjestu. Ton: susjedski, nije agresivno, ponudi rješenje.',
-    expectedOutcome: `Primjer poruke:
+    scenario: 'Susjed Marko ti već treći dan parkira na tvom rezerviranom mjestu. Ljuti se, ali ne želiš svađu — ipak živite u istoj zgradi. Želiš mu poslati poruku na WhatsApp, ali ne znaš kako to napisati da bude pristojno a jasno.',
+    problem: 'Tvoj zadatak: napiši uputu (prompt) za AI koja će mu pomoći da ti sastavi savršenu poruku za Marka. Razmisli — što AI treba znati da napiše dobru poruku?',
+    aiPrompt: 'Pomozi mi napisati WhatsApp poruku susjedu Marku koji mi parkira na rezerviranom mjestu. Želim biti pristojan ali jasan da me to smeta. Ton: susjedski, nimalo agresivno. Na kraju ponudi rješenje da se dogovorimo.',
+    expectedOutcome: `📊 Ocjena prompta: ⭐⭐⭐
 
-"Bok Marko! 😊 Samo sam htio javit - rezervirano mi je parking mjesto ispred ulaza (broj 12). Vidim da često parkiraš tu, pa pretpostavljam da možda nisi znao. Ako ti je ikad teško pronać mjesto, mogu ti pokazat još par slobodnih u okolici? Svakako se dogovorimo, susjedi smo! 👋"
+Odličan prompt! Evo poruke za Marka:
 
-💡 Zašto ovo funkcionira:
-• Ne optužuje ("možda nisi znao")
-• Nudi pomoć (druga mjesta)
-• Susjedski ton (emoji, pozitivno)`,
-    learningPoint: 'AI je "preveditelj" emocija - pomaže nam biti ljubazni i jasni.',
+"Bok Marko! 😊 Htio sam te samo zamoliti u vezi parkinga — ono mjesto ispred ulaza (br. 12) je moje rezervirano, pa mi treba slobodno kad dođem. Pretpostavljam da možda nisi znao!
+
+Ako ti je ikad teško naći mjesto, ja znam par slobodnih u okolici — mogu ti pokazati. Dogovorimo se, susjedi smo! 👋"
+
+💡 Zašto je tvoj prompt bio odličan:
+• Rekao si AI-ju TKO je Marko (susjed, ista zgrada)
+• Zadao si TON poruke (pristojan, ne agresivan)
+• Tražio si i RJEŠENJE (ponuda dogovora)
+• Rezultat: poruka koju možeš odmah poslati!
+
+Odličan prompt! 🌟`,
+    learningPoint: 'AI ne zna ništa o tvojoj situaciji dok mu ne objasniš. Što mu više kažeš (tko, što, kako, kakav ton), to bolji odgovor dobiješ!',
   },
   {
     id: 'cooking-1',
@@ -80,7 +87,7 @@ Zmaj šikne vatru! 🐉 Morate odgovoriti točno da zaštitite selo.
 • Djecu → DJECU (koga? akuzativ)
 • Seljane → SELJANE (koga? akuzativ)
 
-🏆 Točno! Zmaj je poražen! Seljani slave hrabre vikinze!`, 
+🏆 Točno! Zmaj je poražen! Seljani slave hrabre vikinze!`,
     learningPoint: 'Padeži nisu dosadni - pomažu nam razumjeti tko radi što kome!',
   },
   {

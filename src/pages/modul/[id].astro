@@ -35,49 +35,87 @@ const isConvexTask = !task;
       </SignedOut>
     ) : (
     <SignedIn>
-      <!-- TOP BAR -->
-      <div class="ws-topbar">
-        <a href="/" class="ws-back">← Natrag</a>
-        <div class="ws-title-row">
-          <span class="ws-icon">{task.icon}</span>
-          <span class="ws-title">{task.title}</span>
-        </div>
-        <div class="ws-status">
-          <span class="status-dot"></span> Online
-        </div>
-      </div>
-
-      <!-- SCROLLABLE AREA — chat messages + centered prompt -->
-      <div class="ws-scroll" id="chat-wrapper">
-        <div class="ws-content" id="chat-container">
-
-          <!-- TASK CONTEXT CARD — compact, centered -->
-          <div class="task-card">
-            <div class="task-chips">
-              <span class="chip chip-category">{task.category}</span>
-              <span class="chip chip-difficulty">{task.difficulty}</span>
+      <!-- HERO-STYLE TOP SECTION -->
+      <div class="ws-hero">
+        <a href="/" class="ws-back">← Natrag na početnu</a>
+        
+        <div class="ws-hero-card">
+          <!-- Left: Task info -->
+          <div class="ws-hero-left">
+            <div class="ws-badge">
+              <span class="ws-badge-dot"></span>
+              {task.category === 'parking' ? 'Komunikacija' : task.category === 'cooking' ? 'Svakodnevica' : task.category === 'language' ? 'Jezik' : task.category === 'finance' ? 'Financije' : 'Modul'}
+              <span class="ws-diff-pill">{task.difficulty === 'beginner' ? '● Početnik' : task.difficulty === 'intermediate' ? '●● Srednji' : '●●● Napredni'}</span>
             </div>
-            <div class="task-blocks">
-              <div class="task-block">
-                <div class="task-block-label">Kontekst</div>
-                <p class="task-block-text">{task.scenario}</p>
-              </div>
-              <div class="task-block task-block-accent">
-                <div class="task-block-label" style="color:#4f6ef7;">🎯 Cilj</div>
-                <p class="task-block-text" style="font-weight:600;color:#1e1e1e;">{task.problem}</p>
-              </div>
-              <div class="task-block task-block-hint">
-                <div class="task-block-label" style="color:#7c3aed;">✨ Prijedlog prompta</div>
-                <p class="task-block-text" style="font-size:13px;">{task.aiPrompt}</p>
+            
+            <h1 class="ws-hero-title">
+              <span class="ws-hero-icon">{task.icon}</span>
+              {task.title.replace(task.icon, '').trim()}
+            </h1>
+
+            <!-- Kontekst = Priča -->
+            <div class="ws-story">
+              <p class="ws-story-text">{task.scenario}</p>
+            </div>
+
+            <!-- Cilj = Call to action -->
+            <div class="ws-goal">
+              <span class="ws-goal-icon">🎯</span>
+              <div>
+                <div class="ws-goal-label">Tvoj zadatak</div>
+                <p class="ws-goal-text">{task.problem}</p>
               </div>
             </div>
           </div>
 
+          <!-- Right: Prompt preview (terminal-style) -->
+          <div class="ws-hero-right">
+            <div class="ws-prompt-preview">
+              <div class="ws-preview-dots">
+                <span class="pvdot pvdot-red"></span>
+                <span class="pvdot pvdot-yellow"></span>
+                <span class="pvdot pvdot-green"></span>
+                <span class="ws-preview-title">primjer prompta</span>
+              </div>
+              <div class="ws-preview-body">
+                <div class="ws-preview-line">
+                  <span class="ws-pv-tag">prompt</span>
+                  <span class="ws-pv-text">{task.aiPrompt.length > 120 ? task.aiPrompt.slice(0, 120) + '...' : task.aiPrompt}</span>
+                </div>
+                <div class="ws-preview-line ws-pv-ai">
+                  <span class="ws-pv-tag ws-pv-tag-ai">AI</span>
+                  <span class="ws-pv-text">Analiziram tvoj prompt...</span>
+                </div>
+                <div class="ws-preview-line ws-pv-result">
+                  <span class="ws-pv-tag ws-pv-tag-ok">⭐⭐⭐</span>
+                  <span class="ws-pv-text">Odličan prompt!</span>
+                </div>
+              </div>
+              <button
+                class="ws-use-prompt-btn"
+                onclick={`document.getElementById('ai-prompt').value = \`${task.aiPrompt.replace(/`/g, '\\`')}\`; document.getElementById('ai-prompt').focus(); document.getElementById('ai-prompt').dispatchEvent(new Event('input')); document.getElementById('chat-wrapper').scrollIntoView({behavior:'smooth'});`}
+              >
+                ✨ Koristi ovaj prompt
+              </button>
+            </div>
+
+            <!-- Learning point floating chip -->
+            <div class="ws-tip-chip">
+              <span class="ws-tip-icon">💡</span>
+              <span class="ws-tip-text">{task.learningPoint}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAT AREA -->
+      <div class="ws-scroll" id="chat-wrapper">
+        <div class="ws-content" id="chat-container">
           <!-- AI greeting -->
           <div class="msg-row msg-ai">
             <div class="msg-avatar ai-avatar">AI</div>
             <div class="msg-bubble ai-bubble">
-              Spreman sam! Upiši prompt ispod ili koristi prijedlog iz zadatka.
+              Bok! 👋 Pročitaj zadatak gore i probaj napisati svoj prompt. Ocijenit ću ga s ⭐ i pomoći ti da ga poboljšaš. Kad budeš spreman/na, napiši svoju uputu ispod!
             </div>
           </div>
 
@@ -157,30 +195,129 @@ const isConvexTask = !task;
     background: #f5f5f0;
   }
 
-  /* ===== TOP BAR ===== */
-  .ws-topbar {
-    display: flex; align-items: center; gap: 16px;
-    padding: 12px 24px;
-    background: #fff; border-bottom: 1px solid #e8e8e4;
+  /* ===== HERO SECTION ===== */
+  .ws-hero {
+    background: linear-gradient(135deg, #fafaf7 0%, #eef2ff 50%, #f7f5ff 100%);
+    padding: 20px 24px 0;
     flex-shrink: 0;
+    border-bottom: 1px solid #e8e8e4;
   }
   .ws-back {
     font-size: 13px; color: #9ca3af; text-decoration: none; font-weight: 600;
-    transition: color .15s; flex-shrink: 0;
+    transition: color .15s; display: inline-block; margin-bottom: 16px;
   }
   .ws-back:hover { color: #4f6ef7; }
-  .ws-title-row {
-    display: flex; align-items: center; gap: 8px; flex: 1;
-    justify-content: center;
+
+  .ws-hero-card {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+    align-items: start; padding-bottom: 24px;
   }
-  .ws-icon { font-size: 18px; }
-  .ws-title { font-size: 14px; font-weight: 700; color: #1e1e1e; }
-  .ws-status {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 11px; color: #10b981; font-weight: 600; flex-shrink: 0;
+
+  .ws-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(79,110,247,.08); color: #4f6ef7;
+    font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 99px; border: 1px solid rgba(79,110,247,.15); margin-bottom: 12px;
   }
-  .status-dot { width: 6px; height: 6px; background: #10b981; border-radius: 50%; animation: livepulse 2s infinite; }
+  .ws-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #4f6ef7; animation: livepulse 2s infinite; }
   @keyframes livepulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .ws-diff-pill {
+    background: rgba(79,110,247,.12); padding: 2px 8px; border-radius: 99px;
+    font-size: 9px; letter-spacing: .03em;
+  }
+
+  .ws-hero-title {
+    font-size: clamp(20px, 2.5vw, 28px); font-weight: 800; color: #1e1e1e;
+    line-height: 1.25; margin-bottom: 14px; letter-spacing: -.02em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .ws-hero-icon { font-size: 32px; flex-shrink: 0; }
+
+  .ws-story {
+    background: #fff; border: 1px solid #e8e8e4; border-radius: 12px;
+    padding: 14px 18px; margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  }
+  .ws-story-text {
+    font-size: 14px; color: #374151; font-weight: 500; line-height: 1.65;
+  }
+
+  .ws-goal {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: linear-gradient(135deg, #eef2ff, #f0edff);
+    border: 1.5px solid rgba(79,110,247,.2); border-radius: 12px;
+    padding: 14px 18px;
+  }
+  .ws-goal-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .ws-goal-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; color: #4f6ef7; margin-bottom: 4px;
+  }
+  .ws-goal-text { font-size: 14px; color: #1e1e1e; font-weight: 600; line-height: 1.5; }
+
+  /* Right side — terminal preview */
+  .ws-hero-right { position: relative; }
+  .ws-prompt-preview {
+    background: #fff; border-radius: 14px; padding: 0;
+    border: 1px solid #e8e8e4;
+    box-shadow: 0 4px 20px rgba(0,0,0,.06);
+    overflow: hidden;
+  }
+  .ws-preview-dots {
+    display: flex; align-items: center; gap: 6px; padding: 10px 16px;
+    border-bottom: 1px solid #f0f0ec;
+  }
+  .pvdot { width: 8px; height: 8px; border-radius: 50%; }
+  .pvdot-red { background: #fca5a5; }
+  .pvdot-yellow { background: #fcd34d; }
+  .pvdot-green { background: #86efac; }
+  .ws-preview-title {
+    font-size: 10px; font-weight: 600; color: #9ca3af;
+    text-transform: uppercase; letter-spacing: .06em; margin-left: auto;
+  }
+
+  .ws-preview-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .ws-preview-line {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 12.5px; font-weight: 500; color: #374151; line-height: 1.5;
+  }
+  .ws-pv-tag {
+    font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+    padding: 2px 8px; border-radius: 5px; flex-shrink: 0; margin-top: 2px;
+    background: #eef2ff; color: #4f6ef7;
+  }
+  .ws-pv-tag-ai { background: #fef3c7; color: #d97706; }
+  .ws-pv-tag-ok { background: #d1fae5; color: #059669; }
+  .ws-pv-text { flex: 1; }
+  .ws-pv-ai { color: #9ca3af; }
+  .ws-pv-result { color: #059669; font-weight: 600; }
+
+  .ws-use-prompt-btn {
+    display: block; width: 100%; padding: 10px;
+    background: linear-gradient(135deg, #f5f3ff, #eef2ff);
+    border: none; border-top: 1px solid #e8e8e4;
+    font-size: 13px; font-weight: 700; color: #7c3aed;
+    cursor: pointer; transition: all .15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .ws-use-prompt-btn:hover { background: #ede9fe; }
+
+  .ws-tip-chip {
+    display: flex; align-items: flex-start; gap: 8px;
+    background: #fff; border: 1px solid #e8e8e4; border-radius: 12px;
+    padding: 12px 16px; margin-top: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    animation: floattip 3s ease-in-out infinite;
+  }
+  .ws-tip-icon { font-size: 16px; flex-shrink: 0; }
+  .ws-tip-text { font-size: 12.5px; color: #6b7280; font-weight: 500; line-height: 1.5; }
+  @keyframes floattip { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+  @media (max-width: 768px) {
+    .ws-hero-card { grid-template-columns: 1fr; }
+    .ws-hero-right { display: none; }
+    .ws-hero { padding: 16px 16px 0; }
+  }
 
   /* ===== SCROLLABLE CHAT AREA ===== */
   .ws-scroll {
@@ -190,25 +327,6 @@ const isConvexTask = !task;
   .ws-content {
     max-width: 720px; margin: 0 auto;
     display: flex; flex-direction: column; gap: 20px;
-  }
-
-  /* ===== TASK CONTEXT CARD ===== */
-  .task-card {
-    background: #fff; border-radius: 16px; padding: 20px 24px;
-    border: 1px solid #e8e8e4;
-    box-shadow: 0 1px 4px rgba(0,0,0,.03);
-  }
-  .task-chips { display: flex; gap: 8px; margin-bottom: 14px; }
-  .chip {
-    font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: .07em; padding: 3px 10px; border-radius: 99px;
-  }
-  .chip-category { background: #f3f4f6; color: #6b7280; border: 1px solid #e5e7eb; }
-  .chip-difficulty { background: #eef2ff; color: #4f6ef7; border: 1px solid rgba(79,110,247,.2); }
-
-  .task-blocks { display: flex; flex-direction: column; gap: 10px; }
-  .task-block {
-    background: #fafaf8; border: 1px solid #e8e8e4; border-radius: 10px; padding: 12px 16px;
   }
   .task-block-accent { background: #eef2ff; border-color: rgba(79,110,247,.2); }
   .task-block-hint { background: #f5f3ff; border-color: rgba(124,58,237,.15); }
