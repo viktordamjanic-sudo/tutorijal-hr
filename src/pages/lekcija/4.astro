@@ -292,5 +292,12 @@ sync: true</pre>
         }
       });
     });
+
+    // Save lesson progress
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lessonId: 4, timeSpent: 5 })
+    }).catch(console.error);
   </script>
 </Layout>

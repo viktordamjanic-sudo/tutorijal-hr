@@ -193,5 +193,12 @@ ${items.map(item => `    "${item.toLowerCase()}:fetch"`).join(',\n')}
         resultDiv.classList.remove('hidden');
       }
     });
+
+    // Save lesson progress
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lessonId: 1, timeSpent: 3 })
+    }).catch(console.error);
   </script>
 </Layout>

@@ -296,4 +296,12 @@ import Layout from '../../layouts/Layout.astro';
       </div>
     </div>
   </main>
+  <script>
+    // Save lesson progress
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lessonId: 2, timeSpent: 5 })
+    }).catch(console.error);
+  </script>
 </Layout>

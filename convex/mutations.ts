@@ -80,8 +80,7 @@ export const updateProgress = mutation({
   },
   handler: async (ctx, { userId, lessonId, taskId, timeSpent = 0 }) => {
     const existing = await ctx.db.query('userProgress')
-      .withIndex('by_user')
-      .filter((q) => q.eq(q.field('userId'), userId))
+      .withIndex('by_user', (q) => q.eq('userId', userId))
       .first();
 
     if (existing) {
@@ -182,8 +181,7 @@ export const toggleFavorite = mutation({
   },
   handler: async (ctx, { userId, taskId }) => {
     const progress = await ctx.db.query('userProgress')
-      .withIndex('by_user')
-      .filter((q) => q.eq(q.field('userId'), userId))
+      .withIndex('by_user', (q) => q.eq('userId', userId))
       .first();
 
     if (!progress) {
@@ -216,8 +214,7 @@ export const getUserProgress = query({
   },
   handler: async (ctx, { userId }) => {
     const progress = await ctx.db.query('userProgress')
-      .withIndex('by_user')
-      .filter((q) => q.eq(q.field('userId'), userId))
+      .withIndex('by_user', (q) => q.eq('userId', userId))
       .first();
 
     return progress || {

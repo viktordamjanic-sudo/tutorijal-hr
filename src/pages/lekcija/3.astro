@@ -216,5 +216,12 @@ import Layout from '../../layouts/Layout.astro';
         result.className = `text-center font-medium ${msg.color}`;
       }
     });
+
+    // Save lesson progress
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lessonId: 3, timeSpent: 5 })
+    }).catch(console.error);
   </script>
 </Layout>
