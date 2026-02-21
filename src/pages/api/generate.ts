@@ -10,7 +10,7 @@ const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const CONVEX_URL = process.env.PUBLIC_CONVEX_URL || import.meta.env.PUBLIC_CONVEX_URL || 'https://efficient-antelope-653.convex.cloud';
 const convex = new ConvexHttpClient(CONVEX_URL);
 
-// Basic in-memory rate limiter
+// Basic in-memory rate limiterrr
 // Note: In a serverless environment like Vercel, this state is lost on cold starts
 // and isn't shared across multiple lambdas. However, it's highly effective at
 // preventing simple "spam clicking" bursts from a single user within an active instance at 0 cost.
