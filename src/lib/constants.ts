@@ -68,7 +68,7 @@ Odličan prompt! 🌟`,
     targetAudience: 'kids',
     category: 'language',
     scenario: 'Zmaj napada vikinsko selo! Jedini način da ga zaustaviš je ispravno odgovoriti na padežna pitanja.',
-    problem: 'Koga napada zmaj? (Genitiv) / Kome treba pomoć? (Dativ)',
+    problem: 'Napiši prompt za AI koji će stvoriti vikinšku igru s padežnim pitanjima. Razmisli — koji padeži postoje i kakva pitanja AI treba smisliti da bude zabavno?',
     aiPrompt: 'Stvori igru: Vikinško selo napada zmaj. Daj mi 3 pitanja o padežima (genitiv, dativ, akuzativ) da ga porazim.',
     expectedOutcome: `🎮 **Vikinška avantura - Padeži!**
 
