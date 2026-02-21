@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../convex/_generated/api';
+import { PREDEFINED_TASKS } from '../../lib/constants';
 
 // Use process.env for Vercel serverless environment
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || import.meta.env.OPENROUTER_API_KEY;
@@ -92,6 +93,40 @@ export const POST: APIRoute = async (context) => {
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
+
+    // --- ZERO-COST CACHING LOGIC ---
+    // Check if the exact prompt matches any of our predefined "Idea" prompts.
+    // If it does, we return the cached expectedOutcome without ever calling OpenRouter.
+    const cachedTask = PREDEFINED_TASKS.find(t => t.aiPrompt.trim() === prompt.trim());
+    if (cachedTask && cachedTask.expectedOutcome) {
+      console.log(`[CACHE HIT] Intercepted predefined prompt for task: ${cachedTask.id}`);
+
+      // Still save progress since they successfully "completed" it
+      if (taskId || cachedTask.id) {
+        try {
+          await convex.mutation(api.mutations.updateProgress, {
+            userId,
+            taskId: taskId || cachedTask.id,
+            timeSpent: 2 // Faster completion time since it's cached
+          });
+        } catch (err) {
+          console.error('Failed to save progress to Convex:', err);
+        }
+      }
+
+      // Add a slight artificial delay to make it feel like the AI is "typing"
+      await new Promise(resolve => setTimeout(resolve, 600));
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          response: cachedTask.expectedOutcome,
+          model: 'cached-response (0 ms)'
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    // ---------------------------------
 
     // Build system message with context
     const systemMessage = `Ti si AI asistent u edukacijskoj platformi "AI Tutorijal" koja uči ljude kako koristiti AI asistente.
