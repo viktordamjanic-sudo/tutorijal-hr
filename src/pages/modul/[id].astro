@@ -16,13 +16,13 @@ if (!task) {
   <main class="h-[100dvh] bg-[#F4F4F0] text-black font-['Nunito'] overflow-hidden flex flex-col selection:bg-black selection:text-[#FFDF00]">
     
     <!-- Top Nav Bar (Brutalist style) -->
-    <header class="h-14 border-b-4 border-black shrink-0 flex items-center px-6 justify-between bg-white z-20">
-      <div class="flex items-center gap-6">
-        <a href="/" class="font-black text-xl tracking-tighter uppercase border-2 border-transparent hover:border-black px-2 py-1 transition-all">
+    <header class="h-10 md:h-12 border-b-4 border-black shrink-0 flex items-center px-4 justify-between bg-white z-20">
+      <div class="flex items-center gap-4">
+        <a href="/" class="font-black text-sm md:text-base tracking-tighter uppercase border-2 border-transparent hover:border-black px-2 py-1 transition-all">
           ← Nazad
         </a>
       </div>
-      <div class="text-xs font-bold font-mono text-black flex gap-4 uppercase bg-[#FFDF00] px-3 py-1.5 border-2 border-black shadow-[2px_2px_0px_#000]">
+      <div class="text-[10px] md:text-xs font-bold font-mono text-black flex gap-3 uppercase bg-[#FFDF00] px-2 md:px-3 py-1 border-2 border-black shadow-[2px_2px_0px_#000]">
         <span>status: online</span>
       </div>
     </header>
@@ -34,49 +34,49 @@ if (!task) {
         <!-- ============================================== -->
         <!-- LEFT PANE: CONTEXT (Brutalist Sidebar)         -->
         <!-- ============================================== -->
-        <div class="w-full lg:w-[400px] xl:w-[450px] shrink-0 border-r-4 border-black bg-white flex flex-col h-[40vh] lg:h-full relative z-10">
+        <div class="w-full lg:w-[320px] xl:w-[380px] shrink-0 border-r-4 border-black bg-white flex flex-col h-[35vh] lg:h-full relative z-10">
           
           <div class="flex border-b-4 border-black shrink-0 bg-[#F4F4F0] overflow-x-auto no-scrollbar font-bold uppercase">
-            <div class="px-5 py-3 border-r-4 border-black bg-white text-black text-xs flex items-center gap-2 border-b-4 border-b-transparent">
+            <div class="px-3 py-2 border-r-4 border-black bg-white text-black text-[10px] flex items-center gap-2 border-b-4 border-b-transparent">
               # UPUTE
             </div>
-            <div class="px-5 py-3 border-r-4 border-black text-black text-xs flex items-center hover:bg-[#FFDF00] cursor-pointer transition-colors">
+            <div class="px-3 py-2 border-r-4 border-black text-black text-[10px] flex items-center hover:bg-[#FFDF00] cursor-pointer transition-colors">
               {} KONFIG
             </div>
           </div>
 
           <!-- Editor Content (Scrollable) -->
-          <div class="flex-1 overflow-y-auto p-6 md:p-8 styled-scroll flex flex-col gap-8">
+          <div class="flex-1 overflow-y-auto p-4 styled-scroll flex flex-col gap-5">
             
             <!-- Metadata Area -->
             <div>
-              <div class="flex flex-wrap gap-3 mb-6 font-bold text-[10px] uppercase tracking-widest">
-                <span class="px-3 py-1.5 border-2 border-black bg-[#E2F1E7] shadow-[2px_2px_0px_#000]">
+              <div class="flex flex-wrap gap-2 mb-3 font-bold text-[9px] uppercase tracking-widest">
+                <span class="px-2 py-1 border-2 border-black bg-[#E2F1E7] shadow-[2px_2px_0px_#000]">
                   Type: {task.category}
                 </span>
-                <span class="px-3 py-1.5 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000]">
+                <span class="px-2 py-1 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000]">
                   Level: {task.difficulty}
                 </span>
               </div>
               
-              <h1 class="text-3xl xl:text-4xl font-black text-black mb-4 font-['Outfit'] uppercase leading-none tracking-tighter">
+              <h1 class="text-xl xl:text-2xl font-black text-black mb-2 font-['Outfit'] uppercase leading-none tracking-tighter">
                 {task.title}
               </h1>
               
-              <div class="p-5 border-4 border-black bg-[#FFE5F1] shadow-[4px_4px_0px_#000] text-black font-medium leading-relaxed mt-6">
-                <span class="font-black text-xs uppercase block mb-3 border-b-2 border-black pb-2">Kontekst</span>
+              <div class="p-3 border-4 border-black bg-[#FFE5F1] shadow-[2px_2px_0px_#000] text-black text-sm font-medium leading-relaxed mt-4">
+                <span class="font-black text-[10px] uppercase block mb-1 border-b-2 border-black pb-1">Kontekst</span>
                 {task.scenario}
               </div>
             </div>
 
             <!-- The Problem Area -->
-            <div class="mt-4">
-              <h2 class="font-black text-sm uppercase mb-3 flex items-center gap-2">
-                <span class="w-3 h-3 rounded-none border-2 border-black bg-[#FF4911]"></span>
+            <div class="mt-0">
+              <h2 class="font-black text-xs uppercase mb-2 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-none border-2 border-black bg-[#FF4911]"></span>
                 Aktivni Cilj
               </h2>
-              <div class="p-5 border-4 border-black bg-white shadow-[4px_4px_0px_#000]">
-                <p class="text-black text-lg leading-relaxed font-bold">
+              <div class="p-3 border-4 border-black bg-white shadow-[2px_2px_0px_#000]">
+                <p class="text-black text-sm leading-relaxed font-bold">
                   {task.problem}
                 </p>
               </div>
@@ -88,27 +88,27 @@ if (!task) {
         <!-- ============================================== -->
         <!-- RIGHT PANE: ACTION/CHAT (Brutalist Canvas)     -->
         <!-- ============================================== -->
-        <div class="flex-1 flex flex-col h-full p-4 lg:p-8 relative bg-[#F4F4F0]">
+        <div class="flex-1 flex flex-col h-full p-2 lg:p-4 relative bg-[#F4F4F0]">
           
           <!-- The floating brutalist window -->
-          <div class="bg-white border-4 border-black shadow-brutal flex flex-col h-full overflow-hidden mx-auto w-full max-w-4xl relative">
+          <div class="bg-white border-4 border-black shadow-brutal flex flex-col h-full overflow-hidden mx-auto w-full max-w-5xl relative">
             
             <!-- Canvas Header -->
-            <div class="border-b-4 border-black bg-[#8CFF98] p-4 shrink-0 flex items-center justify-between z-10">
-              <div class="flex items-center gap-3">
-                <span class="font-black text-xl uppercase tracking-tighter text-black">Radni Prostor</span>
+            <div class="border-b-4 border-black bg-[#8CFF98] p-2 md:p-3 shrink-0 flex items-center justify-between z-10">
+              <div class="flex items-center gap-2">
+                <span class="font-black text-sm md:text-base uppercase tracking-tighter text-black">Radni Prostor</span>
               </div>
             </div>
             
             <SignedIn>
               <div class="flex flex-col flex-1 h-full min-h-0 relative">
                 <!-- Scrollable Chat Area -->
-                <div id="chat-wrapper" class="flex-1 overflow-y-auto p-4 md:p-8 styled-scroll bg-[url('/noise.png')] bg-repeat">
-                  <div id="chat-container" class="flex flex-col gap-6 max-w-3xl mx-auto pb-4">
+                <div id="chat-wrapper" class="flex-1 overflow-y-auto p-3 md:p-4 styled-scroll bg-[url('/noise.png')] bg-repeat">
+                  <div id="chat-container" class="flex flex-col gap-4 max-w-4xl mx-auto pb-2">
                     <!-- Initial System Greeting -->
-                    <div class="flex gap-4 items-start group">
-                      <div class="w-10 h-10 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-sm shrink-0">AI</div>
-                      <div class="text-black font-bold text-lg leading-relaxed max-w-[90%] md:max-w-[85%] border-2 border-black bg-white p-4 shadow-[4px_4px_0px_#000]">
+                    <div class="flex gap-3 items-start group">
+                      <div class="w-8 h-8 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-xs shrink-0">AI</div>
+                      <div class="text-black font-bold text-sm leading-relaxed max-w-[90%] md:max-w-[85%] border-2 border-black bg-white p-3 shadow-[2px_2px_0px_#000]">
                         Spreman. Rješavamo <span class="bg-[#FF4911] text-white px-1 border border-black uppercase">"{task.title}"</span>. <br/><br/>
                         Unesite prompt za obradu ispod.
                       </div>
@@ -117,33 +117,33 @@ if (!task) {
                 </div>
 
                 <!-- Fix: Solid inline prompt area (NO absolute positioning) -->
-                <div class="shrink-0 border-t-4 border-black bg-[#F4F4F0] p-4 md:p-6 pb-6 w-full z-20">
-                  <div class="max-w-3xl mx-auto w-full">
+                <div class="shrink-0 border-t-4 border-black bg-[#F4F4F0] p-2 md:p-4 w-full z-20">
+                  <div class="max-w-4xl mx-auto w-full">
                     
                     <!-- Idea Chip -->
-                    <div class="flex justify-end mb-3">
+                    <div class="flex justify-end mb-2">
                       <button 
                         onclick={`document.getElementById('ai-prompt').value = \`${task.aiPrompt.replace(/`/g, '\\`')}\`; document.getElementById('ai-prompt').focus();`}
-                        class="text-xs font-black uppercase tracking-wider text-black bg-[#FFE5F1] hover:bg-white border-2 border-black px-4 py-2 shadow-[2px_2px_0px_#000] active:translate-y-[2px] active:shadow-none transition-all flex items-center gap-2"
+                        class="text-[10px] font-black uppercase tracking-wider text-black bg-[#FFE5F1] hover:bg-white border-2 border-black px-3 py-1 shadow-[2px_2px_0px_#000] active:translate-y-[2px] active:shadow-none transition-all flex items-center gap-1.5"
                       >
-                        ⭐ SUGESTIJA SUSTAVA
+                        ⭐ SUGESTIJA
                       </button>
                     </div>
 
                     <!-- Input Container -->
-                    <div class="bg-white border-4 border-black shadow-brutal flex items-end p-2 focus-within:bg-[#FFFDE7]">
+                    <div class="bg-white border-4 border-black shadow-[2px_2px_0px_#000] flex items-end p-1 focus-within:bg-[#FFFDE7]">
                       <textarea
                         id="ai-prompt"
-                        class="w-full bg-transparent border-0 font-bold text-black text-lg focus:ring-0 outline-none resize-none leading-relaxed min-h-[50px] max-h-[150px] py-3 pl-2 styled-scroll placeholder:text-slate-400"
+                        class="w-full bg-transparent border-0 font-bold text-black text-sm md:text-base focus:ring-0 outline-none resize-none leading-relaxed min-h-[44px] max-h-[120px] py-2 md:py-2.5 pl-2 styled-scroll placeholder:text-slate-400"
                         rows={1}
                         placeholder="Upiši prompt ovdje..."
-                        oninput="this.style.height = 'auto'; this.style.height = Math.min(this.scrollHeight, 150) + 'px'"
+                        oninput="this.style.height = 'auto'; this.style.height = Math.min(this.scrollHeight, 120) + 'px'"
                         onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); document.getElementById('send-to-ai').click(); }"
                       ></textarea>
                       
                       <button
                         id="send-to-ai"
-                        class="bg-[#FF4911] text-white font-black text-xl w-12 h-12 border-4 border-black shadow-[2px_2px_0px_#000] active:translate-y-[2px] active:shadow-none flex items-center justify-center hover:bg-[#E63E00] transition-all disabled:opacity-50 shrink-0 mb-1 mr-1"
+                        class="bg-[#FF4911] text-white font-black text-lg w-10 h-10 border-4 border-black shadow-[2px_2px_0px_#000] active:translate-y-[2px] active:shadow-none flex items-center justify-center hover:bg-[#E63E00] transition-all disabled:opacity-50 shrink-0 mb-0.5 mr-0.5"
                         data-task-id={task.id}
                         data-task-title={task.title}
                         data-task-scenario={task.scenario}
@@ -211,10 +211,10 @@ if (!task) {
       
       // 1. Add User Bubble (Brutalist styled)
       const userBubble = document.createElement('div');
-      userBubble.className = 'flex gap-4 items-start group max-w-3xl mx-auto w-full justify-end';
+      userBubble.className = 'flex gap-3 items-start group max-w-4xl mx-auto w-full justify-end';
       userBubble.innerHTML = `
-        <div class="text-black font-bold text-lg leading-relaxed max-w-[90%] md:max-w-[85%] border-2 border-black bg-[#E2F1E7] p-4 shadow-[4px_4px_0px_#000] whitespace-pre-wrap">${prompt}</div>
-        <div class="w-10 h-10 border-2 border-black bg-white shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-xs shrink-0 uppercase">JA</div>
+        <div class="text-black font-bold text-sm leading-relaxed max-w-[90%] md:max-w-[85%] border-2 border-black bg-[#E2F1E7] p-3 shadow-[2px_2px_0px_#000] whitespace-pre-wrap">${prompt}</div>
+        <div class="w-8 h-8 border-2 border-black bg-white shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-[10px] shrink-0 uppercase">JA</div>
       `;
       chatContainer.appendChild(userBubble);
       
@@ -226,10 +226,10 @@ if (!task) {
       
       // 2. Add AI Loading Bubble
       const aiBubble = document.createElement('div');
-      aiBubble.className = 'flex gap-4 items-start max-w-3xl mx-auto w-full';
+      aiBubble.className = 'flex gap-3 items-start max-w-4xl mx-auto w-full';
       aiBubble.innerHTML = `
-        <div class="w-10 h-10 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-sm shrink-0">AI</div>
-        <div class="text-black font-bold text-lg leading-relaxed max-w-[85%] border-2 border-black bg-white p-4 shadow-[4px_4px_0px_#000] flex items-center gap-2">
+        <div class="w-8 h-8 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-[10px] shrink-0">AI</div>
+        <div class="text-black font-bold text-sm leading-relaxed max-w-[85%] border-2 border-black bg-white p-3 shadow-[2px_2px_0px_#000] flex items-center gap-2">
           RADI <span class="animate-bounce">.</span><span class="animate-bounce" style="animation-delay: 0.1s">.</span><span class="animate-bounce" style="animation-delay: 0.2s">.</span>
         </div>
       `;
@@ -261,19 +261,19 @@ if (!task) {
         
         // Update AI bubble with response
         aiBubble.innerHTML = `
-          <div class="w-10 h-10 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-sm shrink-0">AI</div>
-          <div class="text-black font-bold text-lg leading-relaxed max-w-[85%] border-2 border-black bg-white p-4 shadow-[4px_4px_0px_#000] whitespace-pre-wrap">${data.response}</div>
+          <div class="w-8 h-8 border-2 border-black bg-[#FFDF00] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-[10px] shrink-0">AI</div>
+          <div class="text-black font-bold text-sm leading-relaxed max-w-[85%] border-2 border-black bg-white p-3 shadow-[2px_2px_0px_#000] whitespace-pre-wrap">${data.response}</div>
         `;
         
         // Spawn the Learning Point bubble
         if (learningPointData && learningPointData.dataset.content) {
           const lpBubble = document.createElement('div');
-          lpBubble.className = 'flex gap-4 items-start mt-6 max-w-3xl mx-auto w-full';
+          lpBubble.className = 'flex gap-3 items-start mt-4 max-w-4xl mx-auto w-full';
           lpBubble.innerHTML = `
-            <div class="w-10 h-10 border-2 border-black bg-[#8CFF98] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-sm shrink-0 mt-2">!</div>
-            <div class="border-4 border-black bg-white p-5 shadow-[4px_4px_0px_#000] text-black w-full relative group">
-              <span class="absolute -top-3 left-4 bg-black text-white px-2 py-0.5 font-black text-[10px] uppercase tracking-widest">Što smo naučili?</span>
-              <p class="font-bold leading-relaxed text-lg mt-1">${learningPointData.dataset.content}</p>
+            <div class="w-8 h-8 border-2 border-black bg-[#8CFF98] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-black text-[10px] shrink-0 mt-2">!</div>
+            <div class="border-4 border-black bg-white p-4 shadow-[2px_2px_0px_#000] text-black w-full relative group">
+              <span class="absolute -top-3 left-4 bg-black text-white px-2 py-0.5 font-black text-[8px] uppercase tracking-widest">Što smo naučili?</span>
+              <p class="font-bold leading-relaxed text-sm mt-1">${learningPointData.dataset.content}</p>
             </div>
           `;
           chatContainer.appendChild(lpBubble);
@@ -281,8 +281,8 @@ if (!task) {
         
       } catch (error) {
         aiBubble.innerHTML = `
-          <div class="w-10 h-10 border-2 border-black bg-[#FF4911] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-white text-sm shrink-0">ERR</div>
-          <div class="border-4 border-black bg-white p-4 text-black font-bold shadow-[4px_4px_0px_#FF4911] w-full">GRESKA: ${error.message || 'Sustav pao'}</div>
+          <div class="w-8 h-8 border-2 border-black bg-[#FF4911] shadow-[2px_2px_0px_#000] flex items-center justify-center font-black text-white text-[10px] shrink-0">ERR</div>
+          <div class="border-4 border-black bg-white p-3 text-black text-sm font-bold shadow-[2px_2px_0px_#FF4911] w-full">GRESKA: ${error.message || 'Sustav pao'}</div>
         `;
       } finally {
         btn.disabled = false;
