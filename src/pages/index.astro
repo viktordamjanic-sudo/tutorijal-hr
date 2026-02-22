@@ -3,8 +3,7 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import ModuleGrid from '../components/ModuleGrid.astro';
-import ConvexWrapper from '../components/ConvexWrapper.tsx';
-import LiveFeedConvex from '../components/LiveFeedConvex.tsx';
+import NewsFeed from '../components/NewsFeed.astro';
 import { SignedIn, SignedOut } from '@clerk/astro/components';
 ---
 
@@ -203,17 +202,17 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
 
   </section>
 
-  <!-- 4. FEED — na kraju za one koji su već naučili osnove -->
-  <section class="dash-card" id="feed" style="margin-top:20px;">
+  <!-- 4. VIJESTI — stvarni zadaci iz Jutarnjeg lista -->
+  <section class="t-section" id="feed" style="margin-top:20px;">
     <div class="card-header">
       <div class="card-title-row">
-        <span class="live-dot"></span>
-        <h2 class="card-title">Stvarni zadaci iz vijesti</h2>
+        <span class="t-live-dot"></span>
+        <h2 class="t-section__title" style="margin-top:0;">Stvarni zadaci iz vijesti</h2>
       </div>
-      <p class="card-desc">Za napredne: svježi zadaci iz naše baze. Ako si prošao lekcije, ovo je tvoj sljedeći korak!</p>
+      <p class="t-section__desc">Svježe vijesti iz Jutarnjeg lista. Svaka vijest je prilika za vježbu pisanja AI promptova!</p>
     </div>
     <div class="feed-body">
-      <LiveFeedConvex client:only="react" />
+      <NewsFeed />
     </div>
   </section>
 

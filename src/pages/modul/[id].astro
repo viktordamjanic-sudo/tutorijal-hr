@@ -1,14 +1,51 @@
 ---
 // Module Detail Page — Prompt-centered workspace
-// Supports both PREDEFINED_TASKS and Convex-generated tasks
+// Supports: PREDEFINED_TASKS, Convex-generated tasks, and news-based tasks
 import Layout from '../../layouts/Layout.astro';
 import { PREDEFINED_TASKS } from '../../lib/constants';
 import { SignedIn, SignedOut } from '@clerk/astro/components';
 import ConvexWorkspace from '../../components/workspace/ConvexWorkspace.tsx';
+import type { Task } from '../../types';
 
 const { id } = Astro.params;
-const task = PREDEFINED_TASKS.find(t => t.id === id);
-const isConvexTask = !task;
+
+// 1. Check predefined tasks
+let task: Task | undefined = PREDEFINED_TASKS.find(t => t.id === id);
+
+// 2. Check if this is a news-based task (vijest-*)
+let isNewsTask = false;
+if (!task && id?.startsWith('vijest-')) {
+  isNewsTask = true;
+  const newsId = parseInt(id.replace('vijest-', ''));
+  try {
+    const Database = (await import('better-sqlite3')).default;
+    const path = await import('path');
+    const dbPath = path.resolve(process.cwd(), 'scraper', 'headlines.db');
+    const db = new Database(dbPath, { readonly: true });
+    const headline = db.prepare('SELECT * FROM headlines WHERE id = ?').get(newsId) as any;
+    db.close();
+
+    if (headline) {
+      task = {
+        id: `vijest-${headline.id}`,
+        title: `📰 ${headline.title}`,
+        icon: '📰',
+        difficulty: 'intermediate',
+        targetAudience: 'all',
+        category: 'other',
+        scenario: headline.description || headline.title,
+        problem: `Ova vijest je iz Jutarnjeg lista. Napiši prompt za AI koji će ti pomoći razumjeti, analizirati ili reagirati na ovu vijest. Razmisli — što bi htio znati? Koga pitati? Kako iskoristiti AI?`,
+        aiPrompt: `Pročitao sam ovu vijest: "${headline.title}". ${headline.description ? headline.description.slice(0, 200) : ''} — Objasni mi jednostavno: što se dogodilo, zašto je to važno, i kako me to može utjecati?`,
+        expectedOutcome: `📊 Ocjena prompta: ⭐⭐⭐\n\nOdličan prompt! Evo analize vijesti:\n\n📰 **Što se dogodilo:**\n${headline.title}\n\n🔍 **Zašto je važno:**\nOva vijest utječe na...\n\n💡 **Kako te se tiče:**\nKao građanin/ica...\n\n✅ Tvoj prompt je bio dobar jer si pitao za objašnjenje, važnost i utjecaj!`,
+        learningPoint: 'AI ti pomaže razumjeti što se događa u svijetu — samo mu postavi prava pitanja!',
+      };
+    }
+  } catch (e) {
+    console.error('Failed to load news task:', e);
+  }
+}
+
+const isConvexTask = !task && !isNewsTask;
 // Convex tasks will be loaded client-side by ConvexWorkspace component
 ---
 
