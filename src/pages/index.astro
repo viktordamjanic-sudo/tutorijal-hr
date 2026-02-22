@@ -2,8 +2,6 @@
 // Main landing page for tutorijal.hr
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import ModuleGrid from '../components/ModuleGrid.astro';
-import NewsFeed from '../components/NewsFeed.astro';
 import { SignedIn, SignedOut } from '@clerk/astro/components';
 ---
 
@@ -11,32 +9,207 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
   <!-- Hero -->
   <Hero />
 
-  <!-- 1. MODULI — OSNOVE PROMPTA, odmah nakon heroja -->
-  <section class="dash-card" id="moduli">
-    <div class="card-header" style="margin-bottom: 20px;">
-      <div>
-        <span class="section-badge">Počni ovdje</span>
-        <h2 class="card-title" style="margin-top:8px;">✏️ Počni pisati prompte</h2>
-        <p class="card-desc">Svaki modul je stvarna situacija. Napiši AI uputu i vidi kako reagira. Nema teorije — odmah vježbaš!</p>
+  <!-- PROMPT LAB — Jedini sadržaj platforme -->
+  <section class="t-section" id="lab">
+
+    <!-- Header -->
+    <div style="text-align:center; margin-bottom:28px;">
+      <h2 class="lab-title">🎯 Prompt Lab</h2>
+      <p class="lab-subtitle">Ovladaj pisanjem AI uputa korak po korak. Svaka vještina ima 3 razine — od početnika do majstora.</p>
+    </div>
+
+    <!-- Skill Tracks Grid -->
+    <div class="lab-grid">
+
+      <!-- 1. Komunikacija -->
+      <div class="lab-track">
+        <div class="lab-track__header" style="background: linear-gradient(135deg, #4f6ef7, #818cf8);">
+          <span class="lab-track__icon">💬</span>
+          <div>
+            <h3 class="lab-track__name">Komunikacija</h3>
+            <span class="lab-track__count">3 izazova</span>
+          </div>
+        </div>
+        <div class="lab-track__body">
+          <p class="lab-track__desc">Nauči AI-ju zadati ton, stil i kontekst za savršene poruke.</p>
+          <div class="lab-track__challenges">
+            <a href="/modul/parking-1" class="lab-challenge">
+              <span class="lab-challenge__level lab-challenge__level--1">1</span>
+              <div>
+                <span class="lab-challenge__title">Susjedska poruka</span>
+                <span class="lab-challenge__skill">Ton · Kontekst</span>
+              </div>
+              <span class="lab-challenge__arrow">→</span>
+            </a>
+            <a href="/modul/diplomacy-1" class="lab-challenge">
+              <span class="lab-challenge__level lab-challenge__level--2">2</span>
+              <div>
+                <span class="lab-challenge__title">Diplomatski odgovor</span>
+                <span class="lab-challenge__skill">Empatija · Struktura</span>
+              </div>
+              <span class="lab-challenge__arrow">→</span>
+            </a>
+            <div class="lab-challenge lab-challenge--locked">
+              <span class="lab-challenge__level lab-challenge__level--3">3</span>
+              <div>
+                <span class="lab-challenge__title">Poslovni email</span>
+                <span class="lab-challenge__skill">Formalnost · CTA</span>
+              </div>
+              <span class="lab-challenge__lock">🔒</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Analiza -->
+      <div class="lab-track">
+        <div class="lab-track__header" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+          <span class="lab-track__icon">🔍</span>
+          <div>
+            <h3 class="lab-track__name">Analiza</h3>
+            <span class="lab-track__count">3 izazova</span>
+          </div>
+        </div>
+        <div class="lab-track__body">
+          <p class="lab-track__desc">Koristi AI za razumijevanje podataka, situacija i odluka.</p>
+          <div class="lab-track__challenges">
+            <a href="/modul/cooking-1" class="lab-challenge">
+              <span class="lab-challenge__level lab-challenge__level--1">1</span>
+              <div>
+                <span class="lab-challenge__title">Recept iz ostataka</span>
+                <span class="lab-challenge__skill">Inventar · Ograničenja</span>
+              </div>
+              <span class="lab-challenge__arrow">→</span>
+            </a>
+            <a href="/modul/finance-1" class="lab-challenge">
+              <span class="lab-challenge__level lab-challenge__level--2">2</span>
+              <div>
+                <span class="lab-challenge__title">Planiraj budžet</span>
+                <span class="lab-challenge__skill">Brojevi · Opcije</span>
+              </div>
+              <span class="lab-challenge__arrow">→</span>
+            </a>
+            <div class="lab-challenge lab-challenge--locked">
+              <span class="lab-challenge__level lab-challenge__level--3">3</span>
+              <div>
+                <span class="lab-challenge__title">Usporedi ponude</span>
+                <span class="lab-challenge__skill">Tablice · Kriteriji</span>
+              </div>
+              <span class="lab-challenge__lock">🔒</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Kreativnost -->
+      <div class="lab-track">
+        <div class="lab-track__header" style="background: linear-gradient(135deg, #ec4899, #f472b6);">
+          <span class="lab-track__icon">✨</span>
+          <div>
+            <h3 class="lab-track__name">Kreativnost</h3>
+            <span class="lab-track__count">3 izazova</span>
+          </div>
+        </div>
+        <div class="lab-track__body">
+          <p class="lab-track__desc">Oslobodi AI-jevu kreativnost — priče, igre, brainstorming.</p>
+          <div class="lab-track__challenges">
+            <a href="/modul/language-1" class="lab-challenge">
+              <span class="lab-challenge__level lab-challenge__level--1">1</span>
+              <div>
+                <span class="lab-challenge__title">Padež Hunter igra</span>
+                <span class="lab-challenge__skill">Scenarij · Igra</span>
+              </div>
+              <span class="lab-challenge__arrow">→</span>
+            </a>
+            <div class="lab-challenge lab-challenge--locked">
+              <span class="lab-challenge__level lab-challenge__level--2">2</span>
+              <div>
+                <span class="lab-challenge__title">Napiši priču</span>
+                <span class="lab-challenge__skill">Likovi · Zaplet</span>
+              </div>
+              <span class="lab-challenge__lock">🔒</span>
+            </div>
+            <div class="lab-challenge lab-challenge--locked">
+              <span class="lab-challenge__level lab-challenge__level--3">3</span>
+              <div>
+                <span class="lab-challenge__title">Dizajniraj igru</span>
+                <span class="lab-challenge__skill">Pravila · Mehanika</span>
+              </div>
+              <span class="lab-challenge__lock">🔒</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Učenje -->
+      <div class="lab-track">
+        <div class="lab-track__header" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
+          <span class="lab-track__icon">🎓</span>
+          <div>
+            <h3 class="lab-track__name">Učenje</h3>
+            <span class="lab-track__count">3 izazova</span>
+          </div>
+        </div>
+        <div class="lab-track__body">
+          <p class="lab-track__desc">Neka AI postane tvoj osobni tutor za bilo koji predmet.</p>
+          <div class="lab-track__challenges">
+            <div class="lab-challenge lab-challenge--locked">
+              <span class="lab-challenge__level lab-challenge__level--1">1</span>
+              <div>
+                <span class="lab-challenge__title">Objasni mi kao da imam 10</span>
+                <span class="lab-challenge__skill">Jednostavnost · Analogije</span>
+              </div>
+              <span class="lab-challenge__lock">🔒</span>
+            </div>
+            <div class="lab-challenge lab-challenge--locked">
+              <span class="lab-challenge__level lab-challenge__level--2">2</span>
+              <div>
+                <span class="lab-challenge__title">Sažmi lekciju</span>
+                <span class="lab-challenge__skill">Ključne točke · Format</span>
+              </div>
+              <span class="lab-challenge__lock">🔒</span>
+            </div>
+            <div class="lab-challenge lab-challenge--locked">
+              <span class="lab-challenge__level lab-challenge__level--3">3</span>
+              <div>
+                <span class="lab-challenge__title">Napravi kviz</span>
+                <span class="lab-challenge__skill">Pitanja · Evaluacija</span>
+              </div>
+              <span class="lab-challenge__lock">🔒</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mastery progress -->
+    <div class="lab-progress">
+      <div class="lab-progress__bar">
+        <div class="lab-progress__fill" style="width: 0%;"></div>
+      </div>
+      <div class="lab-progress__info">
+        <span class="lab-progress__label">Tvoj napredak</span>
+        <span class="lab-progress__value">0 / 12 izazova</span>
       </div>
     </div>
-    <ModuleGrid />
+
   </section>
 
-  <!-- 2. LEKCIJE — naprednije, o agentima -->
-  <section class="dash-card" id="lekcije" style="margin-top:20px;">
-    <div class="card-header">
-      <span class="section-badge" style="background:rgba(124,58,237,.08);color:#7c3aed;border-color:rgba(124,58,237,.15);">Naprednije</span>
-      <h2 class="card-title" style="margin-top:8px;">📖 Lekcije o AI agentima</h2>
-      <p class="card-desc">Kad savladaš pisanje promptova, nauči kako napraviti AI agente koji rade umjesto tebe.</p>
+  <!-- LEKCIJE O AI AGENTIMA — integrirane kao napredni put -->
+  <section class="t-section" id="lekcije" style="margin-top:20px;">
+    <div style="text-align:center; margin-bottom:20px;">
+      <span class="section-badge" style="background:rgba(124,58,237,.08);color:#7c3aed;border-color:rgba(124,58,237,.15);">Napredni put</span>
+      <h2 class="lab-title" style="font-size:20px;">🤖 Lekcije o AI agentima</h2>
+      <p class="lab-subtitle">Kad ovladaš promptovima, nauči kako napraviti AI agente koji rade umjesto tebe.</p>
     </div>
     <div class="lessons-row">
       {[
-        { num: 1, title: 'Tvoj prvi prompt', icon: '✏️', color: '#4f6ef7', bg: '#eef2ff' },
-        { num: 2, title: 'Kontekst i ton', icon: '🎭', color: '#7c3aed', bg: '#f5f3ff' },
-        { num: 3, title: 'Složeniji zadaci', icon: '🧩', color: '#d97706', bg: '#fffbeb' },
-        { num: 4, title: 'AI alati u praksi', icon: '🧰', color: '#db2777', bg: '#fdf2f8' },
-        { num: 5, title: 'Automatizacija', icon: '🤖', color: '#059669', bg: '#f0fdf4' },
+        { num: 1, title: 'Što je AI agent?', icon: '🤖', color: '#4f6ef7', bg: '#eef2ff' },
+        { num: 2, title: 'Dva agenta', icon: '🤝', color: '#7c3aed', bg: '#f5f3ff' },
+        { num: 3, title: 'Dva su bolja od tri', icon: '⚖️', color: '#d97706', bg: '#fffbeb' },
+        { num: 4, title: 'Što su skillsi?', icon: '🧰', color: '#db2777', bg: '#fdf2f8' },
+        { num: 5, title: 'Automatizacija', icon: '⚡', color: '#059669', bg: '#f0fdf4' },
       ].map((lesson) => (
         <a href={`/lekcija/${lesson.num}`} class="lesson-card">
           <div class="lesson-icon" style={`background: ${lesson.bg}; color: ${lesson.color};`}>{lesson.icon}</div>
@@ -47,176 +220,7 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
     </div>
   </section>
 
-  <!-- 3. KAKO UČIŠ — metode učenja za AI školu -->
-  <section class="learning-section" id="kako-radi" style="margin-top:20px;">
-
-    <!-- Header -->
-    <div class="learning-header">
-      <span class="section-badge" style="background:rgba(16,185,129,.08);color:#059669;border-color:rgba(16,185,129,.18);">Naša metoda</span>
-      <h2 class="learning-title">Kako učiš na tutorijal.hr?</h2>
-      <p class="learning-subtitle">Koristimo metode koje su dokazano najučinkovitije za online učenje.<br/>Svaka je osmišljena da ti AI postane alat, ne misterija.</p>
-    </div>
-
-    <!-- Learning Path Progress -->
-    <div class="learning-path">
-      <div class="path-track">
-        <div class="path-step path-active">
-          <div class="path-dot">1</div>
-          <span>Otkrij</span>
-        </div>
-        <div class="path-line"></div>
-        <div class="path-step">
-          <div class="path-dot">2</div>
-          <span>Vježbaj</span>
-        </div>
-        <div class="path-line"></div>
-        <div class="path-step">
-          <div class="path-dot">3</div>
-          <span>Primijeni</span>
-        </div>
-        <div class="path-line"></div>
-        <div class="path-step">
-          <div class="path-dot">4</div>
-          <span>Automatiziraj</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Methods Grid -->
-    <div class="methods-grid">
-
-      <!-- 1. Learning by Doing -->
-      <div class="method-card method-primary">
-        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#4f6ef7,#818cf8);">
-          <span class="method-icon">🎯</span>
-        </div>
-        <div class="method-content">
-          <h3 class="method-title">Učiš radeći</h3>
-          <p class="method-subtitle" style="color:#4f6ef7;">Learning by Doing</p>
-          <p class="method-desc">Nema dugih predavanja. Od prve minute <strong>pišeš prompte</strong> i gledaš što AI napravi. Svaki modul je stvarna situacija — parking, kuhanje, diplomacija — u kojoj ti daješ upute AI-ju.</p>
-          <div class="method-example">
-            <span class="method-example-label">Primjer iz modula:</span>
-            <em>"Marko parkira na tvom mjestu. Napiši AI uputu koja će generirati pristojnu, ali odlučnu poruku."</em>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2. Scaffolding -->
-      <div class="method-card">
-        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">
-          <span class="method-icon">🪜</span>
-        </div>
-        <div class="method-content">
-          <h3 class="method-title">Od lakšeg prema težem</h3>
-          <p class="method-subtitle" style="color:#d97706;">Scaffolding</p>
-          <p class="method-desc">Moduli idu od <strong>POČETNIK → SREDNJI → NAPREDNI</strong>. Počinješ s jednostavnim uputama (jedno pitanje), a završavaš s kompleksnim zadacima koji kombiniraju kontekst, ton i formate.</p>
-          <div class="method-levels">
-            <span class="level level-easy">Početnik</span>
-            <span class="level-arrow">→</span>
-            <span class="level level-mid">Srednji</span>
-            <span class="level-arrow">→</span>
-            <span class="level level-hard">Napredni</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. Instant Feedback -->
-      <div class="method-card">
-        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#10b981,#34d399);">
-          <span class="method-icon">⚡</span>
-        </div>
-        <div class="method-content">
-          <h3 class="method-title">Trenutna povratna informacija</h3>
-          <p class="method-subtitle" style="color:#059669;">Instant Feedback</p>
-          <p class="method-desc">Napišeš prompt → AI odmah odgovori → <strong>vidiš rezultat u sekundi</strong>. Ako tvoja uputa nije jasna, odmah prepoznaješ problem. Nema čekanja — učiš iz svake greške u realnom vremenu.</p>
-          <div class="method-feedback-demo">
-            <div class="fb-row"><span class="fb-label fb-you">Ti:</span> <span class="fb-text">"Napiši poruku"</span></div>
-            <div class="fb-row"><span class="fb-label fb-ai">AI:</span> <span class="fb-text fb-bad">Preširok prompt — nejasan rezultat</span></div>
-            <div class="fb-row"><span class="fb-label fb-you">Ti:</span> <span class="fb-text">"Napiši pristojnu SMS poruku susjedu o parkingu, max 2 rečenice"</span></div>
-            <div class="fb-row"><span class="fb-label fb-ai">AI:</span> <span class="fb-text fb-good">Precizan rezultat ✓</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. Micro-lessons -->
-      <div class="method-card">
-        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#ec4899,#f472b6);">
-          <span class="method-icon">⏱️</span>
-        </div>
-        <div class="method-content">
-          <h3 class="method-title">Kratke lekcije od 5 minuta</h3>
-          <p class="method-subtitle" style="color:#db2777;">Micro-learning</p>
-          <p class="method-desc">Svaki modul traje <strong>5-10 minuta</strong>. Nema lekcija od 45 minuta. Istraživanja pokazuju da se kratki sadržaji pamte 20% bolje. Možeš učiti na pauzi, u tramvaju, prije spavanja.</p>
-          <div class="method-time">
-            <div class="time-bar">
-              <div class="time-fill" style="width:20%"></div>
-            </div>
-            <span class="time-label">~5 min po modulu</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5. Gamification -->
-      <div class="method-card">
-        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);">
-          <span class="method-icon">🏆</span>
-        </div>
-        <div class="method-content">
-          <h3 class="method-title">Napredak kroz razine</h3>
-          <p class="method-subtitle" style="color:#7c3aed;">Gamification</p>
-          <p class="method-desc">Svaki modul pokazuje tvoju razinu (Početnik, Srednji, Napredni). Vidiš kategorije, <strong>pratiš napredak</strong> i otključavaš složenije zadatke. Učenje postaje igra, ne obveza.</p>
-          <div class="method-badges">
-            <span class="m-badge">🚗 Parking</span>
-            <span class="m-badge">🍳 Kuhanje</span>
-            <span class="m-badge m-badge-locked">🔒 Uskoro...</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 6. Contextual Learning -->
-      <div class="method-card">
-        <div class="method-icon-wrap" style="background:linear-gradient(135deg,#06b6d4,#22d3ee);">
-          <span class="method-icon">🌍</span>
-        </div>
-        <div class="method-content">
-          <h3 class="method-title">Stvarni kontekst, ne školski</h3>
-          <p class="method-subtitle" style="color:#0891b2;">Contextual Learning</p>
-          <p class="method-desc">Nema "Hello World" vježbi. Svaki zadatak dolazi iz <strong>stvarnog života</strong> — komunikacija sa susjedima, planiranje budžeta, kuhanje, pisanje diplomatskih odgovora. Učiš ono što ćeš <em>stvarno koristiti</em>.</p>
-          <div class="method-contexts">
-            <span class="ctx-tag">💬 Komunikacija</span>
-            <span class="ctx-tag">🍽️ Kuhanje</span>
-            <span class="ctx-tag">💰 Financije</span>
-            <span class="ctx-tag">📰 Vijesti</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Bottom CTA -->
-    <div class="learning-cta">
-      <p class="cta-text">Spreman/na za prvu AI uputu?</p>
-      <a href="/#moduli" class="cta-button">Počni besplatno →</a>
-      <p class="cta-sub">Bez registracije. Bez kartice. Odmah vježbaš.</p>
-    </div>
-
-  </section>
-
-  <!-- 4. VIJESTI — stvarni zadaci iz Jutarnjeg lista -->
-  <section class="t-section" id="feed" style="margin-top:20px;">
-    <div class="card-header">
-      <div class="card-title-row">
-        <span class="t-live-dot"></span>
-        <h2 class="t-section__title" style="margin-top:0;">Stvarni zadaci iz vijesti</h2>
-      </div>
-      <p class="t-section__desc">Svježe vijesti iz Jutarnjeg lista. Svaka vijest je prilika za vježbu pisanja AI promptova!</p>
-    </div>
-    <div class="feed-body">
-      <NewsFeed />
-    </div>
-  </section>
-
-  <!-- Footer (inline, compact) -->
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-left">
       <span class="footer-logo">🎓 tutorijal.hr</span>
@@ -224,36 +228,23 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
     </div>
     <div class="footer-links">
       <a href="/">Početna</a>
+      <a href="/#lab">Prompt Lab</a>
       <a href="/#lekcije">Lekcije</a>
-      <a href="/#moduli">Moduli</a>
       <a href="mailto:info@tutorijal.hr">Kontakt</a>
     </div>
   </footer>
 </Layout>
 
 <style>
-  .dash-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 22px 24px;
-    border: 1px solid #e8e8e4;
-    box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  /* Section badge */
+  .section-badge {
+    display: inline-block;
+    background: #eef2ff; color: #4f6ef7;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em;
+    padding: 4px 10px; border-radius: 99px;
+    border: 1px solid rgba(79,110,247,.2);
   }
-  .card-header { margin-bottom: 16px; }
-  .card-title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-  .card-title { font-size: 16px; font-weight: 700; color: #1e1e1e; }
-  .card-desc { font-size: 13px; color: #9ca3af; font-weight: 500; line-height: 1.5; margin-top: 4px; }
-  .live-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: #10b981; flex-shrink: 0;
-    box-shadow: 0 0 0 3px rgba(16,185,129,.2);
-    animation: livepulse 2s infinite;
-  }
-  @keyframes livepulse {
-    0%, 100% { box-shadow: 0 0 0 2px rgba(16,185,129,.2); }
-    50% { box-shadow: 0 0 0 5px rgba(16,185,129,.08); }
-  }
-  .feed-body { min-height: 200px; }
 
   /* Lessons — horizontal cards */
   .lessons-row {
@@ -266,175 +257,110 @@ import { SignedIn, SignedOut } from '@clerk/astro/components';
   .lesson-card {
     display: flex; flex-direction: column; align-items: center;
     gap: 6px; padding: 18px 12px; border-radius: 12px;
-    background: #fafaf8; border: 1px solid #e8e8e4;
+    background: var(--color-surface-alt); border: 1px solid var(--color-border);
     text-decoration: none; color: inherit; text-align: center;
     transition: all .18s;
   }
   .lesson-card:hover {
-    background: #eef2ff; border-color: rgba(79,110,247,.2);
+    background: var(--color-accent-soft); border-color: var(--color-accent-border);
     transform: translateY(-2px); box-shadow: 0 4px 14px rgba(79,110,247,.08);
   }
   .lesson-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-  .lesson-num { font-size: 10px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: .06em; }
-  .lesson-name { font-size: 13px; font-weight: 600; color: #1e1e1e; }
+  .lesson-num { font-size: 10px; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: .06em; }
+  .lesson-name { font-size: 13px; font-weight: 600; color: var(--color-text-primary); }
 
-  /* Section badge */
-  .section-badge {
-    display: inline-block;
-    background: #eef2ff; color: #4f6ef7;
-    font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .06em;
-    padding: 4px 10px; border-radius: 99px;
-    border: 1px solid rgba(79,110,247,.2);
+  /* ===== PROMPT LAB ===== */
+  .lab-title {
+    font-size: 24px; font-weight: 800; color: var(--color-text-primary);
+    margin-top: 10px;
   }
-
-  /* ===== LEARNING SECTION ===== */
-  .learning-section {
-    background: #fff; border-radius: 16px;
-    padding: 32px 28px; border: 1px solid #e8e8e4;
-    box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  .lab-subtitle {
+    font-size: 14px; color: var(--color-text-secondary);
+    font-weight: 500; line-height: 1.6; margin-top: 6px;
   }
-
-  /* Header */
-  .learning-header { text-align: center; margin-bottom: 28px; }
-  .learning-title { font-size: 22px; font-weight: 800; color: #1e1e1e; margin-top: 10px; }
-  .learning-subtitle { font-size: 14px; color: #6b7280; font-weight: 500; line-height: 1.6; margin-top: 8px; }
-
-  /* Learning Path */
-  .learning-path {
-    background: #fafaf8; border: 1px solid #e8e8e4; border-radius: 14px;
-    padding: 20px 24px; margin-bottom: 28px;
+  .lab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
-  .path-track { display: flex; align-items: center; justify-content: center; gap: 0; }
-  .path-step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .path-step span { font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: .04em; }
-  .path-dot {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: #e5e7eb; color: #9ca3af;
+  @media (max-width: 768px) { .lab-grid { grid-template-columns: 1fr; } }
+
+  .lab-track {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+  }
+  .lab-track:hover {
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .lab-track__header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 18px; color: #fff;
+  }
+  .lab-track__icon { font-size: 28px; }
+  .lab-track__name { font-size: 16px; font-weight: 800; color: #fff; }
+  .lab-track__count { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); }
+  .lab-track__body { padding: 16px 18px; background: var(--color-surface); }
+  .lab-track__desc {
+    font-size: 13px; color: var(--color-text-secondary);
+    font-weight: 500; line-height: 1.5; margin-bottom: 14px;
+  }
+  .lab-track__challenges { display: flex; flex-direction: column; gap: 6px; }
+  .lab-challenge {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; border-radius: var(--radius-sm);
+    text-decoration: none; color: inherit;
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-fast);
+  }
+  .lab-challenge:hover:not(.lab-challenge--locked) {
+    background: var(--color-accent-soft);
+    border-color: var(--color-accent-border);
+  }
+  .lab-challenge--locked { opacity: 0.5; cursor: default; }
+  .lab-challenge__level {
+    width: 28px; height: 28px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 800;
-    transition: all .2s;
+    font-size: 12px; font-weight: 800; flex-shrink: 0;
   }
-  .path-active .path-dot { background: linear-gradient(135deg,#4f6ef7,#818cf8); color: #fff; box-shadow: 0 2px 10px rgba(79,110,247,.3); }
-  .path-active span { color: #4f6ef7; }
-  .path-line { width: 48px; height: 2px; background: #e5e7eb; margin: 0 8px; margin-bottom: 20px; }
-
-  @media (max-width: 600px) {
-    .path-line { width: 24px; }
-    .path-dot { width: 30px; height: 30px; font-size: 11px; }
-    .path-step span { font-size: 9px; }
+  .lab-challenge__level--1 { background: var(--diff-beginner-bg); color: var(--diff-beginner-text); }
+  .lab-challenge__level--2 { background: var(--diff-intermediate-bg); color: var(--diff-intermediate-text); }
+  .lab-challenge__level--3 { background: var(--diff-advanced-bg); color: var(--diff-advanced-text); }
+  .lab-challenge__title { display: block; font-size: 13px; font-weight: 700; color: var(--color-text-primary); }
+  .lab-challenge__skill { display: block; font-size: 11px; font-weight: 500; color: var(--color-text-muted); margin-top: 1px; }
+  .lab-challenge__arrow {
+    margin-left: auto; font-size: 14px; font-weight: 700;
+    color: var(--color-accent); transition: transform var(--transition-fast);
   }
+  .lab-challenge:hover .lab-challenge__arrow { transform: translateX(3px); }
+  .lab-challenge__lock { margin-left: auto; font-size: 14px; }
 
-  /* Methods Grid */
-  .methods-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 768px) { .methods-grid { grid-template-columns: 1fr; } }
-
-  .method-card {
-    display: flex; gap: 16px; align-items: flex-start;
-    background: #fafaf8; border: 1px solid #e8e8e4; border-radius: 14px;
-    padding: 20px; transition: all .2s;
+  .lab-progress { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--color-border); }
+  .lab-progress__bar { height: 8px; background: #e5e7eb; border-radius: var(--radius-pill); overflow: hidden; }
+  .lab-progress__fill {
+    height: 100%; border-radius: var(--radius-pill);
+    background: linear-gradient(90deg, var(--color-accent), #818cf8);
+    transition: width 0.6s ease;
   }
-  .method-card:hover { border-color: rgba(79,110,247,.2); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.04); }
-  .method-primary { grid-column: 1 / -1; background: #f8f9ff; border-color: rgba(79,110,247,.15); }
-  .method-primary .method-content { max-width: 100%; }
-
-  .method-icon-wrap {
-    width: 44px; height: 44px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .method-icon { font-size: 22px; filter: brightness(1.1); }
-
-  .method-content { flex: 1; min-width: 0; }
-  .method-title { font-size: 15px; font-weight: 800; color: #1e1e1e; margin-bottom: 2px; }
-  .method-subtitle { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
-  .method-desc { font-size: 13px; color: #4b5563; font-weight: 500; line-height: 1.6; }
-  .method-desc strong { color: #1e1e1e; }
-
-  /* Method: Example box */
-  .method-example {
-    margin-top: 12px; background: #fff; border: 1px solid #e8e8e4;
-    border-radius: 10px; padding: 12px 14px;
-    font-size: 12.5px; color: #6b7280; line-height: 1.55;
-  }
-  .method-example-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #9ca3af; display: block; margin-bottom: 4px; }
-  .method-example em { color: #374151; font-style: italic; }
-
-  /* Method: Difficulty levels */
-  .method-levels { display: flex; align-items: center; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-  .level { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 99px; }
-  .level-easy { background: #d1fae5; color: #065f46; }
-  .level-mid { background: #fef3c7; color: #92400e; }
-  .level-hard { background: #fee2e2; color: #991b1b; }
-  .level-arrow { color: #d1d5db; font-size: 12px; font-weight: 800; }
-
-  /* Method: Feedback demo */
-  .method-feedback-demo {
-    margin-top: 12px; background: #fff; border: 1px solid #e8e8e4;
-    border-radius: 10px; padding: 10px 14px;
-    display: flex; flex-direction: column; gap: 6px;
-  }
-  .fb-row { display: flex; align-items: baseline; gap: 6px; font-size: 12px; }
-  .fb-label { font-weight: 800; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; flex-shrink: 0; }
-  .fb-you { color: #4f6ef7; }
-  .fb-ai { color: #9ca3af; }
-  .fb-text { color: #6b7280; font-weight: 500; }
-  .fb-bad { color: #ef4444; text-decoration: line-through; opacity: .7; }
-  .fb-good { color: #059669; font-weight: 700; }
-
-  /* Method: Time bar */
-  .method-time { margin-top: 12px; }
-  .time-bar { height: 8px; background: #e5e7eb; border-radius: 99px; overflow: hidden; }
-  .time-fill { height: 100%; background: linear-gradient(90deg,#ec4899,#f472b6); border-radius: 99px; transition: width .6s; }
-  .time-label { font-size: 11px; font-weight: 600; color: #9ca3af; margin-top: 6px; display: block; }
-
-  /* Method: Badges */
-  .method-badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-  .m-badge {
-    font-size: 11px; font-weight: 700; padding: 5px 12px;
-    background: #eef2ff; color: #4f6ef7; border: 1px solid rgba(79,110,247,.15);
-    border-radius: 99px;
-  }
-  .m-badge-locked { background: #f3f4f6; color: #9ca3af; border-color: #e5e7eb; }
-
-  /* Method: Context tags */
-  .method-contexts { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-  .ctx-tag {
-    font-size: 11px; font-weight: 600; padding: 5px 12px;
-    background: #f0f9ff; color: #0891b2; border: 1px solid rgba(6,182,212,.15);
-    border-radius: 99px;
-  }
-
-  /* Bottom CTA */
-  .learning-cta {
-    text-align: center; margin-top: 28px;
-    padding-top: 24px; border-top: 1px solid #e8e8e4;
-  }
-  .cta-text { font-size: 18px; font-weight: 800; color: #1e1e1e; margin-bottom: 14px; }
-  .cta-button {
-    display: inline-block;
-    background: linear-gradient(135deg, #4f6ef7, #5a78f8); color: #fff;
-    padding: 13px 32px; border-radius: 12px;
-    font-size: 15px; font-weight: 700; text-decoration: none;
-    box-shadow: 0 3px 12px rgba(79,110,247,.3);
-    transition: all .18s;
-  }
-  .cta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(79,110,247,.35); }
-  .cta-sub { font-size: 12px; color: #9ca3af; font-weight: 500; margin-top: 10px; }
+  .lab-progress__info { display: flex; justify-content: space-between; margin-top: 8px; }
+  .lab-progress__label { font-size: 12px; font-weight: 600; color: var(--color-text-muted); }
+  .lab-progress__value { font-size: 12px; font-weight: 700; color: var(--color-text-secondary); }
 
   /* Footer */
   .site-footer {
     display: flex; align-items: center; justify-content: space-between;
     flex-wrap: wrap; gap: 12px;
     margin-top: 20px; padding: 16px 20px;
-    background: #fff; border-radius: 12px;
-    border: 1px solid #e8e8e4;
-    font-size: 13px;
+    background: var(--color-surface); border-radius: 12px;
+    border: 1px solid var(--color-border); font-size: 13px;
   }
   .footer-left { display: flex; align-items: center; gap: 14px; }
-  .footer-logo { font-weight: 700; color: #1e1e1e; }
-  .footer-copy { color: #9ca3af; font-weight: 500; }
+  .footer-logo { font-weight: 700; color: var(--color-text-primary); }
+  .footer-copy { color: var(--color-text-muted); font-weight: 500; }
   .footer-links { display: flex; gap: 16px; }
-  .footer-links a { color: #6b7280; text-decoration: none; font-weight: 500; transition: color .15s; }
-  .footer-links a:hover { color: #4f6ef7; }
+  .footer-links a { color: var(--color-text-secondary); text-decoration: none; font-weight: 500; transition: color .15s; }
+  .footer-links a:hover { color: var(--color-accent); }
 </style>
