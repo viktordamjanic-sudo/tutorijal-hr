@@ -17,6 +17,7 @@ Usage:
 from .base import BaseScraper, Article
 from .jutarnji import JutarnjiScraper
 from .vecernji import VecernjiScraper
+from .slobodnadalmacija import SlobodnaDalmacijaScraper
 from .factory import get_scraper, get_supported_portals, register_scraper
 
 __all__ = [
@@ -24,6 +25,7 @@ __all__ = [
     'Article',
     'JutarnjiScraper',
     'VecernjiScraper',
+    'SlobodnaDalmacijaScraper',
     'get_scraper',
     'get_supported_portals',
     'register_scraper',

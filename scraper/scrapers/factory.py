@@ -6,12 +6,14 @@ from typing import Optional, Type
 from .base import BaseScraper
 from .jutarnji import JutarnjiScraper
 from .vecernji import VecernjiScraper
+from .slobodnadalmacija import SlobodnaDalmacijaScraper
 
 
 # Registry of available scrapers
 SCRAPER_REGISTRY = {
     'jutarnji': JutarnjiScraper,
     'vecernji': VecernjiScraper,
+    'slobodnadalmacija': SlobodnaDalmacijaScraper,
 }
 
 

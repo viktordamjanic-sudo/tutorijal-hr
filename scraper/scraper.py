@@ -16,6 +16,7 @@ from scrapers import (
     Article,
     JutarnjiScraper,
     VecernjiScraper,
+    SlobodnaDalmacijaScraper,
     get_scraper,
     get_supported_portals,
 )
@@ -28,6 +29,7 @@ __all__ = [
     'Article',
     'JutarnjiScraper',
     'VecernjiScraper',
+    'SlobodnaDalmacijaScraper',
     'get_scraper',
     'get_supported_portals',
     'ResponseCache',
@@ -66,8 +68,9 @@ def scrape_portal(
         return []
     
     # For Jutarnji: use time-based incremental scraping
-    # For Vecernji: use ID-based (it works correctly for Vecernji)
-    if portal_slug.lower() == 'jutarnji':
+    # For Vecernji and Slobodna Dalmacija: use ID-based
+    portal_lower = portal_slug.lower()
+    if portal_lower == 'jutarnji':
         since_time = db.get_last_article_time(portal_slug)
         last_id = None
     else:
@@ -75,15 +78,15 @@ def scrape_portal(
         last_id = db.get_last_article_id(portal_slug)
     
     try:
-        # Vecernji needs fetch_content parameter
-        if portal_slug.lower() == 'vecernji':
+        # Vecernji and Slobodna Dalmacija need fetch_content parameter
+        if portal_lower in ('vecernji', 'slobodnadalmacija'):
             results, newest_id = scraper.scrape(
                 max_articles=max_headlines,
                 content_filter=content_filter,
                 since_id=last_id,
                 fetch_content=fetch_content
             )
-            # Save the newest ID for Vecernji
+            # Save the newest ID for ID-based portals
             if newest_id and newest_id != last_id:
                 db.set_last_article_id(portal_slug, newest_id)
                 print(f"[INFO] Updated last_article_id to {newest_id}")
@@ -93,7 +96,7 @@ def scrape_portal(
                 content_filter=content_filter,
                 since_time=since_time
             )
-            # Save the newest time for Jutarnji
+            # Save the newest time for time-based portals
             if newest_time and newest_time != since_time:
                 db.set_last_article_time(portal_slug, newest_time)
                 print(f"[INFO] Updated last_article_time to {newest_time}")

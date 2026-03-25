@@ -8,7 +8,7 @@ BEARER_TOKEN = os.getenv("BEARER_TOKEN", "dummy")
 API_URL = "https://novina-analysis.novina.workers.dev/import"
 
 # ============================================================================
-# PORTALI — samo Jutarnji list
+# PORTALI — hrvatski news portali
 # ============================================================================
 
 PORTALS = {
@@ -16,6 +16,20 @@ PORTALS = {
         "name": "Jutarnji list",
         "urls": ["https://www.jutarnji.hr/", "https://www.jutarnji.hr/vijesti"],
         "limit": 200,
+        "fetch_content": False,
+        "enabled": True,
+    },
+    "vecernji": {
+        "name": "Večernji list",
+        "urls": ["https://www.vecernji.hr/"],
+        "limit": 50,
+        "fetch_content": True,  # Vecernji nema API, treba fetchati content
+        "enabled": True,
+    },
+    "slobodnadalmacija": {
+        "name": "Slobodna Dalmacija",
+        "urls": ["https://slobodnadalmacija.hr/"],
+        "limit": 50,
         "fetch_content": False,
         "enabled": True,
     },
@@ -41,6 +55,24 @@ EXCLUDE_PATTERNS = [
     {"pattern": "/auto/", "type": "startswith", "description": "Automobili"},
     {"pattern": "/web-static/", "type": "startswith", "description": "Oglasni članci"},
     {"pattern": "/promo/", "type": "startswith", "description": "Promo sadržaj"},
+]
+
+# Slobodna Dalmacija filteri
+SLOBODNADALMACIJA_EXCLUDE_PATTERNS = [
+    {"pattern": "/scena/", "type": "startswith", "description": "Scena i zabava"},
+    {"pattern": "/mozaik/", "type": "startswith", "description": "Mozaik"},
+    {"pattern": "/osmrtnice/", "type": "startswith", "description": "Osmrtnice"},
+    {"pattern": "/premium/", "type": "startswith", "description": "Premium članci"},
+]
+
+# Večernji.hr filteri
+VECERNJI_EXCLUDE_PATTERNS = [
+    {"pattern": "/lifestyle/", "type": "startswith", "description": "Lifestyle"},
+    {"pattern": "/sport/", "type": "startswith", "description": "Sport"},
+    {"pattern": "/native/", "type": "startswith", "description": "Native oglasi"},
+    {"pattern": "/promo/", "type": "startswith", "description": "Promo sadržaj"},
+    {"pattern": "/zabava/", "type": "startswith", "description": "Zabava"},
+    {"pattern": "/magazin/", "type": "startswith", "description": "Magazin"},
 ]
 
 # Whitelist

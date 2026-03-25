@@ -130,7 +130,7 @@ class VecernjiScraper(BaseScraper):
             content = ""
             if content_div:
                 # Remove unwanted elements (but keep structure)
-                for elem in content_div.find_all(['script', 'style', 'iframe', 'aside']):
+                for elem in content_div.find_all(['script', 'style', 'iframe', 'aside', 'figure', 'embed', 'object', 'video', 'audio']):
                     elem.decompose()
                 
                 # Get all paragraphs
@@ -155,6 +155,12 @@ class VecernjiScraper(BaseScraper):
                         valid_paragraphs.append(text)
                 
                 content = '\n\n'.join(valid_paragraphs)
+                
+                # Clean up browser fallback messages and common artifacts
+                content = re.sub(r'Vaš preglednik ne omogućava pregled ovog sadržaja\.?', '', content)
+                content = re.sub(r'Your browser does not support the video tag\.?', '', content, flags=re.IGNORECASE)
+                content = re.sub(r'\n{3,}', '\n\n', content)  # Remove excessive newlines
+                content = content.strip()
                 
                 # If no lead found, use first paragraph as lead
                 if not lead and valid_paragraphs:
