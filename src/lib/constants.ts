@@ -151,6 +151,7 @@ export const LESSONS: Lesson[] = [
   { id: 3, title: 'Lošija od tri', description: 'Kada je previše?', icon: '⚖️', color: 'orange', path: '/lekcija/3' },
   { id: 4, title: 'Što su skillsi?', description: 'Proširi mogućnosti', icon: '🧰', color: 'purple', path: '/lekcija/4' },
   { id: 5, title: 'Prva automatizacija', description: 'Jutarnji pregled', icon: '🎉', color: 'green', path: '/lekcija/5' },
+  { id: 6, title: 'Dodaj pravi skill', description: 'last30days primjer', icon: '🔌', color: 'indigo', path: '/lekcija/6' },
 ];
 
 export const SKILL_DEFINITIONS = {

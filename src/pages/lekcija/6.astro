@@ -1,0 +1,393 @@
+---
+// Lesson 6: How to Add a Real Skill — last30days example
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Lekcija 6: Dodaj pravi skill | tutorijal.hr">
+  <main class="min-h-screen bg-gradient-to-b from-indigo-50 to-white py-12 px-4">
+    <div class="max-w-3xl mx-auto">
+      <nav class="mb-6">
+        <a href="/lekcija/5" class="text-blue-600 hover:underline">← Lekcija 5</a>
+      </nav>
+
+      <div class="bg-white rounded-2xl p-8 shadow-sm mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-4xl">🔌</span>
+          <div class="text-sm text-indigo-600 font-medium">Lekcija 6 · Napredni put</div>
+        </div>
+
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Dodaj pravi skill: <code class="text-indigo-600">/last30days</code></h1>
+
+        <p class="text-lg text-gray-600">
+          Naučio si što su skillovi u teoriji. Sada instaliramo pravi, 
+          open-source skill u Claude Code — korak po korak.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+
+        <!-- What is this skill -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-bold mb-4">🔍 Što je <code>/last30days</code> skill?</h2>
+
+          <p class="text-gray-700 mb-4">
+            <strong>last30days</strong> je open-source skill za Claude Code koji tvom agentu daje 
+            supermoć: pretražuje Reddit, X (Twitter), YouTube, Hacker News i Polymarket 
+            za zadnje 30 dana i sažima što se <em>stvarno</em> događa oko neke teme.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-indigo-50 rounded-lg p-4">
+              <div class="text-2xl mb-2">📡</div>
+              <div class="font-bold text-sm mb-1">Pretražuje 8+ izvora</div>
+              <div class="text-xs text-gray-600">Reddit · X · YouTube · HN · Polymarket · TikTok · Instagram · Bluesky</div>
+            </div>
+            <div class="bg-purple-50 rounded-lg p-4">
+              <div class="text-2xl mb-2">🧠</div>
+              <div class="font-bold text-sm mb-1">Sinteza, ne samo linkovi</div>
+              <div class="text-xs text-gray-600">Agent čita, boduje i sažima — dobiveš narativ s izvorima</div>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-4">
+              <div class="text-2xl mb-2">⭐</div>
+              <div class="font-bold text-sm mb-1">8.3k zvjezdica na GitHubu</div>
+              <div class="text-xs text-gray-600">748 forkova — zajednica ga aktivno koristi</div>
+            </div>
+            <div class="bg-green-50 rounded-lg p-4">
+              <div class="text-2xl mb-2">🆓</div>
+              <div class="font-bold text-sm mb-1">Besplatan · Open Source</div>
+              <div class="text-xs text-gray-600">MIT licenca · GitHub: mvanhorn/last30days-skill</div>
+            </div>
+          </div>
+
+          <div class="bg-gray-800 rounded-lg p-4">
+            <div class="text-xs text-gray-400 mb-2">Primjer korištenja:</div>
+            <pre class="text-green-400 text-sm">/last30days AI agenti 2025
+/last30days Claude Code prompting techniques
+/last30days cursor vs windsurf</pre>
+          </div>
+        </div>
+
+        <!-- Installation methods -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-bold mb-4">🛠️ Instalacija — 3 načina</h2>
+
+          <!-- Tab buttons -->
+          <div class="flex gap-2 mb-4" id="install-tabs">
+            <button class="install-tab active px-4 py-2 rounded-lg text-sm font-medium bg-indigo-600 text-white" data-tab="plugin">
+              Claude Code Plugin
+            </button>
+            <button class="install-tab px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700" data-tab="gemini">
+              Gemini CLI
+            </button>
+            <button class="install-tab px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700" data-tab="manual">
+              Ručno (Git)
+            </button>
+          </div>
+
+          <!-- Plugin tab -->
+          <div class="install-content" id="tab-plugin">
+            <p class="text-gray-600 text-sm mb-3">
+              Najlakši način — direktno iz Claude Code terminala:
+            </p>
+            <div class="bg-gray-800 rounded-lg p-4 mb-3">
+              <pre class="text-green-400 text-sm">/plugin marketplace add mvanhorn/last30days-skill
+/plugin install last30days@last30days-skill</pre>
+            </div>
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-sm text-yellow-800">
+              ℹ️ Potreban je Claude Code (claude.ai/code). Ove dvije naredbe instaliraju skill automatski.
+            </div>
+          </div>
+
+          <!-- Gemini tab -->
+          <div class="install-content hidden" id="tab-gemini">
+            <p class="text-gray-600 text-sm mb-3">
+              Koristiš Gemini CLI? Jedna naredba je dovoljna:
+            </p>
+            <div class="bg-gray-800 rounded-lg p-4 mb-3">
+              <pre class="text-green-400 text-sm">gemini extensions install https://github.com/mvanhorn/last30days-skill.git</pre>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800">
+              ℹ️ Skill radi i u Google Gemini CLI okruženju — isti kod, isti rezultati.
+            </div>
+          </div>
+
+          <!-- Manual tab -->
+          <div class="install-content hidden" id="tab-manual">
+            <p class="text-gray-600 text-sm mb-3">
+              Ručna instalacija — kloniraš repo i postaviš API ključeve:
+            </p>
+            <div class="bg-gray-800 rounded-lg p-4 mb-3">
+              <pre class="text-green-400 text-xs"># 1. Kloniraj skill
+git clone https://github.com/mvanhorn/last30days-skill.git \
+  ~/.claude/skills/last30days
+
+# 2. Napravi config direktorij
+mkdir -p ~/.config/last30days
+
+# 3. Dodaj API ključeve (opcija — vidi dolje)
+cat > ~/.config/last30days/.env << 'EOF'
+SCRAPECREATORS_API_KEY=...  # Reddit+TikTok+Instagram
+AUTH_TOKEN=...              # X/Twitter cookie
+CT0=...                     # X/Twitter cookie
+EOF</pre>
+            </div>
+            <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-sm text-green-800">
+              💡 Bez API ključeva radi s ograničenim izvorima. Puni pristup (Reddit, X, YouTube) zahtijeva besplatne ključeve.
+            </div>
+          </div>
+        </div>
+
+        <!-- API Keys explained -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-bold mb-4">🔑 API ključevi — što treba?</h2>
+
+          <p class="text-gray-600 text-sm mb-4">
+            Skill radi i bez ključeva, ali s njima dobiveš puno više podataka:
+          </p>
+
+          <div class="space-y-3">
+            <div class="flex items-start gap-3 p-3 border rounded-lg">
+              <span class="text-xl">📰</span>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <strong class="text-sm">ScrapeCreators API</strong>
+                  <span class="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">Preporučeno</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-0.5">Reddit + TikTok + Instagram — jedan ključ za 3 izvora</p>
+                <a href="https://scrapecreators.com" target="_blank" rel="noopener" class="text-xs text-blue-600 hover:underline">scrapecreators.com</a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3 border rounded-lg">
+              <span class="text-xl">🐦</span>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <strong class="text-sm">X/Twitter Cookie</strong>
+                  <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">Opcija</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-0.5">auth_token + ct0 cookie iz browser dev alata (dok si prijavljen na x.com)</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3 border rounded-lg">
+              <span class="text-xl">🔵</span>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <strong class="text-sm">Bluesky</strong>
+                  <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">Opcija</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-0.5">BSKY_HANDLE + BSKY_APP_PASSWORD — app lozinka se kreira na bsky.app/settings/app-passwords</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- How to use -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-bold mb-4">▶️ Kako koristiti skill</h2>
+
+          <p class="text-gray-600 text-sm mb-4">
+            Nakon instalacije, pozovi skill unutar Claude Code razgovora:
+          </p>
+
+          <div class="space-y-4">
+            <div class="bg-gray-50 rounded-lg p-4">
+              <div class="text-xs text-gray-500 font-mono mb-2">Osnovna pretraga:</div>
+              <div class="bg-gray-800 rounded p-3">
+                <pre class="text-green-400 text-sm">/last30days [tema]</pre>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4">
+              <div class="text-xs text-gray-500 font-mono mb-2">Pretraga za određeni alat:</div>
+              <div class="bg-gray-800 rounded p-3">
+                <pre class="text-green-400 text-sm">/last30days [tema] for [alat]</pre>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4">
+              <div class="text-xs text-gray-500 font-mono mb-2">Usporedba (Comparative Mode):</div>
+              <div class="bg-gray-800 rounded p-3">
+                <pre class="text-green-400 text-sm">/last30days cursor vs windsurf</pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+            <p class="text-indigo-800 text-sm">
+              <strong>⏱️ Napomena o vremenu:</strong> Skill pretražuje 8+ izvora paralelno — 
+              očekuj 2–8 minuta ovisno o temi. Rijetke teme traju dulje jer ima manje izvora.
+            </p>
+          </div>
+        </div>
+
+        <!-- Interactive simulator -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-bold mb-4">🎮 Simulacija: Što bi skill vratio?</h2>
+
+          <p class="text-gray-600 text-sm mb-4">
+            Unesi temu i vidi kako bi izgledao izlaz <code>/last30days</code> skilla:
+          </p>
+
+          <div class="flex gap-2 mb-4">
+            <input
+              type="text"
+              id="topic-input"
+              placeholder="npr. AI agenti, Claude Code, Web development..."
+              class="flex-1 border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-400"
+            />
+            <button
+              id="simulate-btn"
+              class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
+            >
+              Simuliraj ▶
+            </button>
+          </div>
+
+          <div id="simulation-output" class="hidden">
+            <div class="bg-gray-800 rounded-lg p-4 font-mono text-sm">
+              <div class="text-gray-400 text-xs mb-3">// Izlaz /last30days skilla:</div>
+              <div id="sim-header" class="text-yellow-400 font-bold mb-2"></div>
+              <div id="sim-sources" class="text-gray-300 text-xs mb-3"></div>
+              <div id="sim-findings" class="text-green-300 text-xs space-y-1"></div>
+              <div id="sim-stats" class="text-gray-500 text-xs mt-3"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Structure of a skill -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-bold mb-4">📂 Kako je skill iznutra izgrađen?</h2>
+
+          <p class="text-gray-600 text-sm mb-4">
+            Razumijevanje strukture pomaže ti kad budeš gradio vlastite skillove:
+          </p>
+
+          <div class="bg-gray-800 rounded-lg p-4 mb-4">
+            <div class="text-gray-400 text-xs mb-2">// Struktura last30days-skill repozitorija:</div>
+            <pre class="text-green-400 text-xs">last30days-skill/
+├── SKILL.md          ← Instrukcije za AI agenta (srce skilla)
+├── skills/
+│   └── last30days/   ← Konfiguracijski fajlovi
+├── scripts/
+│   └── last30days.py ← Python logika za scraping
+├── agents/           ← Definicije agenata (OpenAI, Codex...)
+├── hooks/            ← SessionStart provjera konfiguracije
+└── tests/            ← 455+ automatiziranih testova</pre>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-yellow-50 rounded-lg p-4">
+              <div class="font-bold text-sm mb-2">📋 SKILL.md</div>
+              <p class="text-xs text-gray-600">
+                Markdown fajl koji opisuje agentu što skill radi i kako ga koristiti. 
+                Claude čita ovaj fajl i "uči" skill.
+              </p>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-4">
+              <div class="font-bold text-sm mb-2">🐍 Python engine</div>
+              <p class="text-xs text-gray-600">
+                Stvarna logika scraping + ocjenjivanja + dedupliciranja rezultata 
+                živi u Python skriptama koje agent poziva.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key lesson -->
+        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
+          <h2 class="text-xl font-bold mb-3">💡 Ključna spoznaja</h2>
+          <p class="text-base opacity-90 mb-4">
+            Skill nije magija — to je kombinacija <strong>instrukcija za AI</strong> (SKILL.md) 
+            i <strong>alata koje AI može pozvati</strong> (Python skripte, API pozivi). 
+            Kad to razumiješ, možeš graditi vlastite skillove.
+          </p>
+          <div class="bg-white/15 rounded-lg p-4 text-sm">
+            <div class="font-bold mb-2">🚀 Sljedeći koraci:</div>
+            <ul class="space-y-1 opacity-90">
+              <li>① Instaliraj last30days u Claude Code</li>
+              <li>② Istraži <code>SKILL.md</code> fajl da vidiš kako je napisan</li>
+              <li>③ Pokušaj napisati svoj mini-skill za osobnu upotrebu</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center pt-6">
+          <a href="/lekcija/5" class="text-gray-600 hover:text-blue-600 transition">
+            ← Prva automatizacija
+          </a>
+          <a
+            href="/"
+            class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition"
+          >
+            🏠 Natrag na početak
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Tab switching for install methods
+    document.querySelectorAll('.install-tab').forEach(tab => {
+      tab.addEventListener('click', function () {
+        const target = (this as HTMLElement).dataset.tab;
+
+        document.querySelectorAll('.install-tab').forEach(t => {
+          t.classList.remove('bg-indigo-600', 'text-white');
+          t.classList.add('bg-gray-100', 'text-gray-700');
+        });
+        (this as HTMLElement).classList.add('bg-indigo-600', 'text-white');
+        (this as HTMLElement).classList.remove('bg-gray-100', 'text-gray-700');
+
+        document.querySelectorAll('.install-content').forEach(c => c.classList.add('hidden'));
+        document.getElementById(`tab-${target}`)?.classList.remove('hidden');
+      });
+    });
+
+    // Simulation
+    document.getElementById('simulate-btn')?.addEventListener('click', () => {
+      const input = (document.getElementById('topic-input') as HTMLInputElement).value.trim();
+      if (!input) return;
+
+      const topic = input;
+      const output = document.getElementById('simulation-output');
+      const header = document.getElementById('sim-header');
+      const sources = document.getElementById('sim-sources');
+      const findings = document.getElementById('sim-findings');
+      const stats = document.getElementById('sim-stats');
+
+      if (output && header && sources && findings && stats) {
+        output.classList.remove('hidden');
+
+        header.textContent = `🔍 Istraživanje: "${topic}" — zadnjih 30 dana`;
+
+        sources.textContent = '📡 Pretražujem: Reddit · X/Twitter · YouTube · Hacker News · Polymarket · Web...';
+
+        const mockFindings = [
+          `✅ Reddit: pronađeno 12 niti s ${Math.floor(Math.random() * 800 + 200)} glasova ukupno`,
+          `✅ X/Twitter: ${Math.floor(Math.random() * 40 + 15)} postova, ${Math.floor(Math.random() * 5000 + 500)} lajkova`,
+          `✅ YouTube: ${Math.floor(Math.random() * 15 + 5)} videa, ${Math.floor(Math.random() * 500 + 100)}K pregleda`,
+          `✅ Hacker News: ${Math.floor(Math.random() * 8 + 2)} priče, ${Math.floor(Math.random() * 200 + 30)} bodova`,
+          ``,
+          `📊 Ključni nalaz: Zajednica aktivno raspravlja o "${topic}"`,
+          `📝 Top pattern #1: Korisnici preferiraju praktične primjere`,
+          `📝 Top pattern #2: Alat X dobiva 3× više pozitivnih osvrta od alata Y`,
+          `📝 Top pattern #3: Svježe upute (< 2 tjedna) daju bolje rezultate`,
+        ];
+
+        findings.innerHTML = mockFindings.map(f => `<div>${f}</div>`).join('');
+        stats.textContent = `Research stats: ~${Math.floor(Math.random() * 5 + 2)} min · ${Math.floor(Math.random() * 50 + 30)} rezultata ocijenjeno i duplikirani uklonjeni`;
+      }
+    });
+
+    // Save progress
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lessonId: 6, timeSpent: 7 })
+    }).catch(console.error);
+  </script>
+</Layout>
