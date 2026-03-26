@@ -72,106 +72,113 @@ const isConvexTask = !task && !isNewsTask;
       </SignedOut>
     ) : (
     <SignedIn>
-      <!-- HERO-STYLE TOP SECTION -->
-      <div class="ws-hero">
-        <a href="/" class="ws-back">← Natrag na početnu</a>
-        
-        <div class="ws-hero-card">
-          <!-- Left: Task info -->
-          <div class="ws-hero-left">
-            <div class="ws-badge">
-              <span class="ws-badge-dot"></span>
-              {task.category === 'parking' ? 'Komunikacija' : task.category === 'cooking' ? 'Svakodnevica' : task.category === 'language' ? 'Jezik' : task.category === 'finance' ? 'Financije' : 'Modul'}
-              <span class="ws-diff-pill">{task.difficulty === 'beginner' ? '● Početnik' : task.difficulty === 'intermediate' ? '●● Srednji' : '●●● Napredni'}</span>
+      <!-- TOP BAR -->
+      <div class="ws-topbar">
+        <a href="/" class="ws-back">← Natrag</a>
+        <div class="ws-topbar-badge">
+          <span class="ws-badge-dot"></span>
+          {task.category === 'parking' ? 'Komunikacija' : task.category === 'cooking' ? 'Svakodnevica' : task.category === 'language' ? 'Jezik' : task.category === 'finance' ? 'Financije' : 'Modul'}
+          <span class="ws-diff-pill">{task.difficulty === 'beginner' ? '● Početnik' : task.difficulty === 'intermediate' ? '●● Srednji' : '●●● Napredni'}</span>
+        </div>
+      </div>
+
+      <!-- SCROLLABLE AREA: context + example + chat -->
+      <div class="ws-scroll" id="chat-wrapper">
+        <div class="ws-content">
+
+          <!-- ── FAZA 1: PRIČA ── -->
+          <div class="phase-block phase-story">
+            <div class="phase-label">
+              <span class="phase-num">1</span>
+              <span>Priča</span>
             </div>
-            
             <h1 class="ws-hero-title">
               <span class="ws-hero-icon">{task.icon}</span>
               {task.title.replace(task.icon, '').trim()}
             </h1>
+            <p class="ws-story-text">{task.scenario}</p>
+          </div>
 
-            <!-- Kontekst = Priča -->
-            <div class="ws-story">
-              <p class="ws-story-text">{task.scenario}</p>
+          <!-- ── FAZA 2: ZADATAK ── -->
+          <div class="phase-block phase-goal">
+            <div class="phase-label">
+              <span class="phase-num phase-num-2">2</span>
+              <span>Tvoj zadatak</span>
             </div>
-
-            <!-- Cilj = Call to action -->
-            <div class="ws-goal">
+            <div class="ws-goal-inner">
               <span class="ws-goal-icon">🎯</span>
-              <div>
-                <div class="ws-goal-label">Tvoj zadatak</div>
-                <p class="ws-goal-text">{task.problem}</p>
-              </div>
+              <p class="ws-goal-text">{task.problem}</p>
             </div>
           </div>
 
-          <!-- Right: Prompt preview (terminal-style) -->
-          <div class="ws-hero-right">
-            <div class="ws-prompt-preview">
-              <div class="ws-preview-dots">
+          <!-- ── FAZA 3: POGLEDAJ PRIMJER ── -->
+          <div class="phase-block phase-example">
+            <div class="phase-label">
+              <span class="phase-num phase-num-3">3</span>
+              <span>Pogledaj primjer</span>
+            </div>
+            <p class="phase-desc">Ovako izgleda <strong>dobar prompt</strong> za ovaj zadatak. Pročitaj ga i probaj razumjeti zašto funkcionira.</p>
+
+            <!-- Terminal card -->
+            <div class="ws-terminal">
+              <div class="ws-terminal-bar">
                 <span class="pvdot pvdot-red"></span>
                 <span class="pvdot pvdot-yellow"></span>
                 <span class="pvdot pvdot-green"></span>
-                <span class="ws-preview-title">primjer prompta</span>
+                <span class="ws-terminal-label">primjer prompta</span>
               </div>
-              <div class="ws-preview-body">
-                <div class="ws-preview-line">
-                  <span class="ws-pv-tag">prompt</span>
-                  <span class="ws-pv-text">{task.aiPrompt.length > 120 ? task.aiPrompt.slice(0, 120) + '...' : task.aiPrompt}</span>
-                </div>
-                <div class="ws-preview-line ws-pv-ai">
-                  <span class="ws-pv-tag ws-pv-tag-ai">AI</span>
-                  <span class="ws-pv-text">Analiziram tvoj prompt...</span>
-                </div>
-                <div class="ws-preview-line ws-pv-result">
-                  <span class="ws-pv-tag ws-pv-tag-ok">⭐⭐⭐</span>
-                  <span class="ws-pv-text">Odličan prompt!</span>
+              <div class="ws-terminal-body">
+                <div class="ws-terminal-row">
+                  <span class="ws-t-tag ws-t-tag-prompt">Prompt</span>
+                  <span class="ws-t-text">{task.aiPrompt}</span>
                 </div>
               </div>
-              <button
-                class="ws-use-prompt-btn"
-                onclick={`document.getElementById('ai-prompt').value = \`${task.aiPrompt.replace(/`/g, '\\`')}\`; document.getElementById('ai-prompt').focus(); document.getElementById('ai-prompt').dispatchEvent(new Event('input')); document.getElementById('chat-wrapper').scrollIntoView({behavior:'smooth'});`}
-              >
-                ✨ Koristi ovaj prompt
-              </button>
             </div>
 
-            <!-- Learning point floating chip -->
-            <div class="ws-tip-chip">
-              <span class="ws-tip-icon">💡</span>
-              <span class="ws-tip-text">{task.learningPoint}</span>
+            <!-- Why it works -->
+            <div class="ws-why">
+              <div class="ws-why-title">✅ Zašto ovaj prompt radi?</div>
+              <ul class="ws-why-list">
+                <li>Daje <strong>kontekst</strong> — situacija je jasno opisana</li>
+                <li>Zadaje <strong>ton i cilj</strong> — AI zna što se želi postići</li>
+                <li>Traži <strong>konkretno rješenje</strong>, ne samo opis problema</li>
+              </ul>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- CHAT AREA -->
-      <div class="ws-scroll" id="chat-wrapper">
-        <div class="ws-content" id="chat-container">
-          <!-- AI greeting -->
-          <div class="msg-row msg-ai">
-            <div class="msg-avatar ai-avatar">AI</div>
-            <div class="msg-bubble ai-bubble">
-              Bok! 👋 Pročitaj zadatak gore i probaj napisati svoj prompt. Ocijenit ću ga s ⭐ i pomoći ti da ga poboljšaš. Kad budeš spreman/na, napiši svoju uputu ispod!
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- PROMPT INPUT — fixed at bottom, centered, prominent -->
-      <div class="ws-input-area">
-        <div class="ws-composer">
-          <!-- Quick suggestion -->
-          <div class="composer-suggestions">
+            <!-- Use example button -->
             <button
-              class="suggest-chip"
-              onclick={`document.getElementById('ai-prompt').value = \`${task.aiPrompt.replace(/`/g, '\\`')}\`; document.getElementById('ai-prompt').focus(); document.getElementById('ai-prompt').dispatchEvent(new Event('input'));`}
+              class="ws-use-btn"
+              id="use-example-btn"
             >
-              ✨ Koristi prijedlog
+              ✨ Koristi ovaj primjer →
             </button>
           </div>
-          <!-- Input row -->
+
+          <!-- ── FAZA 4: PROBAJ SAM ── -->
+          <div class="phase-block phase-try" id="phase-try">
+            <div class="phase-label">
+              <span class="phase-num phase-num-4">4</span>
+              <span>Probaj sam/a</span>
+            </div>
+            <p class="phase-desc">Napiši <strong>svoj prompt</strong> za isti zadatak. Može biti drukčiji od primjera — AI će ga ocijeniti i dati povratnu informaciju.</p>
+
+            <!-- Chat messages -->
+            <div id="chat-container" class="chat-messages">
+              <div class="msg-row msg-ai">
+                <div class="msg-avatar ai-avatar">AI</div>
+                <div class="msg-bubble ai-bubble">
+                  Spreman/na? ✍️ Napiši svoj prompt ispod — ocijenit ću ga s ⭐ i objasniti što radi dobro, a što bi moglo biti bolje.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PROMPT INPUT — fixed at bottom -->
+      <div class="ws-input-area">
+        <div class="ws-composer">
           <div class="composer-row">
             <textarea
               id="ai-prompt"
@@ -232,167 +239,163 @@ const isConvexTask = !task && !isNewsTask;
     background: #f5f5f0;
   }
 
-  /* ===== HERO SECTION ===== */
-  .ws-hero {
-    background: linear-gradient(135deg, #fafaf7 0%, #eef2ff 50%, #f7f5ff 100%);
-    padding: 20px 24px 0;
+  /* ===== TOP BAR ===== */
+  .ws-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 12px 24px;
+    background: #fff; border-bottom: 1px solid #e8e8e4;
     flex-shrink: 0;
-    border-bottom: 1px solid #e8e8e4;
   }
   .ws-back {
     font-size: 13px; color: #9ca3af; text-decoration: none; font-weight: 600;
-    transition: color .15s; display: inline-block; margin-bottom: 16px;
+    transition: color .15s;
   }
   .ws-back:hover { color: #4f6ef7; }
-
-  .ws-hero-card {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
-    align-items: start; padding-bottom: 24px;
-  }
-
-  .ws-badge {
+  .ws-topbar-badge {
     display: inline-flex; align-items: center; gap: 7px;
     background: rgba(79,110,247,.08); color: #4f6ef7;
     font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
-    padding: 5px 12px; border-radius: 99px; border: 1px solid rgba(79,110,247,.15); margin-bottom: 12px;
+    padding: 5px 12px; border-radius: 99px; border: 1px solid rgba(79,110,247,.15);
   }
-  .ws-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #4f6ef7; animation: livepulse 2s infinite; }
+  .ws-badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4f6ef7; animation: livepulse 2s infinite;
+  }
   @keyframes livepulse { 0%,100%{opacity:1} 50%{opacity:.4} }
   .ws-diff-pill {
     background: rgba(79,110,247,.12); padding: 2px 8px; border-radius: 99px;
     font-size: 9px; letter-spacing: .03em;
   }
 
-  .ws-hero-title {
-    font-size: clamp(20px, 2.5vw, 28px); font-weight: 800; color: #1e1e1e;
-    line-height: 1.25; margin-bottom: 14px; letter-spacing: -.02em;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .ws-hero-icon { font-size: 32px; flex-shrink: 0; }
-
-  .ws-story {
-    background: #fff; border: 1px solid #e8e8e4; border-radius: 12px;
-    padding: 14px 18px; margin-bottom: 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,.03);
-  }
-  .ws-story-text {
-    font-size: 14px; color: #374151; font-weight: 500; line-height: 1.65;
-  }
-
-  .ws-goal {
-    display: flex; align-items: flex-start; gap: 12px;
-    background: linear-gradient(135deg, #eef2ff, #f0edff);
-    border: 1.5px solid rgba(79,110,247,.2); border-radius: 12px;
-    padding: 14px 18px;
-  }
-  .ws-goal-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
-  .ws-goal-label {
-    font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: .08em; color: #4f6ef7; margin-bottom: 4px;
-  }
-  .ws-goal-text { font-size: 14px; color: #1e1e1e; font-weight: 600; line-height: 1.5; }
-
-  /* Right side — terminal preview */
-  .ws-hero-right { position: relative; }
-  .ws-prompt-preview {
-    background: #fff; border-radius: 14px; padding: 0;
-    border: 1px solid #e8e8e4;
-    box-shadow: 0 4px 20px rgba(0,0,0,.06);
-    overflow: hidden;
-  }
-  .ws-preview-dots {
-    display: flex; align-items: center; gap: 6px; padding: 10px 16px;
-    border-bottom: 1px solid #f0f0ec;
-  }
-  .pvdot { width: 8px; height: 8px; border-radius: 50%; }
-  .pvdot-red { background: #fca5a5; }
-  .pvdot-yellow { background: #fcd34d; }
-  .pvdot-green { background: #86efac; }
-  .ws-preview-title {
-    font-size: 10px; font-weight: 600; color: #9ca3af;
-    text-transform: uppercase; letter-spacing: .06em; margin-left: auto;
-  }
-
-  .ws-preview-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
-  .ws-preview-line {
-    display: flex; align-items: flex-start; gap: 8px;
-    font-size: 12.5px; font-weight: 500; color: #374151; line-height: 1.5;
-  }
-  .ws-pv-tag {
-    font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
-    padding: 2px 8px; border-radius: 5px; flex-shrink: 0; margin-top: 2px;
-    background: #eef2ff; color: #4f6ef7;
-  }
-  .ws-pv-tag-ai { background: #fef3c7; color: #d97706; }
-  .ws-pv-tag-ok { background: #d1fae5; color: #059669; }
-  .ws-pv-text { flex: 1; }
-  .ws-pv-ai { color: #9ca3af; }
-  .ws-pv-result { color: #059669; font-weight: 600; }
-
-  .ws-use-prompt-btn {
-    display: block; width: 100%; padding: 10px;
-    background: linear-gradient(135deg, #f5f3ff, #eef2ff);
-    border: none; border-top: 1px solid #e8e8e4;
-    font-size: 13px; font-weight: 700; color: #7c3aed;
-    cursor: pointer; transition: all .15s;
-    font-family: 'Inter', sans-serif;
-  }
-  .ws-use-prompt-btn:hover { background: #ede9fe; }
-
-  .ws-tip-chip {
-    display: flex; align-items: flex-start; gap: 8px;
-    background: #fff; border: 1px solid #e8e8e4; border-radius: 12px;
-    padding: 12px 16px; margin-top: 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,.04);
-    animation: floattip 3s ease-in-out infinite;
-  }
-  .ws-tip-icon { font-size: 16px; flex-shrink: 0; }
-  .ws-tip-text { font-size: 12.5px; color: #6b7280; font-weight: 500; line-height: 1.5; }
-  @keyframes floattip { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
-
-  @media (max-width: 768px) {
-    .ws-hero-card { grid-template-columns: 1fr; }
-    .ws-hero-right { display: none; }
-    .ws-hero { padding: 16px 16px 0; }
-  }
-
-  /* ===== SCROLLABLE CHAT AREA ===== */
+  /* ===== SCROLLABLE AREA ===== */
   .ws-scroll {
-    flex: 1; overflow-y: auto; padding: 24px;
+    flex: 1; overflow-y: auto; padding: 28px 24px;
     min-height: 0;
   }
   .ws-content {
-    max-width: 720px; margin: 0 auto;
-    display: flex; flex-direction: column; gap: 20px;
+    max-width: 680px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 16px;
   }
-  .task-block-accent { background: #eef2ff; border-color: rgba(79,110,247,.2); }
-  .task-block-hint { background: #f5f3ff; border-color: rgba(124,58,237,.15); }
-  .task-block-label {
+
+  /* ===== PHASE BLOCKS ===== */
+  .phase-block {
+    background: #fff; border: 1px solid #e8e8e4;
+    border-radius: 16px; padding: 20px 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .phase-label {
+    display: flex; align-items: center; gap: 8px;
     font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: .08em; color: #9ca3af; margin-bottom: 5px;
+    letter-spacing: .1em; color: #9ca3af; margin-bottom: 14px;
   }
-  .task-block-text { font-size: 13.5px; color: #374151; line-height: 1.6; font-weight: 500; }
+  .phase-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: #4f6ef7; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; flex-shrink: 0;
+  }
+  .phase-num-2 { background: #7c3aed; }
+  .phase-num-3 { background: #d97706; }
+  .phase-num-4 { background: #059669; }
 
-  /* Messages moved to <style is:global> below */
+  /* Phase 1 — Story */
+  .phase-story { border-left: 3px solid #4f6ef7; }
+  .ws-hero-title {
+    font-size: clamp(18px, 2.5vw, 24px); font-weight: 800; color: #1e1e1e;
+    line-height: 1.25; margin-bottom: 12px; letter-spacing: -.02em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .ws-hero-icon { font-size: 28px; flex-shrink: 0; }
+  .ws-story-text { font-size: 14px; color: #374151; font-weight: 500; line-height: 1.7; }
 
-  /* ===== PROMPT INPUT AREA — BIG, CENTERED ===== */
+  /* Phase 2 — Goal */
+  .phase-goal { border-left: 3px solid #7c3aed; }
+  .ws-goal-inner {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+    border: 1.5px solid rgba(124,58,237,.18); border-radius: 12px;
+    padding: 14px 18px;
+  }
+  .ws-goal-icon { font-size: 22px; flex-shrink: 0; }
+  .ws-goal-text { font-size: 14px; color: #1e1e1e; font-weight: 600; line-height: 1.55; }
+
+  /* Phase 3 — Example */
+  .phase-example { border-left: 3px solid #d97706; }
+  .phase-desc { font-size: 13.5px; color: #6b7280; line-height: 1.6; margin-bottom: 16px; }
+
+  /* Terminal */
+  .ws-terminal {
+    background: #1e1e2e; border-radius: 12px;
+    overflow: hidden; margin-bottom: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  }
+  .ws-terminal-bar {
+    display: flex; align-items: center; gap: 6px;
+    padding: 10px 14px; background: #2a2a3e;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .pvdot { width: 10px; height: 10px; border-radius: 50%; }
+  .pvdot-red { background: #ff5f57; }
+  .pvdot-yellow { background: #febc2e; }
+  .pvdot-green { background: #28c840; }
+  .ws-terminal-label {
+    font-size: 10px; font-weight: 600; color: rgba(255,255,255,.35);
+    text-transform: uppercase; letter-spacing: .07em; margin-left: auto;
+  }
+  .ws-terminal-body { padding: 16px 18px; }
+  .ws-terminal-row {
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .ws-t-tag {
+    font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+    padding: 3px 8px; border-radius: 5px; flex-shrink: 0; margin-top: 2px;
+  }
+  .ws-t-tag-prompt { background: rgba(79,110,247,.25); color: #a5b4ff; }
+  .ws-t-text {
+    font-size: 13px; color: #e2e8f0; line-height: 1.65; font-weight: 400;
+    white-space: pre-wrap;
+  }
+
+  /* Why it works */
+  .ws-why {
+    background: #f0fdf4; border: 1px solid #bbf7d0;
+    border-radius: 12px; padding: 14px 18px; margin-bottom: 16px;
+  }
+  .ws-why-title { font-size: 12px; font-weight: 700; color: #059669; margin-bottom: 8px; }
+  .ws-why-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .ws-why-list li {
+    font-size: 13px; color: #065f46; line-height: 1.5;
+    padding-left: 16px; position: relative;
+  }
+  .ws-why-list li::before {
+    content: '→'; position: absolute; left: 0;
+    color: #059669; font-weight: 700;
+  }
+
+  /* Use example button */
+  .ws-use-btn {
+    display: block; width: 100%;
+    background: linear-gradient(135deg, #fef3c7, #fffbeb);
+    border: 1.5px solid #fcd34d; border-radius: 10px;
+    padding: 11px 20px; font-size: 13.5px; font-weight: 700;
+    color: #92400e; cursor: pointer; transition: all .15s;
+    font-family: 'Inter', sans-serif; text-align: center;
+  }
+  .ws-use-btn:hover { background: #fef9c3; transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,.08); }
+
+  /* Phase 4 — Try yourself */
+  .phase-try { border-left: 3px solid #059669; }
+  .chat-messages { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+
+  /* ===== PROMPT INPUT AREA ===== */
   .ws-input-area {
     background: #fff; border-top: 1px solid #e8e8e4;
-    padding: 16px 24px 20px; flex-shrink: 0;
+    padding: 14px 24px 18px; flex-shrink: 0;
   }
-  .ws-composer {
-    max-width: 720px; margin: 0 auto;
-  }
-  .composer-suggestions { margin-bottom: 10px; text-align: center; }
-  .suggest-chip {
-    background: #f5f3ff; color: #7c3aed; border: 1px solid rgba(124,58,237,.15);
-    border-radius: 99px; padding: 6px 16px;
-    font-size: 12.5px; font-weight: 700; cursor: pointer;
-    transition: all .15s;
-    font-family: 'Inter', sans-serif;
-  }
-  .suggest-chip:hover { background: #ede9fe; transform: translateY(-1px); }
-
+  .ws-composer { max-width: 680px; margin: 0 auto; }
   .composer-row {
     display: flex; align-items: flex-end; gap: 12px;
     background: #fafaf8; border: 2px solid #e8e8e4;
@@ -420,12 +423,10 @@ const isConvexTask = !task && !isNewsTask;
   }
   .send-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(79,110,247,.4); }
   .send-btn:disabled { opacity: .5; transform: none; cursor: not-allowed; }
-
   .composer-hint {
     text-align: center; font-size: 11px; color: #b0b0a8;
     margin-top: 8px; font-weight: 500;
   }
-
   .rate-limit-msg {
     margin-top: 8px; font-size: 12.5px; font-weight: 600;
     color: #ef4444; background: #fef2f2; padding: 8px 14px;
@@ -467,10 +468,10 @@ const isConvexTask = !task && !isNewsTask;
 
   /* Mobile */
   @media (max-width: 768px) {
-    .ws-topbar, .cw-topbar { padding: 10px 16px; }
-    .ws-scroll, .cw-scroll { padding: 16px; }
-    .ws-input-area, .cw-input-area { padding: 12px 16px 16px; }
-    .task-card, .cw-task-card { padding: 16px; }
+    .ws-topbar { padding: 10px 16px; }
+    .ws-scroll { padding: 16px; }
+    .ws-input-area { padding: 12px 16px 16px; }
+    .phase-block { padding: 16px 18px; }
   }
 
 </style>
@@ -575,6 +576,27 @@ const isConvexTask = !task && !isNewsTask;
 </style>
 
 <script is:inline>
+  // "Koristi ovaj primjer" button — fills textarea and scrolls to phase 4
+  (function() {
+    var useBtn = document.getElementById('use-example-btn');
+    if (!useBtn) return;
+    useBtn.addEventListener('click', function() {
+      // Grab the full prompt text from the terminal block
+      var terminalText = document.querySelector('.ws-t-text');
+      var promptInput = document.getElementById('ai-prompt');
+      var phaseTry = document.getElementById('phase-try');
+      if (terminalText && promptInput) {
+        promptInput.value = terminalText.textContent.trim();
+        promptInput.style.height = 'auto';
+        promptInput.style.height = Math.min(promptInput.scrollHeight, 140) + 'px';
+        promptInput.focus();
+      }
+      if (phaseTry) {
+        phaseTry.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  })();
+
   window.sendToAI = async function(btn) {
     const promptTextarea = document.getElementById('ai-prompt');
     const chatContainer = document.getElementById('chat-container');
