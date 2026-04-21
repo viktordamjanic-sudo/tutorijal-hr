@@ -26,6 +26,13 @@ PORTALS = {
         "fetch_content": False,
         "enabled": True,
     },
+    "telegram": {
+        "name": "Telegram.hr",
+        "urls": ["https://www.telegram.hr/"],
+        "limit": 50,
+        "fetch_content": True,  # WP API uvijek vraća puni sadržaj
+        "enabled": True,
+    },
 }
 
 # ============================================================================
@@ -74,6 +81,14 @@ VECERNJI_EXCLUDE_PATTERNS = [
     {"pattern": "/promo/", "type": "startswith", "description": "Promo sadržaj"},
     {"pattern": "/zabava/", "type": "startswith", "description": "Zabava"},
     {"pattern": "/magazin/", "type": "startswith", "description": "Magazin"},
+]
+
+# Telegram.hr filteri
+TELEGRAM_EXCLUDE_PATTERNS = [
+    {"pattern": "/telesport/", "type": "startswith", "description": "Telesport"},
+    {"pattern": "/super1/", "type": "startswith", "description": "Super1 lifestyle"},
+    {"pattern": "/najbolje-na-svijetu/", "type": "startswith", "description": "Zabava"},
+    {"pattern": "/bruto-neto/", "type": "startswith", "description": "Bruto-neto"},
 ]
 
 # Whitelist

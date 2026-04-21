@@ -15,6 +15,7 @@ from config import (
     ALLOW_PATTERNS,
     ACTIVE_FILTER_SETS,
     VECERNJI_EXCLUDE_PATTERNS,
+    TELEGRAM_EXCLUDE_PATTERNS,
 )
 from content_filter import ContentFilter, create_filter_from_names
 import db
@@ -41,8 +42,9 @@ def create_content_filter(portal: str = None):
 
     # Dodaj ručno definirane patterne (portal-specific)
     if portal == "vecernji":
-        # Use Vecernji-specific filters
         cf.add_rules_from_config(VECERNJI_EXCLUDE_PATTERNS)
+    elif portal == "telegram":
+        cf.add_rules_from_config(TELEGRAM_EXCLUDE_PATTERNS)
     elif FILTER_MODE == "blacklist":
         cf.add_rules_from_config(EXCLUDE_PATTERNS)
     elif FILTER_MODE == "whitelist":

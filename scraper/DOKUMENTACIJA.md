@@ -29,6 +29,8 @@
 |--------|--------|-------|------|
 | **Jutarnji.hr** | JSON API | 200 | Brzo, strukturirani podaci |
 | **Večernji.hr** | HTML parsing | 50 | BeautifulSoup parsiranje |
+| **Slobodna Dalmacija** | JSON-LD + API | 50 | Bypass Piano paywalla |
+| **Telegram.hr** | WordPress REST API | 50 | Otvoren API, nema paywalla |
 
 ### Glavne značajke
 
@@ -60,6 +62,8 @@ scraper/
 │   ├── base.py           # BaseScraper apstraktna klasa
 │   ├── jutarnji.py       # JutarnjiScraper (JSON API)
 │   ├── vecernji.py       # VecernjiScraper (HTML parsing)
+│   ├── slobodnadalmacija.py  # SlobodnaDalmacijaScraper (JSON-LD + API)
+│   ├── telegram.py       # TelegramScraper (WP REST API)
 │   └── factory.py        # Factory za kreiranje scrapera
 ├── headlines.db           # SQLite baza (generira se)
 ├── .cache/                # Cache direktorij (generira se)
@@ -372,6 +376,120 @@ python3 main.py --portal=noviportal --dry-run
 }
 ```
 
+### 2. Slobodna Dalmacija — Piano Paywall Bypass
+
+**Problem:** Slobodna Dalmacija koristi **Piano/Tinypass** paywall. Puni tekst se učitava dinamički u `.piano-container` div. Običan `curl_cffi` + HTML parsing vraća samo sažetak (~700 znakova).
+
+**Rješenje:** Postoji **interni API**:
+```
+https://slobodnadalmacija.hr/api/article/{article_id}
+```
+
+**Primjer:**
+```bash
+curl -s "https://slobodnadalmacija.hr/api/article/1551402" | python3 -m json.tool
+```
+
+**Odgovor:**
+```json
+{
+  "url": "...",
+  "displayId": "1551402",
+  "title": "...",
+  "published": "2026-04-20 19:32:34",
+  "authors": ["Frano Kiso"],
+  "leadText": "<p>Sažetak...</p>",
+  "body": "<p>Puni HTML tekst članka...</p>",
+  "section": "Split i županija"
+}
+```
+
+**Napomene:**
+- API je zaštićen Cloudflare-om → koristi `curl_cffi` (impersonate='chrome120')
+- `body` polje sadrži puni HTML tekst
+- Potrebno očistiti HTML prije spremanja (ukloniti oglase, skripte)
+- `leadText` = sažetak, `body` = puni tekst
+
+### 3. Telegram.hr — WordPress REST API
+
+**Otkriće:** Telegram.hr koristi **WordPress** s **otvorenim REST API-jem** — nema paywalla na API-ju!
+
+**Endpoint:**
+```
+https://www.telegram.hr/wp-json/wp/v2/posts
+```
+
+**Parametri:**
+- `per_page=N` — Broj članaka (max 100)
+- `orderby=date` — Sortiranje po datumu
+- `order=desc` — Najnoviji prvi
+- `_embed=author,wp:term` — Uključi autore i kategorije
+
+**Primjer:**
+```bash
+curl -s "https://www.telegram.hr/wp-json/wp/v2/posts?per_page=5&_embed=author,wp:term" | python3 -m json.tool
+```
+
+**Odgovor:**
+```json
+[
+  {
+    "id": 3075861,
+    "date": "2026-04-21T22:04:50",
+    "slug": "plenkoviceva-nova-javna-ucjena...",
+    "link": "https://www.telegram.hr/komentari/...",
+    "title": {"rendered": "Plenkovićeva nova javna ucjena..."},
+    "content": {"rendered": "<p>Puni HTML tekst...</p>"},
+    "excerpt": {"rendered": "<p>Sažetak...</p>"},
+    "author": 166,
+    "categories": [179, 70640],
+    "_embedded": {
+      "author": [{"name": "Jasmin Klarić"}],
+      "wp:term": [[{"name": "Politika & Kriminal"}]]
+    }
+  }
+]
+```
+
+**Prednosti:**
+- ✅ **Nema Cloudflare** — običan `requests` bez curl_cffi
+- ✅ **Nema paywalla** — puni `content.rendered` uvijek dostupan
+- ✅ **Strukturirani podaci** — JSON s autorima, kategorijama, tagovima
+- ✅ **Brzo** — jedan poziv = 50 članaka
+
+**Napomena:** WP API koristi gzip encoding. BaseScraper-ov default header `Accept-Encoding: gzip, deflate, br` prouzročuje korupciju podataka (Brotli issue). Override `_get_headers()` bez Brotli-ja:
+```python
+def _get_headers(self):
+    return {
+        'User-Agent': 'Mozilla/5.0 ...',
+        'Accept': 'application/json, text/html, */*;q=0.8',
+        'Accept-Language': 'hr-HR,hr;q=0.9',
+        'Referer': 'https://www.telegram.hr/',
+    }
+```
+
+**Parametri:**
+- `limit=N` - Broj članaka (default: 100)
+- `catid=XXX` - ID kategorije (opcionalno)
+- `_cb=timestamp` - Cache-busting
+
+**Odgovor:**
+```json
+{
+  "site": {"url": "...", "name": "..."},
+  "items": [
+    {
+      "id": "15670066",
+      "title": "...",
+      "link": "/vijesti/...",
+      "fulltext": "<p>Puni HTML sadržaj...</p>",
+      "author": {"name": "...", "link": "..."},
+      "publish_up": "2026-02-09 10:00:00"
+    }
+  ]
+}
+```
+
 ### 2. Incremental Scraping
 
 Scraper pamti `last_article_id` za svaki portal u `scrape_state` tablici:
@@ -498,6 +616,35 @@ sqlite3 headlines.db "SELECT url, COUNT(*) FROM headlines GROUP BY url HAVING CO
 - Koristi `--content` flag za puni sadržaj
 - Povećaj `request_delay` - HTML parsiranje je sporije
 
+### Problem: Slobodna Dalmacija vraća samo sažetak
+
+**Dijagnostika:**
+```bash
+# Testiraj interni API
+curl -s "https://slobodnadalmacija.hr/api/article/1551402" | python3 -m json.tool
+```
+
+**Rješenje:**
+- Koristi `_fetch_article_content()` s `article_id` (ne URL)
+- API zahtijeva `curl_cffi` (impersonate='chrome120')
+- HTML je u `body` polju — očisti prije spremanja
+
+### Problem: Telegram API vraća korumpirane podatke
+
+**Uzrok:** BaseScraper-ov default header uključuje `Accept-Encoding: gzip, deflate, br`.
+Brotli (`br`) compression prouzročuje korupciju kada `requests` library ne može pravilno dekompresirati.
+
+**Rješenje:** Override `_get_headers()` bez Brotli:
+```python
+def _get_headers(self):
+    return {
+        'User-Agent': 'Mozilla/5.0 ...',
+        'Accept': 'application/json, text/html, */*;q=0.8',
+        'Accept-Language': 'hr-HR,hr;q=0.9',
+        'Referer': 'https://www.telegram.hr/',
+    }
+```
+
 ---
 
 ## Sigurnost i etika
@@ -517,6 +664,34 @@ sqlite3 headlines.db "SELECT url, COUNT(*) FROM headlines GROUP BY url HAVING CO
 | Interval | 15-30 min | Izbjegni rate limiting |
 | Cache TTL | 5 min | Balans svježine/brzine |
 | Retry delay | 1.5s+ | Izgledaj kao čovjek |
+
+### Deployment
+
+**Važno:** Scraper radi **isključivo lokalno**. Nema online deploy verzije.
+
+| Aspekt | Lokalno | Online |
+|--------|---------|--------|
+| Pokretanje | `python3 main.py` ručno | **Ne postoji** |
+| Baza | SQLite (`headlines.db`) | Nije deployana |
+| Cron job | Nije postavljen | Nema ga |
+| API slanje | Uklonjeno (vidi niže) | N/A |
+
+**Zašto ne Vercel:**
+- Python C ekstenzije (lxml, curl_cffi) ne buildaju pouzdano
+- SQLite nije persistent na serverlessu
+- Večernji scraper ima 50 HTTP poziva = ~2 min (Vercel timeout 10-60s)
+- Alternativa: GitHub Actions cron, Railway, Render, ili VPS
+
+### Uklonjeni API endpoint
+
+Stari Cloudflare Worker endpoint je uklonjen iz projekta:
+```python
+# UKLONJENO iz config.py:
+# BEARER_TOKEN = os.getenv("BEARER_TOKEN", "dummy")
+# API_URL = "https://novina-analysis.novina.workers.dev/import"
+```
+
+Bio je iz drugog projekta (novina-analysis) i nije relevantan za tutorijal.hr.
 
 ### Legal notice
 
@@ -590,6 +765,13 @@ db.set_last_article_id('jutarnji', '15670578')
 ---
 
 ## Changelog
+
+### v3.1 (2026-04)
+- ✅ **Telegram.hr scraper** — WordPress REST API, nema paywalla
+- ✅ **Slobodna Dalmacija paywall bypass** — interni API `/api/article/{id}`
+- ✅ Uklonjen stari Cloudflare API endpoint (`novina-analysis`)
+- ✅ Fix gzip/Brotli encoding bug na WP API-ju
+- ✅ Content filteri za Telegram (`/telesport/`, `/super1/`)
 
 ### v3.0 (2026-02)
 - ✅ Modularna arhitektura s BaseScraper klasom
