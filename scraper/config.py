@@ -1,13 +1,6 @@
 import os
 
 # ============================================================================
-# API KONFIGURACIJA
-# ============================================================================
-
-BEARER_TOKEN = os.getenv("BEARER_TOKEN", "dummy")
-API_URL = "https://novina-analysis.novina.workers.dev/import"
-
-# ============================================================================
 # PORTALI — hrvatski news portali
 # ============================================================================
 
@@ -46,10 +39,18 @@ ACTIVE_FILTER_SETS = [s.strip() for s in ACTIVE_FILTER_SETS if s.strip()]
 
 # Jutarnji.hr filteri
 EXCLUDE_PATTERNS = [
-    {"pattern": "/domidizajn/", "type": "startswith", "description": "Dizajn i uređenje doma"},
+    {
+        "pattern": "/domidizajn/",
+        "type": "startswith",
+        "description": "Dizajn i uređenje doma",
+    },
     {"pattern": "/scena/", "type": "startswith", "description": "Scena i estrada"},
     {"pattern": "/life/", "type": "startswith", "description": "Lifestyle"},
-    {"pattern": "/zdravlje/", "type": "startswith", "description": "Zdravlje i ljepota"},
+    {
+        "pattern": "/zdravlje/",
+        "type": "startswith",
+        "description": "Zdravlje i ljepota",
+    },
     {"pattern": "/gastro/", "type": "startswith", "description": "Hrana i piće"},
     {"pattern": "/putovanja/", "type": "startswith", "description": "Putovanja"},
     {"pattern": "/auto/", "type": "startswith", "description": "Automobili"},
