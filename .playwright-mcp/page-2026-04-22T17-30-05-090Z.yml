@@ -1,0 +1,23 @@
+- generic [active] [ref=e1]:
+  - link "← Natrag na listu" [ref=e2] [cursor=pointer]:
+    - /url: /
+  - generic [ref=e3]:
+    - 'heading "Bračani se odlično zabavili u ‘Večeri za 5‘: ‘Svaka ti čast, prijatelju, znao sam da ću se kod tebe najesti...‘" [level=1] [ref=e4]'
+    - generic [ref=e5]:
+      - generic [ref=e6]: slobodnadalmacija
+      - text: "|"
+      - strong [ref=e7]: "Status:"
+      - text: ⏳ Čeka slanje |
+      - strong [ref=e8]: "Objavljeno:"
+      - text: 2026-04-22T18:05:00+02:00 |
+      - strong [ref=e9]: "Scrapano:"
+      - text: 2026-04-22T19:11 |
+      - strong [ref=e10]: "Autor:"
+      - text: "-"
+    - paragraph [ref=e12]:
+      - emphasis [ref=e13]: (nema sadržaja)
+    - separator [ref=e14]
+    - generic [ref=e15]:
+      - strong [ref=e16]: "Originalni link:"
+      - link "https://slobodnadalmacija.hr/mozaik/scena/tv-reality/bracani-se-odlicno-zabavili-u-veceri-za-5-svaka-ti-cast-prijatelju-znao-sam-da-cu-se-kod-tebe-najesti-1551822" [ref=e17] [cursor=pointer]:
+        - /url: https://slobodnadalmacija.hr/mozaik/scena/tv-reality/bracani-se-odlicno-zabavili-u-veceri-za-5-svaka-ti-cast-prijatelju-znao-sam-da-cu-se-kod-tebe-najesti-1551822

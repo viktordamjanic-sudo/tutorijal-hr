@@ -590,14 +590,17 @@ def render_detail(conn, article_id):
         else "portal-default"
     )
     status = "✅ Poslano" if row["sent_to_api"] else "⏳ Čeka slanje"
-    content = row["description"] or "<em>(nema sadržaja)</em>"
+    content = row["description"] or ""
 
-    paragraphs = content.split("\n\n")
-    content_html = ""
-    for p in paragraphs:
-        p = p.strip()
-        if p:
-            content_html += f"<p>{nl2br(p)}</p>\n"
+    if not content:
+        content_html = "<p><em>(nema sadržaja)</em></p>"
+    else:
+        paragraphs = content.split("\n\n")
+        content_html = ""
+        for p in paragraphs:
+            p = p.strip()
+            if p:
+                content_html += f"<p>{nl2br(p)}</p>\n"
 
     html = f"""<!DOCTYPE html><html><head><meta charset='utf-8'><title>{escape_html(row["title"])}</title>{CSS}</head><body>
     <a href="/" class="back-btn">← Natrag na listu</a>

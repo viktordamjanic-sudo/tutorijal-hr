@@ -1,0 +1,291 @@
+- generic [active] [ref=e1]:
+  - heading "📰 Scraper Baza" [level=1] [ref=e2]
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: "482"
+      - generic [ref=e6]: Ukupno zapisa
+    - generic [ref=e7]:
+      - generic [ref=e8]: "482"
+      - generic [ref=e9]: Ne poslano
+    - generic [ref=e10]:
+      - generic [ref=e11]: "0"
+      - generic [ref=e12]: Poslano
+  - generic [ref=e13]:
+    - heading "🚀 Pokreni scraper" [level=3] [ref=e14]
+    - generic [ref=e15]:
+      - link "jutarnji" [ref=e16] [cursor=pointer]:
+        - /url: /scrape?portal=jutarnji&redirect=1
+      - link "vecernji" [ref=e17] [cursor=pointer]:
+        - /url: /scrape?portal=vecernji&redirect=1
+      - link "slobodnadalmacija" [ref=e18] [cursor=pointer]:
+        - /url: /scrape?portal=slobodnadalmacija&redirect=1
+      - link "telegram" [ref=e19] [cursor=pointer]:
+        - /url: /scrape?portal=telegram&redirect=1
+      - link "Scrape SVE" [ref=e20] [cursor=pointer]:
+        - /url: /scrape?portal=all&redirect=1
+  - generic [ref=e21]:
+    - link "Sve (482)" [ref=e22] [cursor=pointer]:
+      - /url: /?page=1
+    - link "jutarnji (376)" [ref=e23] [cursor=pointer]:
+      - /url: /?portal=jutarnji&page=1
+    - link "vecernji (99)" [ref=e24] [cursor=pointer]:
+      - /url: /?portal=vecernji&page=1
+    - link "slobodnadalmacija (7)" [ref=e25] [cursor=pointer]:
+      - /url: /?portal=slobodnadalmacija&page=1
+    - generic [ref=e26]:
+      - textbox "Pretraži naslove..." [ref=e27]
+      - button "Traži" [ref=e28] [cursor=pointer]
+  - table [ref=e29]:
+    - rowgroup [ref=e30]:
+      - row "ID Portal Naslov Objavljeno Scrapano Status" [ref=e31]:
+        - columnheader "ID" [ref=e32]
+        - columnheader "Portal" [ref=e33]
+        - columnheader "Naslov" [ref=e34]
+        - columnheader "Objavljeno" [ref=e35]
+        - columnheader "Scrapano" [ref=e36]
+        - columnheader "Status" [ref=e37]
+    - rowgroup [ref=e38]:
+      - 'row "577 slobodnadalmacija Bračani se odlično zabavili u ‘Večeri za 5‘: ‘Svaka ti čast, prijatelju, znao sam da ću se kod tebe najesti...‘ 📄 Prikaži tekst 2026-04-22T18:05:00+02:00 2026-04-22T19:11 ⏳ Čeka" [ref=e39]':
+        - cell "577" [ref=e40]
+        - cell "slobodnadalmacija" [ref=e41]:
+          - generic [ref=e42]: slobodnadalmacija
+        - 'cell "Bračani se odlično zabavili u ‘Večeri za 5‘: ‘Svaka ti čast, prijatelju, znao sam da ću se kod tebe najesti...‘ 📄 Prikaži tekst" [ref=e43]':
+          - 'link "Bračani se odlično zabavili u ‘Večeri za 5‘: ‘Svaka ti čast, prijatelju, znao sam da ću se kod tebe najesti...‘" [ref=e44] [cursor=pointer]':
+            - /url: /article/577
+          - text: 📄 Prikaži tekst
+        - cell "2026-04-22T18:05:00+02:00" [ref=e45]
+        - cell "2026-04-22T19:11" [ref=e46]
+        - cell "⏳ Čeka" [ref=e47]
+      - row "578 slobodnadalmacija Poljud i Bačvice, kakve veze ima jedno s drugim?! Ima, itekako! Ako se već peti put obnavljaju propale Bače, onda... 📄 Prikaži tekst 2026-04-22T18:58:54+02:00 2026-04-22T19:11 ⏳ Čeka" [ref=e48]:
+        - cell "578" [ref=e49]
+        - cell "slobodnadalmacija" [ref=e50]:
+          - generic [ref=e51]: slobodnadalmacija
+        - cell "Poljud i Bačvice, kakve veze ima jedno s drugim?! Ima, itekako! Ako se već peti put obnavljaju propale Bače, onda... 📄 Prikaži tekst" [ref=e52]:
+          - link "Poljud i Bačvice, kakve veze ima jedno s drugim?! Ima, itekako! Ako se već peti put obnavljaju propale Bače, onda..." [ref=e53] [cursor=pointer]:
+            - /url: /article/578
+          - text: 📄 Prikaži tekst
+        - cell "2026-04-22T18:58:54+02:00" [ref=e54]
+        - cell "2026-04-22T19:11" [ref=e55]
+        - cell "⏳ Čeka" [ref=e56]
+      - 'row "579 slobodnadalmacija Posudio 15.000 pa tražio 300.000 eura: prijetio smrću i terorizirao obitelji, a već su mu isplatili na desetke tisuća 📄 Prikaži tekst 2026-04-22T18:19:00+02:00 2026-04-22T19:11 ⏳ Čeka" [ref=e57]':
+        - cell "579" [ref=e58]
+        - cell "slobodnadalmacija" [ref=e59]:
+          - generic [ref=e60]: slobodnadalmacija
+        - 'cell "Posudio 15.000 pa tražio 300.000 eura: prijetio smrću i terorizirao obitelji, a već su mu isplatili na desetke tisuća 📄 Prikaži tekst" [ref=e61]':
+          - 'link "Posudio 15.000 pa tražio 300.000 eura: prijetio smrću i terorizirao obitelji, a već su mu isplatili na desetke tisuća" [ref=e62] [cursor=pointer]':
+            - /url: /article/579
+          - text: 📄 Prikaži tekst
+        - cell "2026-04-22T18:19:00+02:00" [ref=e63]
+        - cell "2026-04-22T19:11" [ref=e64]
+        - cell "⏳ Čeka" [ref=e65]
+      - 'row "580 slobodnadalmacija Šef TV Dalmacije: Gledanost Bujančeve emisije? Kad bih vam rekao, ne biste mi vjerovali... već se vraća uloženo 📄 Prikaži tekst 2026-04-22T18:10:00+02:00 2026-04-22T19:11 ⏳ Čeka" [ref=e66]':
+        - cell "580" [ref=e67]
+        - cell "slobodnadalmacija" [ref=e68]:
+          - generic [ref=e69]: slobodnadalmacija
+        - 'cell "Šef TV Dalmacije: Gledanost Bujančeve emisije? Kad bih vam rekao, ne biste mi vjerovali... već se vraća uloženo 📄 Prikaži tekst" [ref=e70]':
+          - 'link "Šef TV Dalmacije: Gledanost Bujančeve emisije? Kad bih vam rekao, ne biste mi vjerovali... već se vraća uloženo" [ref=e71] [cursor=pointer]':
+            - /url: /article/580
+          - text: 📄 Prikaži tekst
+        - cell "2026-04-22T18:10:00+02:00" [ref=e72]
+        - cell "2026-04-22T19:11" [ref=e73]
+        - cell "⏳ Čeka" [ref=e74]
+      - 'row "581 slobodnadalmacija Fotografijom iz mladosti Fani Čapalija izazvala nostalgiju na društvenim mrežama: ‘Jer 90-e su bile godine...‘ 📄 Prikaži tekst 2026-04-22T17:40:00+02:00 2026-04-22T19:11 ⏳ Čeka" [ref=e75]':
+        - cell "581" [ref=e76]
+        - cell "slobodnadalmacija" [ref=e77]:
+          - generic [ref=e78]: slobodnadalmacija
+        - 'cell "Fotografijom iz mladosti Fani Čapalija izazvala nostalgiju na društvenim mrežama: ‘Jer 90-e su bile godine...‘ 📄 Prikaži tekst" [ref=e79]':
+          - 'link "Fotografijom iz mladosti Fani Čapalija izazvala nostalgiju na društvenim mrežama: ‘Jer 90-e su bile godine...‘" [ref=e80] [cursor=pointer]':
+            - /url: /article/581
+          - text: 📄 Prikaži tekst
+        - cell "2026-04-22T17:40:00+02:00" [ref=e81]
+        - cell "2026-04-22T19:11" [ref=e82]
+        - cell "⏳ Čeka" [ref=e83]
+      - 'row "582 slobodnadalmacija FOTO Fabijanić iznio viziju Poljuda i šokirao: ‘Ne želim biti autor obnove! Branit ću ga fizički...‘ Evo novih sadržaja 📄 Prikaži tekst 2026-04-22T12:43:00+02:00 2026-04-22T19:11 ⏳ Čeka" [ref=e84]':
+        - cell "582" [ref=e85]
+        - cell "slobodnadalmacija" [ref=e86]:
+          - generic [ref=e87]: slobodnadalmacija
+        - 'cell "FOTO Fabijanić iznio viziju Poljuda i šokirao: ‘Ne želim biti autor obnove! Branit ću ga fizički...‘ Evo novih sadržaja 📄 Prikaži tekst" [ref=e88]':
+          - 'link "FOTO Fabijanić iznio viziju Poljuda i šokirao: ‘Ne želim biti autor obnove! Branit ću ga fizički...‘ Evo novih sadržaja" [ref=e89] [cursor=pointer]':
+            - /url: /article/582
+          - text: 📄 Prikaži tekst
+        - cell "2026-04-22T12:43:00+02:00" [ref=e90]
+        - cell "2026-04-22T19:11" [ref=e91]
+        - cell "⏳ Čeka" [ref=e92]
+      - row "583 slobodnadalmacija Ako želite tikvice koje stalno rađaju i ne stvaraju probleme, sada je trenutak da ih posadite, znamo što im treba 📄 Prikaži tekst 2026-04-22T14:52:00+02:00 2026-04-22T19:11 ⏳ Čeka" [ref=e93]:
+        - cell "583" [ref=e94]
+        - cell "slobodnadalmacija" [ref=e95]:
+          - generic [ref=e96]: slobodnadalmacija
+        - cell "Ako želite tikvice koje stalno rađaju i ne stvaraju probleme, sada je trenutak da ih posadite, znamo što im treba 📄 Prikaži tekst" [ref=e97]:
+          - link "Ako želite tikvice koje stalno rađaju i ne stvaraju probleme, sada je trenutak da ih posadite, znamo što im treba" [ref=e98] [cursor=pointer]:
+            - /url: /article/583
+          - text: 📄 Prikaži tekst
+        - cell "2026-04-22T14:52:00+02:00" [ref=e99]
+        - cell "2026-04-22T19:11" [ref=e100]
+        - cell "⏳ Čeka" [ref=e101]
+      - 'row "492 jutarnji Blokada je gotova! Ukrajina potvrdila: Opet pumpamo rusku naftu 📄 Prikaži tekst Ukrajina je objavila da je nastavila pumpati rusku naftu naftovodom u Mađarsku i Slovačku, čime je okončan višemjesečni zastoj oko zajma od 90 milijardi eura koji se smatra ključnom podrškom Europske ... 2026-04-22 16:42:59 2026-04-22T19:04 ⏳ Čeka" [ref=e102]':
+        - cell "492" [ref=e103]
+        - cell "jutarnji" [ref=e104]:
+          - generic [ref=e105]: jutarnji
+        - 'cell "Blokada je gotova! Ukrajina potvrdila: Opet pumpamo rusku naftu 📄 Prikaži tekst Ukrajina je objavila da je nastavila pumpati rusku naftu naftovodom u Mađarsku i Slovačku, čime je okončan višemjesečni zastoj oko zajma od 90 milijardi eura koji se smatra ključnom podrškom Europske ..." [ref=e106]':
+          - 'link "Blokada je gotova! Ukrajina potvrdila: Opet pumpamo rusku naftu" [ref=e107] [cursor=pointer]':
+            - /url: /article/492
+          - text: 📄 Prikaži tekst
+          - generic [ref=e108]: Ukrajina je objavila da je nastavila pumpati rusku naftu naftovodom u Mađarsku i Slovačku, čime je okončan višemjesečni zastoj oko zajma od 90 milijardi eura koji se smatra ključnom podrškom Europske ...
+        - cell "2026-04-22 16:42:59" [ref=e109]
+        - cell "2026-04-22T19:04" [ref=e110]
+        - cell "⏳ Čeka" [ref=e111]
+      - 'row "493 jutarnji Težak udarac: Nogometni wunderkind koji je igrao protiv Hrvatske propušta Svjetsko prvenstvo? 📄 Prikaži tekst Kako se približava početak Svjetskog nogometnog prvenstva tako se gomilaju problemi za brazilsku reprezentaciju koja će vrlo vjerojatno na velikoj sceni biti i bez svog jakog aduta, 18-godišnjeg igrač... 2026-04-22 16:36:28 2026-04-22T19:04 ⏳ Čeka" [ref=e112]':
+        - cell "493" [ref=e113]
+        - cell "jutarnji" [ref=e114]:
+          - generic [ref=e115]: jutarnji
+        - 'cell "Težak udarac: Nogometni wunderkind koji je igrao protiv Hrvatske propušta Svjetsko prvenstvo? 📄 Prikaži tekst Kako se približava početak Svjetskog nogometnog prvenstva tako se gomilaju problemi za brazilsku reprezentaciju koja će vrlo vjerojatno na velikoj sceni biti i bez svog jakog aduta, 18-godišnjeg igrač..." [ref=e116]':
+          - 'link "Težak udarac: Nogometni wunderkind koji je igrao protiv Hrvatske propušta Svjetsko prvenstvo?" [ref=e117] [cursor=pointer]':
+            - /url: /article/493
+          - text: 📄 Prikaži tekst
+          - generic [ref=e118]: Kako se približava početak Svjetskog nogometnog prvenstva tako se gomilaju problemi za brazilsku reprezentaciju koja će vrlo vjerojatno na velikoj sceni biti i bez svog jakog aduta, 18-godišnjeg igrač...
+        - cell "2026-04-22 16:36:28" [ref=e119]
+        - cell "2026-04-22T19:04" [ref=e120]
+        - cell "⏳ Čeka" [ref=e121]
+      - row "494 jutarnji Engleski velikan smijenio trenera nakon samo tri mjeseca! Na vruću klupu sjeda Hrvat? 📄 Prikaži tekst Liam Rosenior više nije trener Chelseaja, objavio je londonski klub u priopćenju na svojim stranicama . Nikakvo iznenađenje, jer Bluesi broje sedam poraza u posljednjih osam utakmica, a Rosenior u 23 ... 2026-04-22 16:23:25 2026-04-22T19:04 ⏳ Čeka" [ref=e122]:
+        - cell "494" [ref=e123]
+        - cell "jutarnji" [ref=e124]:
+          - generic [ref=e125]: jutarnji
+        - cell "Engleski velikan smijenio trenera nakon samo tri mjeseca! Na vruću klupu sjeda Hrvat? 📄 Prikaži tekst Liam Rosenior više nije trener Chelseaja, objavio je londonski klub u priopćenju na svojim stranicama . Nikakvo iznenađenje, jer Bluesi broje sedam poraza u posljednjih osam utakmica, a Rosenior u 23 ..." [ref=e126]:
+          - link "Engleski velikan smijenio trenera nakon samo tri mjeseca! Na vruću klupu sjeda Hrvat?" [ref=e127] [cursor=pointer]:
+            - /url: /article/494
+          - text: 📄 Prikaži tekst
+          - generic [ref=e128]: Liam Rosenior više nije trener Chelseaja, objavio je londonski klub u priopćenju na svojim stranicama . Nikakvo iznenađenje, jer Bluesi broje sedam poraza u posljednjih osam utakmica, a Rosenior u 23 ...
+        - cell "2026-04-22 16:23:25" [ref=e129]
+        - cell "2026-04-22T19:04" [ref=e130]
+        - cell "⏳ Čeka" [ref=e131]
+      - 'row "495 jutarnji Brušenje forme kod elite: Mory Kromah se s UFC-ovom zvijezdom priprema za rat s Milošem Cvjetićaninom! 📄 Prikaži tekst Dok se Miloš Cvjetićanin u tišini priprema za svoj pohod na vrh, njegov protivnik Mory Kromah odlučio je potražiti pomoć od samog vrha teške kategorije svjetskog MMA-a. Kromah, koji se s Cvjetićaninom... 2026-04-22 16:20:39 2026-04-22T19:04 ⏳ Čeka" [ref=e132]':
+        - cell "495" [ref=e133]
+        - cell "jutarnji" [ref=e134]:
+          - generic [ref=e135]: jutarnji
+        - 'cell "Brušenje forme kod elite: Mory Kromah se s UFC-ovom zvijezdom priprema za rat s Milošem Cvjetićaninom! 📄 Prikaži tekst Dok se Miloš Cvjetićanin u tišini priprema za svoj pohod na vrh, njegov protivnik Mory Kromah odlučio je potražiti pomoć od samog vrha teške kategorije svjetskog MMA-a. Kromah, koji se s Cvjetićaninom..." [ref=e136]':
+          - 'link "Brušenje forme kod elite: Mory Kromah se s UFC-ovom zvijezdom priprema za rat s Milošem Cvjetićaninom!" [ref=e137] [cursor=pointer]':
+            - /url: /article/495
+          - text: 📄 Prikaži tekst
+          - generic [ref=e138]: Dok se Miloš Cvjetićanin u tišini priprema za svoj pohod na vrh, njegov protivnik Mory Kromah odlučio je potražiti pomoć od samog vrha teške kategorije svjetskog MMA-a. Kromah, koji se s Cvjetićaninom...
+        - cell "2026-04-22 16:20:39" [ref=e139]
+        - cell "2026-04-22T19:04" [ref=e140]
+        - cell "⏳ Čeka" [ref=e141]
+      - 'row "496 jutarnji VIDEO: Budućnost je stigla, ovo je robot koji pobjeđuje najbolje na svijetu! ‘Nadljudske reakcije‘ 📄 Prikaži tekst Autonomni robotski igrač stolnog tenisa nazvan Ace postigao je prekretnicu za umjetnu inteligenciju i robotiku u Tokiju natječući se, a ponekad i pobjeđujući vrhunske stolnotenisače, podvig koji bi mo... 2026-04-22 15:52:52 2026-04-22T19:04 ⏳ Čeka" [ref=e142]':
+        - cell "496" [ref=e143]
+        - cell "jutarnji" [ref=e144]:
+          - generic [ref=e145]: jutarnji
+        - 'cell "VIDEO: Budućnost je stigla, ovo je robot koji pobjeđuje najbolje na svijetu! ‘Nadljudske reakcije‘ 📄 Prikaži tekst Autonomni robotski igrač stolnog tenisa nazvan Ace postigao je prekretnicu za umjetnu inteligenciju i robotiku u Tokiju natječući se, a ponekad i pobjeđujući vrhunske stolnotenisače, podvig koji bi mo..." [ref=e146]':
+          - 'link "VIDEO: Budućnost je stigla, ovo je robot koji pobjeđuje najbolje na svijetu! ‘Nadljudske reakcije‘" [ref=e147] [cursor=pointer]':
+            - /url: /article/496
+          - text: 📄 Prikaži tekst
+          - generic [ref=e148]: Autonomni robotski igrač stolnog tenisa nazvan Ace postigao je prekretnicu za umjetnu inteligenciju i robotiku u Tokiju natječući se, a ponekad i pobjeđujući vrhunske stolnotenisače, podvig koji bi mo...
+        - cell "2026-04-22 15:52:52" [ref=e149]
+        - cell "2026-04-22T19:04" [ref=e150]
+        - cell "⏳ Čeka" [ref=e151]
+      - 'row "497 jutarnji Čovjek koji će voditi ured mađarskog premijera najavio prvi potez: ‘Otvorit ćemo te arhive!‘ 📄 Prikaži tekst Nova mađarska vlada otvorit će povijesne arhive svoje tajne policije iz komunističkog doba, otkrila je osoba koja će voditi ured Petera Magyara , pobjednika na parlamentarnim izborima ovaj mjesec, koj... 2026-04-22 15:42:58 2026-04-22T19:04 ⏳ Čeka" [ref=e152]':
+        - cell "497" [ref=e153]
+        - cell "jutarnji" [ref=e154]:
+          - generic [ref=e155]: jutarnji
+        - 'cell "Čovjek koji će voditi ured mađarskog premijera najavio prvi potez: ‘Otvorit ćemo te arhive!‘ 📄 Prikaži tekst Nova mađarska vlada otvorit će povijesne arhive svoje tajne policije iz komunističkog doba, otkrila je osoba koja će voditi ured Petera Magyara , pobjednika na parlamentarnim izborima ovaj mjesec, koj..." [ref=e156]':
+          - 'link "Čovjek koji će voditi ured mađarskog premijera najavio prvi potez: ‘Otvorit ćemo te arhive!‘" [ref=e157] [cursor=pointer]':
+            - /url: /article/497
+          - text: 📄 Prikaži tekst
+          - generic [ref=e158]: Nova mađarska vlada otvorit će povijesne arhive svoje tajne policije iz komunističkog doba, otkrila je osoba koja će voditi ured Petera Magyara , pobjednika na parlamentarnim izborima ovaj mjesec, koj...
+        - cell "2026-04-22 15:42:58" [ref=e159]
+        - cell "2026-04-22T19:04" [ref=e160]
+        - cell "⏳ Čeka" [ref=e161]
+      - 'row "498 jutarnji Znanstvenici bilježe zabrinjavajući trend: Kokain utječe na ponašanje lososa 📄 Prikaži tekst Rezultati studije o utjecaju droge na kretanje divljih riba u prirodnom staništu, koje su u ponedjeljak objavili znanstvenici Sveučilišta Griffith u Australiji i Švedskog sveučilišta poljoprivrednih z... 2026-04-22 15:40:11 2026-04-22T19:04 ⏳ Čeka" [ref=e162]':
+        - cell "498" [ref=e163]
+        - cell "jutarnji" [ref=e164]:
+          - generic [ref=e165]: jutarnji
+        - 'cell "Znanstvenici bilježe zabrinjavajući trend: Kokain utječe na ponašanje lososa 📄 Prikaži tekst Rezultati studije o utjecaju droge na kretanje divljih riba u prirodnom staništu, koje su u ponedjeljak objavili znanstvenici Sveučilišta Griffith u Australiji i Švedskog sveučilišta poljoprivrednih z..." [ref=e166]':
+          - 'link "Znanstvenici bilježe zabrinjavajući trend: Kokain utječe na ponašanje lososa" [ref=e167] [cursor=pointer]':
+            - /url: /article/498
+          - text: 📄 Prikaži tekst
+          - generic [ref=e168]: Rezultati studije o utjecaju droge na kretanje divljih riba u prirodnom staništu, koje su u ponedjeljak objavili znanstvenici Sveučilišta Griffith u Australiji i Švedskog sveučilišta poljoprivrednih z...
+        - cell "2026-04-22 15:40:11" [ref=e169]
+        - cell "2026-04-22T19:04" [ref=e170]
+        - cell "⏳ Čeka" [ref=e171]
+      - 'row "499 jutarnji UFC objavio kompletan ‘fight card‘ za lipanjsku priredbu: Belal Muhammad traži prekid crnog niza! 📄 Prikaži tekst UFC se 6. lipnja vraća u svoj META APEX u Las Vegasu s priredbom UFC Vegas 118, koja služi kao svojevrsno zagrijavanje za spektakularni UFC White House tjedan dana kasnije. Iako je fokus javnosti čest... 2026-04-22 15:33:11 2026-04-22T19:04 ⏳ Čeka" [ref=e172]':
+        - cell "499" [ref=e173]
+        - cell "jutarnji" [ref=e174]:
+          - generic [ref=e175]: jutarnji
+        - 'cell "UFC objavio kompletan ‘fight card‘ za lipanjsku priredbu: Belal Muhammad traži prekid crnog niza! 📄 Prikaži tekst UFC se 6. lipnja vraća u svoj META APEX u Las Vegasu s priredbom UFC Vegas 118, koja služi kao svojevrsno zagrijavanje za spektakularni UFC White House tjedan dana kasnije. Iako je fokus javnosti čest..." [ref=e176]':
+          - 'link "UFC objavio kompletan ‘fight card‘ za lipanjsku priredbu: Belal Muhammad traži prekid crnog niza!" [ref=e177] [cursor=pointer]':
+            - /url: /article/499
+          - text: 📄 Prikaži tekst
+          - generic [ref=e178]: UFC se 6. lipnja vraća u svoj META APEX u Las Vegasu s priredbom UFC Vegas 118, koja služi kao svojevrsno zagrijavanje za spektakularni UFC White House tjedan dana kasnije. Iako je fokus javnosti čest...
+        - cell "2026-04-22 15:33:11" [ref=e179]
+        - cell "2026-04-22T19:04" [ref=e180]
+        - cell "⏳ Čeka" [ref=e181]
+      - row "500 jutarnji U Vukovaru uhićen 34-godišnjak, sumnja se da je spolno zlostavljao i iskorištavao djecu 📄 Prikaži tekst Iz Policijske uprave vukovarsko-srijemske izvijestili su u srijedu o dovršetku kriminalističkog istraživanja nad 34-godišnjakom zbog sumnje da je počinio kaznena djela spolnog zlostavljanja i iskorišt... 2026-04-22 15:13:03 2026-04-22T19:04 ⏳ Čeka" [ref=e182]:
+        - cell "500" [ref=e183]
+        - cell "jutarnji" [ref=e184]:
+          - generic [ref=e185]: jutarnji
+        - cell "U Vukovaru uhićen 34-godišnjak, sumnja se da je spolno zlostavljao i iskorištavao djecu 📄 Prikaži tekst Iz Policijske uprave vukovarsko-srijemske izvijestili su u srijedu o dovršetku kriminalističkog istraživanja nad 34-godišnjakom zbog sumnje da je počinio kaznena djela spolnog zlostavljanja i iskorišt..." [ref=e186]:
+          - link "U Vukovaru uhićen 34-godišnjak, sumnja se da je spolno zlostavljao i iskorištavao djecu" [ref=e187] [cursor=pointer]:
+            - /url: /article/500
+          - text: 📄 Prikaži tekst
+          - generic [ref=e188]: Iz Policijske uprave vukovarsko-srijemske izvijestili su u srijedu o dovršetku kriminalističkog istraživanja nad 34-godišnjakom zbog sumnje da je počinio kaznena djela spolnog zlostavljanja i iskorišt...
+        - cell "2026-04-22 15:13:03" [ref=e189]
+        - cell "2026-04-22T19:04" [ref=e190]
+        - cell "⏳ Čeka" [ref=e191]
+      - 'row "501 jutarnji Prižmić šokirao Talijana koji je nekad bio šesti tenisač svijeta: ‘Velika stvar za mene‘ 📄 Prikaži tekst Nakon Marina Čilića , plasman u 2. kolo Masters 1000 turnira u Madridu izborio je i mladi hrvatski tenisač Dino Prižmić , porazivši Talijana Mattea Berrettinija sa 6:3, 6:4. Nakon što je uspješno odra... 2026-04-22 15:08:00 2026-04-22T19:04 ⏳ Čeka" [ref=e192]':
+        - cell "501" [ref=e193]
+        - cell "jutarnji" [ref=e194]:
+          - generic [ref=e195]: jutarnji
+        - 'cell "Prižmić šokirao Talijana koji je nekad bio šesti tenisač svijeta: ‘Velika stvar za mene‘ 📄 Prikaži tekst Nakon Marina Čilića , plasman u 2. kolo Masters 1000 turnira u Madridu izborio je i mladi hrvatski tenisač Dino Prižmić , porazivši Talijana Mattea Berrettinija sa 6:3, 6:4. Nakon što je uspješno odra..." [ref=e196]':
+          - 'link "Prižmić šokirao Talijana koji je nekad bio šesti tenisač svijeta: ‘Velika stvar za mene‘" [ref=e197] [cursor=pointer]':
+            - /url: /article/501
+          - text: 📄 Prikaži tekst
+          - generic [ref=e198]: Nakon Marina Čilića , plasman u 2. kolo Masters 1000 turnira u Madridu izborio je i mladi hrvatski tenisač Dino Prižmić , porazivši Talijana Mattea Berrettinija sa 6:3, 6:4. Nakon što je uspješno odra...
+        - cell "2026-04-22 15:08:00" [ref=e199]
+        - cell "2026-04-22T19:04" [ref=e200]
+        - cell "⏳ Čeka" [ref=e201]
+      - 'row "502 jutarnji U Karlovcu iz tegljača ispale gajbe piva, prolaznik jednu pokušao uzeti: ‘Policija ga je spriječila!‘ 📄 Prikaži tekst U karlovačkoj četvrti Novi centar, na najprometnijem kružnom toku u gradu, koji se nalazi kod gradske tržnice, u srijedu su iz tegljača ispale gajbe Karlovačkog piva s bocama od pola litre, pri čemu s... 2026-04-22 15:00:18 2026-04-22T19:04 ⏳ Čeka" [ref=e202]':
+        - cell "502" [ref=e203]
+        - cell "jutarnji" [ref=e204]:
+          - generic [ref=e205]: jutarnji
+        - 'cell "U Karlovcu iz tegljača ispale gajbe piva, prolaznik jednu pokušao uzeti: ‘Policija ga je spriječila!‘ 📄 Prikaži tekst U karlovačkoj četvrti Novi centar, na najprometnijem kružnom toku u gradu, koji se nalazi kod gradske tržnice, u srijedu su iz tegljača ispale gajbe Karlovačkog piva s bocama od pola litre, pri čemu s..." [ref=e206]':
+          - 'link "U Karlovcu iz tegljača ispale gajbe piva, prolaznik jednu pokušao uzeti: ‘Policija ga je spriječila!‘" [ref=e207] [cursor=pointer]':
+            - /url: /article/502
+          - text: 📄 Prikaži tekst
+          - generic [ref=e208]: U karlovačkoj četvrti Novi centar, na najprometnijem kružnom toku u gradu, koji se nalazi kod gradske tržnice, u srijedu su iz tegljača ispale gajbe Karlovačkog piva s bocama od pola litre, pri čemu s...
+        - cell "2026-04-22 15:00:18" [ref=e209]
+        - cell "2026-04-22T19:04" [ref=e210]
+        - cell "⏳ Čeka" [ref=e211]
+      - 'row "503 jutarnji Zvijezda u usponu: Mladi Dominikanac napravio nešto što dosad nikome nije pošlo za rukom 📄 Prikaži tekst Košarkaš Valencije Jean Montero (22) dobitnik je nagrade \"Zvijezda u usponu\" za sezonu 2025./26., objavila je Euroliga. Dominikanski bek postao je tako prvi igrač koji je osvojio nagradu \"Rising Star\"... 2026-04-22 14:59:44 2026-04-22T19:04 ⏳ Čeka" [ref=e212]':
+        - cell "503" [ref=e213]
+        - cell "jutarnji" [ref=e214]:
+          - generic [ref=e215]: jutarnji
+        - 'cell "Zvijezda u usponu: Mladi Dominikanac napravio nešto što dosad nikome nije pošlo za rukom 📄 Prikaži tekst Košarkaš Valencije Jean Montero (22) dobitnik je nagrade \"Zvijezda u usponu\" za sezonu 2025./26., objavila je Euroliga. Dominikanski bek postao je tako prvi igrač koji je osvojio nagradu \"Rising Star\"..." [ref=e216]':
+          - 'link "Zvijezda u usponu: Mladi Dominikanac napravio nešto što dosad nikome nije pošlo za rukom" [ref=e217] [cursor=pointer]':
+            - /url: /article/503
+          - text: 📄 Prikaži tekst
+          - generic [ref=e218]: Košarkaš Valencije Jean Montero (22) dobitnik je nagrade "Zvijezda u usponu" za sezonu 2025./26., objavila je Euroliga. Dominikanski bek postao je tako prvi igrač koji je osvojio nagradu "Rising Star"...
+        - cell "2026-04-22 14:59:44" [ref=e219]
+        - cell "2026-04-22T19:04" [ref=e220]
+        - cell "⏳ Čeka" [ref=e221]
+      - 'row "504 jutarnji FIFA u prodaju pušta dodatne ulaznice za Svjetsko prvenstvo: ‘Tko prvi dođe, prvi kupuje...‘ 📄 Prikaži tekst Međunarodna nogometna federacija (FIFA) u srijedu je pustila u prodaju ulaznice za svih 104 utakmice nadolazećeg Svjetskog prvenstva po principu \"tko prvi dođe, prvi kupuje\". FIFA navodi da je već pro... 2026-04-22 14:52:31 2026-04-22T19:04 ⏳ Čeka" [ref=e222]':
+        - cell "504" [ref=e223]
+        - cell "jutarnji" [ref=e224]:
+          - generic [ref=e225]: jutarnji
+        - 'cell "FIFA u prodaju pušta dodatne ulaznice za Svjetsko prvenstvo: ‘Tko prvi dođe, prvi kupuje...‘ 📄 Prikaži tekst Međunarodna nogometna federacija (FIFA) u srijedu je pustila u prodaju ulaznice za svih 104 utakmice nadolazećeg Svjetskog prvenstva po principu \"tko prvi dođe, prvi kupuje\". FIFA navodi da je već pro..." [ref=e226]':
+          - 'link "FIFA u prodaju pušta dodatne ulaznice za Svjetsko prvenstvo: ‘Tko prvi dođe, prvi kupuje...‘" [ref=e227] [cursor=pointer]':
+            - /url: /article/504
+          - text: 📄 Prikaži tekst
+          - generic [ref=e228]: Međunarodna nogometna federacija (FIFA) u srijedu je pustila u prodaju ulaznice za svih 104 utakmice nadolazećeg Svjetskog prvenstva po principu "tko prvi dođe, prvi kupuje". FIFA navodi da je već pro...
+        - cell "2026-04-22 14:52:31" [ref=e229]
+        - cell "2026-04-22T19:04" [ref=e230]
+        - cell "⏳ Čeka" [ref=e231]
+  - generic [ref=e232]:
+    - generic [ref=e233]: "1"
+    - link "2" [ref=e234] [cursor=pointer]:
+      - /url: /?page=2
+    - link "3" [ref=e235] [cursor=pointer]:
+      - /url: /?page=3
+    - generic [ref=e236]: ...
+    - link "25" [ref=e237] [cursor=pointer]:
+      - /url: /?page=25
+    - link "Sljedeća →" [ref=e238] [cursor=pointer]:
+      - /url: /?page=2
